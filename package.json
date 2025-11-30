@@ -1,0 +1,17 @@
+{
+    "name": "pill-engine-website",
+    "version": "1.0.0",
+    "private": true,
+    "type": "module",
+    "description": "Pill Engine Landing Page and Documentation",
+    "scripts": {
+        "dev:landing": "cd landing_page && npm run dev",
+        "dev:guide": "cd guide && npm run guide:dev",
+        "build": "npm run build:landing && npm run build:guide && npm run combine",
+        "build:landing": "cd landing_page && npm run build",
+        "build:guide": "cd guide && npm run guide:build",
+        "combine": "node build-script.js",
+        "preview": "npx serve dist",
+        "install:all": "cd landing_page && npm install && cd ../guide && npm install"
+    }
+}
