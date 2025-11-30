@@ -26,7 +26,7 @@ const CTA = () => {
 
                     <div className="mb-10">
                         <h2 className="text-4xl md:text-5xl font-black mb-6 tracking-tight text-gray-100 dark:text-white">
-                            How to get started in Pill Engine
+                            How to get started in Pill
                         </h2>
                         <p className="text-lg md:text-xl text-gray-300 mb-8 max-w-4xl leading-relaxed">
                             New to game development? Making the switch from another engine? Wherever you're coming from, we've got documentation, examples, and a supportive community to help you get started building your project.

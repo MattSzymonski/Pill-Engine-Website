@@ -27,8 +27,8 @@ const Hero = () => {
                         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-pill-blue-light/25 dark:bg-pill-red-light/25 rounded-full filter blur-[80px] animate-pulse-glow -z-10" style={{ animationDelay: '1s' }}></div>
                         {/* Pill Logo/Icon with enhanced effects */}
                     </div>
-                    <h1 className="text-[140px] sm:text-[220px] md:text-[300px] lg:text-[320px] font-semibold mb-8 text-white tracking-tight lowercase drop-shadow-[0_8px_16px_rgba(0,0,0,0.8)]" style={{ fontFamily: '"Chillax Variable", sans-serif' }}>
-                        <span className="drop-shadow-glow-md">
+                    <h1 className=" text-[140px] sm:text-[220px] md:text-[300px] lg:text-[320px] mb-8 text-white lowercase pill-logo-text">
+                        <span className="drop-shadow-glow-md ">
                             pill
                         </span>
                     </h1>

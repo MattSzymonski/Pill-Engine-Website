@@ -10,8 +10,8 @@ const Footer = () => {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
                     {/* Brand */}
                     <div>
-                        <h3 className="text-3xl font-bold mb-4 text-pill-red">
-                            Pill Engine
+                        <h3 className="text-3xl font-bold mb-4 text-pill-red pill-logo-text">
+                            pill
                         </h3>
                         <p className="text-gray-300 mb-6 max-w-md">
                             Modern, 100% free and blazingly fast game engine. Building the future of game development.
@@ -90,7 +90,7 @@ const Footer = () => {
                 <div className="pt-8 border-t border-gray-800">
                     <div className="flex flex-col md:flex-row justify-between items-center gap-4">
                         <p className="text-gray-300 text-sm">
-                            © {currentYear} Pill Engine. Fueled by passion.
+                            © {currentYear} Pill. Fueled by passion.
                         </p>
 
                     </div>

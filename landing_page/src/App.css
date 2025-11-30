@@ -1,4 +1,9 @@
 /* ═══════════════════════════════════════════════════════════════════════
+   FONT IMPORTS
+   ═══════════════════════════════════════════════════════════════════════ */
+@import url('https://api.fontshare.com/v2/css?f[]=chillax@400,500,600,700&display=swap');
+
+/* ═══════════════════════════════════════════════════════════════════════
    THEME VARIABLES
    ═══════════════════════════════════════════════════════════════════════ */
 :root {
@@ -225,6 +230,12 @@ html {
         transform: scale(1.05);
     }
 } */
+
+.pill-logo-text {
+    font-family: 'Chillax', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif !important;
+    font-weight: 600;
+    letter-spacing: -0.025em;
+}
 
 .background-grid {
     position: absolute;
@@ -486,6 +497,13 @@ html {
 
 .hover\:shadow-glow-xl:hover {
     box-shadow: 0 0 60px rgba(var(--theme-primary), 0.7);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   FONT FAMILIES
+   ═══════════════════════════════════════════════════════════════════════ */
+.font-family-chillax {
+    font-family: "Chillax Variable", sans-serif;
 }
 
 /* Icon filter utilities for SVG gradients */
