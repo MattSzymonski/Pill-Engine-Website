@@ -231,8 +231,8 @@ html {
     inset: 0;
     opacity: 0.18;
     background-image:
-        linear-gradient(rgba(var(--theme-primary), 0.1) 2px, transparent 2px),
-        linear-gradient(90deg, rgba(var(--theme-primary), 0.1) 2px, transparent 2px);
+        linear-gradient(rgba(var(--theme-primary), 0.12) 2px, transparent 2px),
+        linear-gradient(90deg, rgba(var(--theme-primary), 0.12) 2px, transparent 2px);
     background-size: 60px 60px;
     -webkit-mask-image: linear-gradient(to bottom,
             transparent 0%,

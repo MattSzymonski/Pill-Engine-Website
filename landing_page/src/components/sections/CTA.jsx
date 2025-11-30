@@ -38,7 +38,7 @@ const CTA = () => {
                     </h3>
 
                     <p className="text-lg md:text-xl text-gray-300 mb-12 max-w-4xl leading-relaxed">
-                        Join the community of developers pushing the boundaries of game development with <span className="text-rust-orange font-bold">Rust</span>. Install the engine with a single command and start creating your vision.
+                        Join the community of developers pushing the boundaries of game development. Install the engine with a single command and start your journey.
                     </p>
 
                     <div className="flex flex-col sm:flex-row gap-8 mt-12 items-center">
@@ -56,7 +56,7 @@ const CTA = () => {
                     <div className="glass rounded-3xl p-8 border-2 border-pill-red/20 hover:border-pill-red transition-all duration-500 hover:scale-105 hover:shadow-glow-lg animate-slide-in-left group relative overflow-hidden">
                         <div className="absolute inset-0 bg-gradient-to-br from-pill-red/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                         <div className="relative z-10">
-                            <div className="text-3xl md:text-4xl font-black text-pill-red mb-3 text-glow-sm">Memory Safe</div>
+                            <div className="text-3xl md:text-4xl font-black text-pill-red mb-3 text-glow-sm">Memory Safe and Fast</div>
                             <div className="text-base text-gray-300 font-semibold">Rust Powered</div>
                         </div>
                     </div>

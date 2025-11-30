@@ -11,18 +11,19 @@ const About = () => {
                 {/* Main headline - left aligned */}
                 <div className="mb-20">
                     <h2 className="text-4xl md:text-6xl font-black mb-6 text-white animate-slide-up">
-                        Power that can keep up with the wildest imaginations.
+                        Power that never falls short of your boldest ambitions
                     </h2>
                     <p className="text-lg md:text-xl text-gray-300 max-w-4xl leading-relaxed animate-slide-up mb-8" style={{ animationDelay: '0.1s' }}>
-                        Define breakthrough game mechanics, create lifelike characters, or animate every detail in your world—and render it all at the speed you can dream it. We originally designed Pill Engine to give us the creative freedom we always wanted as developers. Today, our goal is to push the boundaries of performance and simplicity with every release so that only you, not your tools, get to decide the limits of what's possible.
+                        Built for developers who refuse to compromise, Pill is an engine that delivers the raw speed and creative freedom needed to bring even the wildest ideas to life. Designed from the ground up to empower both teams and solo creators, it simplifies the complex while unlocking performance far beyond traditional engines.
                     </p>
 
                     <p className="text-lg md:text-xl text-gray-300 max-w-4xl leading-relaxed animate-slide-up mb-8" style={{ animationDelay: '0.1s' }}>
-                        Whether you're a solo indie developer or part of a larger team, Pill Engine provides the foundation you need to bring your creative vision to life. No royalties, no restrictions, just pure game development freedom.
+                        Whether you're a solo indie developer or part of a larger team, Pill provides the foundation you need to bring your creative vision to life.
                     </p>
-                    <a href="https://github.com/pill-engine" target="_blank" rel="noopener noreferrer" className="inline-flex items-center text-pill-red hover:text-pill-red-light font-semibold text-lg transition-colors duration-300">
-                        See all features →
-                    </a>
+
+                    <p className="text-lg md:text-xl text-gray-300 max-w-4xl leading-relaxed animate-slide-up mb-8" style={{ animationDelay: '0.1s' }}>
+                        No royalties, no restrictions, just pure development freedom - 100% free, no strings attached.
+                    </p>
                 </div>
 
                 {/* Design Goals with enhanced effects */}
@@ -37,7 +38,7 @@ const About = () => {
                             </div>
                             <h3 className="text-2xl md:text-3xl font-black text-center mb-4 text-white group-hover:text-pill-red transition-colors duration-300">Clean & Simple</h3>
                             <p className="text-lg text-gray-300 text-center leading-relaxed">
-                                Elegant API design that gets out of your way
+                                Elegant and robust API design that gets out of your way.
                             </p>
                         </div>
                     </div>
@@ -50,9 +51,9 @@ const About = () => {
                                     <Zap className="w-14 h-14 text-pill-red-light icon-glow" />
                                 </div>
                             </div>
-                            <h3 className="text-2xl md:text-3xl font-black text-center mb-4 text-white group-hover:text-pill-red-light transition-colors duration-300">Blazing Fast</h3>
+                            <h3 className="text-2xl md:text-3xl font-black text-center mb-4 text-white group-hover:text-pill-red-light transition-colors duration-300">Blazingly Fast</h3>
                             <p className="text-lg text-gray-300 text-center leading-relaxed">
-                                ECS-based architecture written in Rust for maximum performance
+                                ECS-based architecture written in Rust designed for maximum performance
                             </p>
                         </div>
                     </div>
@@ -65,9 +66,9 @@ const About = () => {
                                     <Boxes className="w-14 h-14 text-pill-red-light icon-glow" />
                                 </div>
                             </div>
-                            <h3 className="text-2xl md:text-3xl font-black text-center mb-4 text-white group-hover:text-pill-red-light transition-colors duration-300">Highly Extensible</h3>
+                            <h3 className="text-2xl md:text-3xl font-black text-center mb-4 text-white group-hover:text-pill-red-light transition-colors duration-300">Open Source</h3>
                             <p className="text-lg text-gray-300 text-center leading-relaxed">
-                                Custom systems, components, and resources
+                                Use it however you want. Change it however you need. Free of charge, always.
                             </p>
                         </div>
                     </div>
@@ -76,13 +77,13 @@ const About = () => {
                 {/* Ships fully loaded section - left aligned */}
                 <div className="mb-20 animate-slide-up">
                     <h3 className="text-4xl md:text-6xl font-black mb-6 text-white">
-                        Ships fully loaded for everyone.
+                        Ships fully equipped for every kind of creator
                     </h3>
                     <p className="text-lg md:text-xl text-gray-300 max-w-4xl leading-relaxed mb-8">
-                        Develop games. Create simulations. Build next-generation visualizations. Or design immersive experiences we haven't even thought of yet. No matter what style, screen size, or project you have in mind, Pill Engine comes standard with everything you need to help you make it real.
+                        Develop games. Create simulations. Build next-generation visualizations. Or design immersive experiences we haven't even thought of yet. No matter what style, screen size, or project you have in mind, Pill comes standard with everything you need to help you make it real.
                     </p>
                     <p className="text-lg md:text-xl text-gray-300 max-w-4xl leading-relaxed">
-                        Powered by an <strong className="text-pill-red font-black">archetype-based Entity Component System</strong> written in <strong className="text-rust-orange font-black">Rust</strong>, Pill Engine delivers unmatched performance, memory safety for modern game development.
+                        Engineered with passion. Aiming to deliver <strong className="text-pill-red font-black">unmatched performance</strong> for modern game development.
                     </p>
                 </div>
 

@@ -153,7 +153,7 @@ const Features = () => {
             features: [
                 {
                     icon: <PackageCheck className="w-12 h-12" />,
-                    title: 'Multiplatform Support',
+                    title: 'Cross Platform',
                     description: 'Deploy your game across web, desktop, and mobile platforms effortlessly.',
                     inProgress: false,
                 },
@@ -185,18 +185,15 @@ const Features = () => {
     ];
 
     return (
-        <section className="relative pb-32 overflow-hidden" >
+        <section className="relative overflow-hidden" >
 
             <div className="max-w-6xl mx-auto relative z-10">
                 <h2 className="text-4xl md:text-6xl font-black mb-6 text-white animate-slide-up">
-                    Powerful features built for developers.
+                    Powerful features built-in
                 </h2>
                 <p className="text-lg md:text-xl text-gray-300 mb-8 max-w-4xl animate-slide-up" style={{ animationDelay: '0.1s' }}>
-                    Everything you need to build amazing games, right out of the box. From advanced 3D graphics with Blinn-Phong shading to comprehensive input handling, spatial audio, and hot-reloading for rapid iteration—Pill Engine is equipped to handle projects of any scale.
+                    Everything you need to build amazing projects, right out of the box. From advanced 3D graphics with PBR shading to comprehensive input handling, spatial audio, and hot-reloading for rapid iteration - Pill is equipped to handle projects of any scale.
                 </p>
-                <a href="https://github.com/pill-engine" target="_blank" rel="noopener noreferrer" className="inline-flex items-center text-blue-600 hover:text-blue-700 dark:text-pill-red dark:hover:text-pill-red-light font-semibold text-lg transition-colors duration-300 mb-12">
-                    View all features →
-                </a>
 
                 {featureSections.map((section, sectionIndex) => (
                     <div key={sectionIndex} className="mb-20">

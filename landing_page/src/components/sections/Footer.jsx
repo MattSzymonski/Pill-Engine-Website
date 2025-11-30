@@ -14,19 +14,19 @@ const Footer = () => {
                             Pill Engine
                         </h3>
                         <p className="text-gray-300 mb-6 max-w-md">
-                            A blazing fast, data-driven game engine written in Rust. Building the future of game development.
+                            Modern, 100% free and blazingly fast game engine. Building the future of game development.
                         </p>
                         <div className="flex gap-4">
-                            <a href="https://github.com/pill-engine" target="_blank" rel="noopener noreferrer"
+                            <a href="https://github.com/MattSzymonski/Pill-Engine" target="_blank" rel="noopener noreferrer"
                                 className="text-gray-300 hover:text-pill-red transition-colors duration-300">
                                 <Github className="w-6 h-6" />
                             </a>
-                            <a href="#" className="text-gray-300 hover:text-pill-red-light-light transition-colors duration-300">
+                            {/* <a href="#" className="text-gray-300 hover:text-pill-red-light-light transition-colors duration-300">
                                 <Twitter className="w-6 h-6" />
                             </a>
                             <a href="#" className="text-gray-300 hover:text-rust-orange transition-colors duration-300">
                                 <MessageCircle className="w-6 h-6" />
-                            </a>
+                            </a> */}
                         </div>
                     </div>
 

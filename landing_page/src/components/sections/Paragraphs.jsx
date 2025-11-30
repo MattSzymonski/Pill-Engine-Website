@@ -46,42 +46,38 @@ const Paragraphs = () => {
                 </div>
 
                 {/* ECS Architecture Section */}
-                <div className="mb-32 mt-32 max-w-6xl mx-auto">
+                <div className="mb-[128px] mt-[128px] max-w-6xl mx-auto">
                     <h3 className="text-4xl md:text-6xl font-bold mb-6 text-left">
-                        Powered by <strong className="text-pill-red">ECS</strong>
+                        Data-driven architecture
                     </h3>
                     <div className="space-y-6 text-left">
                         <p className="text-lg md:text-xl text-gray-300 leading-relaxed max-w-4xl">
-                            The archetype-based Entity Component System at the heart of Pill Engine delivers
+                            The archetype-based Entity Component System at the heart of Pill delivers
                             exceptional performance through data-oriented design. This isn't just another ECS -
                             it's a carefully engineered system that puts data locality and cache efficiency first.
                         </p>
                         <p className="text-lg md:text-xl text-gray-300 leading-relaxed max-w-4xl">
                             Components are stored contiguously in memory by archetype, enabling optimal cache utilization
-                            and allowing your game to scale to thousands of entities without breaking a sweat. Query entities
+                            and allowing your game to scale to tens of thousands of entities without breaking a sweat. Query entities
                             with lightning-fast iteration, and leverage parallel system execution for maximum CPU utilization.
                         </p>
                         <p className="text-lg md:text-xl text-gray-300 leading-relaxed max-w-4xl">
-                            Whether you're building a simple 2D platformer or a complex open-world game with millions of entities,
+                            Whether you're building a simple 2D platformer or a complex 3D game with thousands of entities,
                             the ECS architecture scales with your ambitions while maintaining predictable, deterministic behavior.
                         </p>
-                        <div className="pt-6">
-                            <div className="inline-block px-8 py-4 bg-gradient-to-r from-pill-red/20 to-pill-red-light/20 border border-pill-red/30 rounded-xl">
-                                <p className="text-xl font-semibold text-pill-red">
-                                    Data-Oriented. Cache-Friendly. Lightning Fast.
-                                </p>
-                            </div>
-                        </div>
+                        <p className="md:text-xl text-xl font-semibold text-pill-red leading-relaxed max-w-4xl">
+                            Data-Oriented. Cache-Friendly. Lightning Fast.
+                        </p>
                     </div>
                 </div>
 
                 {/* Developer Experience Section */}
-                <div className="mb-32 max-w-6xl mx-auto">
+                <div className="mb-[128px] mt-[128px] max-w-6xl mx-auto">
                     <h3 className="text-4xl md:text-6xl font-bold mb-6 text-left">
-                        Built for <strong className="text-pill-red">Developers</strong>
+                        Built for <strong className="text-pill-red">Developers</strong> by <strong className="text-pill-red">Developers</strong>
                     </h3>
                     <p className="text-lg md:text-xl text-gray-400 mb-12 text-left max-w-4xl leading-relaxed">
-                        Every aspect of Pill Engine is designed with developer experience in mind. From the API design
+                        Every aspect of Pill is designed with developer experience in mind. From the API design
                         to the tooling ecosystem, everything is focused on making game development faster, safer, and more enjoyable.
                     </p>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -120,7 +116,7 @@ const Paragraphs = () => {
                                 Ready to <strong className="text-pill-red">Build</strong>?
                             </h3>
                             <p className="text-lg md:text-xl text-gray-300 mb-6 max-w-4xl leading-relaxed">
-                                Join the growing community of developers building the next generation of games with Pill Engine.
+                                Join the growing community of developers building the next generation of games with Pill.
                             </p>
                         </div>
                     </div>
