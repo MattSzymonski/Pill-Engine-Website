@@ -33,7 +33,7 @@ const CTA = () => {
                         </p>
                     </div>
 
-                    <h3 className="text-3xl md:text-4xl font-black mb-6 text-pill-red drop-shadow-[0_0_40px_rgba(220,38,38,0.6)]">
+                    <h3 className="text-3xl md:text-4xl font-black mb-6 text-pill-red drop-shadow-glow-lg">
                         Start Building Today
                     </h3>
 
@@ -43,7 +43,7 @@ const CTA = () => {
 
                     <div className="flex flex-col sm:flex-row gap-8 mt-12 items-center">
                         <a href="/guide" target="_blank" rel="noopener noreferrer"
-                            className="group relative px-10 py-5 bg-gradient-to-r from-pill-red to-pill-red-light rounded-2xl font-bold text-white text-lg overflow-hidden transition-all duration-300 hover:scale-110 hover:shadow-[0_0_60px_rgba(220,38,38,0.7)] flex items-center gap-3 btn-glow">
+                            className="group relative px-10 py-5 bg-gradient-to-r from-pill-red to-pill-red-light rounded-2xl font-bold text-white text-lg overflow-hidden transition-all duration-300 hover:scale-110 hover:shadow-glow-xl flex items-center gap-3 btn-glow">
                             <BookOpen className="w-7 h-7 text-white relative z-10" />
                             <span className="relative z-10">Start with Pill Guide</span>
                             <div className="absolute inset-0 bg-gradient-to-r from-pill-red-dark to-pill-red opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -53,24 +53,24 @@ const CTA = () => {
 
                 {/* Enhanced Stats */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-[120px]">
-                    <div className="glass rounded-3xl p-8 border-2 border-pill-red/20 hover:border-pill-red transition-all duration-500 hover:scale-105 hover:shadow-[0_0_50px_rgba(220,38,38,0.4)] animate-slide-in-left group relative overflow-hidden">
+                    <div className="glass rounded-3xl p-8 border-2 border-pill-red/20 hover:border-pill-red transition-all duration-500 hover:scale-105 hover:shadow-glow-lg animate-slide-in-left group relative overflow-hidden">
                         <div className="absolute inset-0 bg-gradient-to-br from-pill-red/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                         <div className="relative z-10">
-                            <div className="text-3xl md:text-4xl font-black text-pill-red mb-3 drop-shadow-[0_0_20px_rgba(220,38,38,0.5)]">Memory Safe</div>
+                            <div className="text-3xl md:text-4xl font-black text-pill-red mb-3 text-glow-sm">Memory Safe</div>
                             <div className="text-base text-gray-300 font-semibold">Rust Powered</div>
                         </div>
                     </div>
-                    <div className="glass rounded-3xl p-8 border-2 border-pill-red/20 hover:border-pill-red transition-all duration-500 hover:scale-105 hover:shadow-[0_0_50px_rgba(220,38,38,0.4)] animate-scale-in group relative overflow-hidden" style={{ animationDelay: '0.1s' }}>
+                    <div className="glass rounded-3xl p-8 border-2 border-pill-red/20 hover:border-pill-red transition-all duration-500 hover:scale-105 hover:shadow-glow-lg animate-scale-in group relative overflow-hidden" style={{ animationDelay: '0.1s' }}>
                         <div className="absolute inset-0 bg-gradient-to-br from-pill-red/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                         <div className="relative z-10">
-                            <div className="text-3xl md:text-4xl font-black text-pill-red mb-3 drop-shadow-[0_0_20px_rgba(220,38,38,0.5)]">Passion Driven</div>
+                            <div className="text-3xl md:text-4xl font-black text-pill-red mb-3 text-glow-sm">Passion Driven</div>
                             <div className="text-base text-gray-300 font-semibold">Community Built</div>
                         </div>
                     </div>
-                    <div className="glass rounded-3xl p-8 border-2 border-pill-red/20 hover:border-pill-red transition-all duration-500 hover:scale-105 hover:shadow-[0_0_50px_rgba(220,38,38,0.4)] animate-slide-in-right group relative overflow-hidden">
+                    <div className="glass rounded-3xl p-8 border-2 border-pill-red/20 hover:border-pill-red transition-all duration-500 hover:scale-105 hover:shadow-glow-lg animate-slide-in-right group relative overflow-hidden">
                         <div className="absolute inset-0 bg-gradient-to-br from-pill-red/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                         <div className="relative z-10">
-                            <div className="text-3xl md:text-4xl font-black text-pill-red mb-3 drop-shadow-[0_0_20px_rgba(220,38,38,0.5)]">Waiting for You</div>
+                            <div className="text-3xl md:text-4xl font-black text-pill-red mb-3 text-glow-sm">Waiting for You</div>
                             <div className="text-base text-gray-300 font-semibold">Start Building Today</div>
                         </div>
                     </div>

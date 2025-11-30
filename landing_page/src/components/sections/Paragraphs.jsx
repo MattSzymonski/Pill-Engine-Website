@@ -88,7 +88,7 @@ const Paragraphs = () => {
                         {capabilities.map((cap, index) => (
                             <div
                                 key={index}
-                                className="group p-8 rounded-2xl bg-gray-900/50 backdrop-blur-sm border border-gray-800 hover:border-pill-red transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(220,38,38,0.2)]"
+                                className="group p-8 rounded-2xl bg-gray-900/50 backdrop-blur-sm border border-gray-800 hover:border-pill-red transition-all duration-300 hover:scale-[102%] hover:shadow-glow-sm"
                             >
                                 <div className="mb-6">
                                     <div className="text-pill-red group-hover:scale-110 transition-transform duration-300 mb-4">

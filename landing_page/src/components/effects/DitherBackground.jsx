@@ -1,11 +1,11 @@
 /* eslint-disable react/no-unknown-property */
-import { useRef, useEffect, forwardRef } from 'react';
+import { useRef, useEffect, forwardRef, useState } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { EffectComposer, wrapEffect } from '@react-three/postprocessing';
 import { Effect } from 'postprocessing';
 import * as THREE from 'three';
 
-import '../index.css';
+import '../../index.css';
 
 const waveVertexShader = `
 precision highp float;
@@ -102,6 +102,7 @@ const ditherFragmentShader = `
 precision highp float;
 uniform float colorNum;
 uniform float pixelSize;
+uniform int isDarkTheme;
 
 // 14x14 pattern array (0 = black, 1 = color) - scaled up 2x
 // Center pixels have color, rest is black
@@ -142,13 +143,29 @@ vec3 dither(vec2 coord, vec3 color) {
   
   // Apply dithering with brightness boost for mid-tones
   float step = 1.0 / (colorNum - 1.0);
-  color.r += (color.r >= 0.02 && color.r <= 0.17) ? color.r * 0.10 : 0.0;
+  float brightness = (color.r + color.g + color.b) / 3.0;
+  
+  // Boost red for dark theme, blue for light theme
+  if (isDarkTheme == 1) {
+    color.rgb += (brightness >= 0.02 && brightness <= 0.17) ? vec3(color.r * 0.12, 0.0, 0.0) : vec3(0.0);
+  } else {
+    color.rgb += (brightness >= 0.02 && brightness <= 0.17) ? vec3(0.0, 0.0, color.b * 0.14) : vec3(0.0);
+  }
+  
+  //color.r += (color.r >= 0.02 && color.r <= 0.17) ? color.r * 0.10 : 0.0;
   color += threshold * step;
   color = clamp(color - 0.2, 0.0, 1.0);
   
   // Quantize and apply color reduction in one step
   vec3 ditheredColor = floor(color * (colorNum - 1.0) + 0.5) / (colorNum - 1.0);
-  ditheredColor.gb *= 0.6;
+  
+  // Apply color tint based on theme
+  if (isDarkTheme == 1) {
+    ditheredColor.rgb *= vec3(1.1, 0.6, 0.6); // Red tint for dark theme
+  } else {
+    ditheredColor.rgb *= vec3(0.6, 0.6, 1.1); // Blue tint for light theme
+  }
+  
   ditheredColor.rgb += 0.001;
 
   return ditheredColor;
@@ -185,7 +202,8 @@ class RetroEffectImpl extends Effect {
     constructor() {
         const uniforms = new Map([
             ['colorNum', new THREE.Uniform(4.0)],
-            ['pixelSize', new THREE.Uniform(2.0)]
+            ['pixelSize', new THREE.Uniform(2.0)],
+            ['isDarkTheme', new THREE.Uniform(1)]
         ]);
         super('RetroEffect', ditherFragmentShader, { uniforms });
         this.uniforms = uniforms;
@@ -202,12 +220,18 @@ class RetroEffectImpl extends Effect {
     get pixelSize() {
         return this.uniforms.get('pixelSize').value;
     }
+    set isDarkTheme(value) {
+        this.uniforms.get('isDarkTheme').value = value ? 1 : 0;
+    }
+    get isDarkTheme() {
+        return this.uniforms.get('isDarkTheme').value;
+    }
 }
 
 const RetroEffect = forwardRef((props, ref) => {
-    const { colorNum, pixelSize } = props;
+    const { colorNum, pixelSize, isDarkTheme } = props;
     const WrappedRetroEffect = wrapEffect(RetroEffectImpl);
-    return <WrappedRetroEffect ref={ref} colorNum={colorNum} pixelSize={pixelSize} />;
+    return <WrappedRetroEffect ref={ref} colorNum={colorNum} pixelSize={pixelSize} isDarkTheme={isDarkTheme} />;
 });
 
 RetroEffect.displayName = 'RetroEffect';
@@ -226,6 +250,27 @@ function DitheredWaves({
     const mesh = useRef(null);
     const mouseRef = useRef(new THREE.Vector2());
     const { viewport, size, gl } = useThree();
+
+    // Track theme state
+    const [isDark, setIsDark] = useState(true);
+
+    useEffect(() => {
+        // Check initial theme
+        const checkTheme = () => {
+            setIsDark(document.documentElement.classList.contains('dark'));
+        };
+
+        checkTheme();
+
+        // Watch for theme changes
+        const observer = new MutationObserver(checkTheme);
+        observer.observe(document.documentElement, {
+            attributes: true,
+            attributeFilter: ['class']
+        });
+
+        return () => observer.disconnect();
+    }, []);
 
     const waveUniformsRef = useRef({
         time: new THREE.Uniform(0),
@@ -293,7 +338,7 @@ function DitheredWaves({
             </mesh>
 
             <EffectComposer>
-                <RetroEffect colorNum={colorNum} pixelSize={pixelSize} />
+                <RetroEffect colorNum={colorNum} pixelSize={pixelSize} isDarkTheme={isDark} />
             </EffectComposer>
 
             <mesh

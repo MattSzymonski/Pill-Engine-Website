@@ -1,16 +1,47 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Github } from 'lucide-react';
 
 const Navbar = () => {
+    const [theme, setTheme] = useState('dark');
+
+    useEffect(() => {
+        // Check initial theme
+        const isDark = document.documentElement.classList.contains('dark');
+        setTheme(isDark ? 'dark' : 'light');
+    }, []);
+
+    const toggleTheme = (e) => {
+        e.preventDefault(); // Prevent navigation
+        const newTheme = theme === 'dark' ? 'light' : 'dark';
+        setTheme(newTheme);
+
+        // Support View Transitions API for smooth theme change
+        if (!document.startViewTransition) {
+            document.documentElement.classList.toggle('dark');
+            localStorage.setItem('theme', newTheme);
+            return;
+        }
+
+        document.startViewTransition(() => {
+            document.documentElement.classList.toggle('dark');
+            localStorage.setItem('theme', newTheme);
+        });
+    };
+
     return (
         <nav className="fixed top-0 left-0 right-0 z-50 bg-black/50 backdrop-blur-md border-b border-gray-800/50">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-16">
-                    {/* Logo/Brand */}
+                    {/* Logo/Brand - Clickable theme toggle */}
                     <div className="flex-shrink-0">
-                        <a href="/" className="text-2xl font-bold text-white hover:text-pill-red transition-colors duration-300" style={{ fontFamily: '"Chillax Variable", sans-serif' }}>
+                        <span
+                            onClick={toggleTheme}
+                            className="text-2xl font-bold text-white hover:text-pill-primary cursor-pointer transition-all duration-300 hover:scale-105 inline-block select-none"
+                            style={{ fontFamily: '"Chillax Variable", sans-serif' }}
+                            title="Click to toggle theme"
+                        >
                             pill
-                        </a>
+                        </span>
                     </div>
 
                     {/* Navigation Links */}

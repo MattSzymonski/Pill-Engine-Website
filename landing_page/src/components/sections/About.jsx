@@ -27,11 +27,11 @@ const About = () => {
 
                 {/* Design Goals with enhanced effects */}
                 <div className="grid md:grid-cols-3 gap-8 mb-20">
-                    <div className="group box rounded-3xl p-10 hover:border-pill-red transition-all duration-500 relative overflow-hidden animate-scale-in hover:scale-105 hover:shadow-[0_0_50px_rgba(220,38,38,0.3)]">
+                    <div className="group box rounded-3xl p-10 hover:border-pill-red transition-all duration-500 relative overflow-hidden animate-scale-in hover:scale-105 hover:shadow-glow-md">
                         <div className="absolute inset-0 bg-gradient-to-br from-pill-red/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                         <div className="relative z-10">
                             <div className="flex justify-center mb-6">
-                                <div className="p-4 rounded-2xl bg-gradient-to-br from-pill-red/20 to-pill-red-light/10 group-hover:scale-110  transition-all duration-500">
+                                <div className="p-4 rounded-2xl bg-gradient-to-br from-pill-red/30 to-pill-red-light/20 group-hover:scale-110  transition-all duration-500">
                                     <Target className="w-14 h-14 text-pill-red icon-glow" />
                                 </div>
                             </div>
@@ -42,11 +42,11 @@ const About = () => {
                         </div>
                     </div>
 
-                    <div className="group box rounded-3xl p-10 hover:border-pill-red-light transition-all duration-500 relative overflow-hidden animate-scale-in hover:scale-105 hover:shadow-[0_0_50px_rgba(239,68,68,0.3)]" style={{ animationDelay: '0.1s' }}>
+                    <div className="group box rounded-3xl p-10 hover:border-pill-red-light transition-all duration-500 relative overflow-hidden animate-scale-in hover:scale-105 hover:shadow-glow-md" style={{ animationDelay: '0.1s' }}>
                         <div className="absolute inset-0 bg-gradient-to-br from-pill-red-light/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                         <div className="relative z-10">
                             <div className="flex justify-center mb-6">
-                                <div className="p-4 rounded-2xl bg-gradient-to-br from-pill-red-light/20 to-pill-red/10 group-hover:scale-110  transition-all duration-500">
+                                <div className="p-4 rounded-2xl bg-gradient-to-br from-pill-red-light/30 to-pill-red/20 group-hover:scale-110  transition-all duration-500">
                                     <Zap className="w-14 h-14 text-pill-red-light icon-glow" />
                                 </div>
                             </div>
@@ -57,11 +57,11 @@ const About = () => {
                         </div>
                     </div>
 
-                    <div className="group box rounded-3xl p-10 hover:border-pill-red-light transition-all duration-500 relative overflow-hidden animate-scale-in hover:scale-105 hover:shadow-[0_0_50px_rgba(255,107,53,0.3)]" style={{ animationDelay: '0.2s' }}>
+                    <div className="group box rounded-3xl p-10 hover:border-pill-red-light transition-all duration-500 relative overflow-hidden animate-scale-in hover:scale-105 hover:shadow-glow-md" style={{ animationDelay: '0.2s' }}>
                         <div className="absolute inset-0 bg-gradient-to-br from-pill-red-light/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                         <div className="relative z-10">
                             <div className="flex justify-center mb-6">
-                                <div className="p-4 rounded-2xl bg-gradient-to-br from-pill-red-light/20 to-pill-red/10 group-hover:scale-110  transition-all duration-500">
+                                <div className="p-4 rounded-2xl bg-gradient-to-br from-pill-red-light/30 to-pill-red/20 group-hover:scale-110  transition-all duration-500">
                                     <Boxes className="w-14 h-14 text-pill-red-light icon-glow" />
                                 </div>
                             </div>

@@ -32,7 +32,7 @@ const Footer = () => {
 
                     {/* Resources */}
                     <div className="flex flex-col items-start md:items-center">
-                        <h4 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Resources</h4>
+                        <h4 className="text-lg font-semibold mb-4 text-white">Resources</h4>
                         <ul className="space-y-3">
                             <li>
                                 <a href="#" className="text-gray-300 hover:text-pill-red transition-colors duration-300">
@@ -59,7 +59,7 @@ const Footer = () => {
 
                     {/* Community */}
                     <div className="flex flex-col items-start md:items-end">
-                        <h4 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Community</h4>
+                        <h4 className="text-lg font-semibold mb-4 text-white">Community</h4>
                         <ul className="space-y-3 text-left md:text-right">
                             <li>
                                 <a href="https://github.com/pill-engine" target="_blank" rel="noopener noreferrer"
