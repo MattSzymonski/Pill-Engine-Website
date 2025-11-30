@@ -10,7 +10,5 @@ This is a combined landing page, guide and code documentation for Pill Engine as
 `npm run preview` - Preview the combined build  
 `npm run install:all` - Install dependencies for both  
 
-## Tech stack
-
-
+For adding new pages to guide check README in `.guide` directory.
 

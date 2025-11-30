@@ -16,19 +16,19 @@ const Navbar = () => {
                     {/* Navigation Links */}
                     <div className="flex items-center gap-8">
                         <a
-                            href="/guide/"
+                            href="/guide"
                             className="text-gray-300 hover:text-white transition-colors duration-300 font-medium"
                         >
                             Guide
                         </a>
                         <a
-                            href="/guide/getting-started/setup"
+                            href="https://github.com/MattSzymonski/Pill-Engine/tree/main/examples"
                             className="text-gray-300 hover:text-white transition-colors duration-300 font-medium"
                         >
                             Examples
                         </a>
                         <a
-                            href="https://github.com/pill-engine"
+                            href="https://github.com/MattSzymonski/Pill-Engine"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="text-gray-300 hover:text-pill-red transition-colors duration-300"

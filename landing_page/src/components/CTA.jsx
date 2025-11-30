@@ -42,10 +42,10 @@ const CTA = () => {
                     </p>
 
                     <div className="flex flex-col sm:flex-row gap-8 mt-12 items-center">
-                        <a href="https://github.com/pill-engine" target="_blank" rel="noopener noreferrer"
+                        <a href="/guide" target="_blank" rel="noopener noreferrer"
                             className="group relative px-10 py-5 bg-gradient-to-r from-pill-red to-pill-red-light rounded-2xl font-bold text-white text-lg overflow-hidden transition-all duration-300 hover:scale-110 hover:shadow-[0_0_60px_rgba(220,38,38,0.7)] flex items-center gap-3 btn-glow">
                             <BookOpen className="w-7 h-7 text-white relative z-10" />
-                            <span className="relative z-10">Pill Guide</span>
+                            <span className="relative z-10">Start with Pill Guide</span>
                             <div className="absolute inset-0 bg-gradient-to-r from-pill-red-dark to-pill-red opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                         </a>
                     </div>

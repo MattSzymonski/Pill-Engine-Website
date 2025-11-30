@@ -129,6 +129,38 @@
     overflow: hidden;
 }
 
+.white-text-glow {
+    text-shadow: 0 0 12px rgb(0, 0, 0),
+        0 0 26px rgba(24, 5, 5, 0.897),
+        0 0 34px rgba(59, 17, 17, 0.774);
+}
+
+/* .cta-bg::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image:
+        radial-gradient(circle at 20% 50%, rgba(255, 44, 44, 0.24) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(199, 0, 33, 0.233) 0%, transparent 50%);
+    animation: heroGlow 8s ease-in-out infinite alternate;
+    pointer-events: none;
+} */
+
+/* @keyframes heroGlow {
+    0% {
+        opacity: 0.3;
+        transform: scale(1);
+    }
+
+    100% {
+        opacity: 0.6;
+        transform: scale(1.05);
+    }
+} */
+
 .background-grid {
     position: absolute;
     inset: 0;
