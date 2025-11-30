@@ -135,6 +135,36 @@
         0 0 34px rgba(59, 17, 17, 0.774);
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   GENERAL POLISH
+   ═══════════════════════════════════════════════════════════════════════ */
+::selection {
+    background: rgba(125, 211, 252, 0.3);
+    color: #fff;
+}
+
+::-webkit-scrollbar {
+    width: 7px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--vp-c-brand-1-dim-1);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: var(--vp-c-brand-1-dim-2);
+}
+
 /* .cta-bg::before {
     content: '';
     position: absolute;

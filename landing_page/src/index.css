@@ -14,6 +14,9 @@
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+
+    --vp-c-brand-1-dim-1: #a33b3b;
+    --vp-c-brand-1-dim-2: #6d2929;
 }
 
 body {
