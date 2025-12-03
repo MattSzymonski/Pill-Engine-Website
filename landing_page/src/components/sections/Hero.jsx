@@ -7,13 +7,13 @@ const Hero = () => {
         <section className="relative min-h-screen flex items-center justify-center overflow-hidden" style={{ clipPath: 'inset(0)' }}>
             <div className="fixed inset-0 overflow-hidden z-0" style={{ willChange: 'transform', transform: 'translateZ(0)' }}>
                 <Dither
-                    waveColor={[0.505, 0.5, 0.5]}
+                    waveColor={[0.6, 0.6, 0.6]}
                     disableAnimation={false}
                     enableMouseInteraction={false}
                     mouseRadius={0.25}
-                    colorNum={12}
+                    colorNum={5}
                     waveAmplitude={0.2}
-                    waveFrequency={4.0}
+                    waveFrequency={2.5}
                     waveSpeed={0.03}
                 />
             </div>
