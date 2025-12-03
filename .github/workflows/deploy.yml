@@ -1,0 +1,70 @@
+name: Build and Deploy Website
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "landing_page/**"
+      - "guide/**"
+      - "build-script.js"
+      - "package.json"
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Checkout code
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. Setup Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      # 3. Install root dependencies
+      - name: Install root dependencies
+        run: npm ci
+
+      # 4. Build landing page
+      - name: Build landing page
+        working-directory: landing_page
+        run: |
+          npm ci
+          npm run build
+
+      # 5. Build guide
+      - name: Build guide
+        working-directory: guide
+        run: |
+          npm ci
+          npm run build
+
+      # 6. Combine builds into single directory
+      - name: Combine builds
+        run: |
+          mkdir -p dist
+          cp -r landing_page/dist/* dist/
+          mkdir -p dist/guide
+          cp -r guide/dist/* dist/guide/
+
+      # 7. Deploy to server via SSH
+      - name: Deploy to Server
+        run: |
+          # Write SSH key from GitHub Secret
+          echo "${{ secrets.SERVER_KEY }}" > deploy_key
+          chmod 600 deploy_key
+
+          # Stream the build output directly to server
+          # The authorized_keys command handles extraction
+          tar -czf - -C dist . | \
+            ssh -i deploy_key \
+                -o StrictHostKeyChecking=no \
+                -p ${{ secrets.SERVER_PORT || 22 }} \
+                ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}
+
+          # Clean up SSH key
+          rm -f deploy_key
