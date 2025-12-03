@@ -1,4 +1,4 @@
-# Pill Engine Website# Pill Engine - Landing Page
+# Pill Engine Website
 
 This is a combined landing page, guide and code documentation for Pill Engine as a single deployable website.
 
