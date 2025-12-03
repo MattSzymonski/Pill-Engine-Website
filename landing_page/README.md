@@ -1,12 +1,12 @@
-# Pill Engine - Landing Page
+# Pill - Landing Page
 
-A bleeding-edge landing page for Pill Engine, a data-driven game engine written in Rust.
+A bleeding-edge landing page for Pill project, a data-driven game engine written in Rust.
 
-![Pill Engine](./public/pill-icon.png)
+![Pill](./public/pill-icon.png)
 
-## 🎮 About Pill Engine
+## 🎮 About Pill
 
-Pill Engine is a modern game engine built with Rust, designed for performance, safety, and extensibility. It features a powerful Entity Component System (ECS) architecture and provides everything you need to build amazing games.
+Pill is a modern game engine built with Rust, designed for performance, safety, and extensibility. It features a powerful Entity Component System (ECS) architecture and provides everything you need to build amazing games.
 
 ### Design Goals
 

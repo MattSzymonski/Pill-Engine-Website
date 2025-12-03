@@ -1,6 +1,6 @@
-# Pill-Engine Guide
+# Pill Guide
 
-This project builds a static Pill Engine Guide website, serving as the primary reference documentation for developing projects with Pill Engine.
+This project builds a static Pill project Guide website, serving as the primary reference documentation for developing projects with Pill.
 
 ## Development
 
