@@ -1,6 +1,6 @@
 # Pill - Landing Page
 
-A bleeding-edge landing page for Pill project, a data-driven game engine written in Rust.
+A bleeding-edge landing page for Pill, a data-driven game engine written in Rust.
 
 ![Pill](./public/pill-icon.png)
 

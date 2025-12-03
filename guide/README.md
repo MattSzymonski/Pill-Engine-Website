@@ -1,6 +1,6 @@
 # Pill Guide
 
-This project builds a static Pill project Guide website, serving as the primary reference documentation for developing projects with Pill.
+This project builds a static Pill Guide website, serving as the primary reference documentation for developing projects with Pill.
 
 ## Development
 
