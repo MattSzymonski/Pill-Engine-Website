@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="dark">
 
 <head>
     <meta charset="UTF-8" />
@@ -11,6 +11,11 @@
         content="Pill - A blazing fast, data-driven game engine written in Rust. Clean, simple, and highly extensible." />
     <meta name="keywords" content="game engine, rust, ECS, 3D graphics, pill engine, game development, blazing fast" />
     <title>Pill - Free and blazingly fast game engine</title>
+    <script>
+        // Force dark theme on load, ignoring system preferences
+        document.documentElement.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+    </script>
 </head>
 
 <body>

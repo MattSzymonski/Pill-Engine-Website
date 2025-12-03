@@ -36,8 +36,7 @@ const Navbar = () => {
                     <div className="flex-shrink-0">
                         <span
                             onClick={toggleTheme}
-                            className="text-2xl font-bold text-white hover:text-pill-primary cursor-pointer transition-all duration-300 hover:scale-105 inline-block select-none"
-                            style={{ fontFamily: '"Chillax Variable", sans-serif' }}
+                            className="pill-logo-text text-2xl font-bold text-white hover:text-pill-primary cursor-pointer transition-all duration-300 hover:scale-105 inline-block select-none"
                             title="Click to toggle theme"
                         >
                             pill
