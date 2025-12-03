@@ -25,33 +25,18 @@ jobs:
         with:
           node-version: 20
 
-      # 3. Install root dependencies
-      - name: Install root dependencies
-        run: npm install
-
-      # 4. Build landing page
-      - name: Build landing page
-        working-directory: landing_page
+      # 3. Install all dependencies
+      - name: Install dependencies
         run: |
           npm install
-          npm run build
+          cd landing_page && npm install
+          cd ../guide && npm install
 
-      # 5. Build guide
-      - name: Build guide
-        working-directory: guide
-        run: |
-          npm install
-          npm run build
+      # 4. Build both sites (uses root build script)
+      - name: Build landing page and guide
+        run: npm run build
 
-      # 6. Combine builds into single directory
-      - name: Combine builds
-        run: |
-          mkdir -p dist
-          cp -r landing_page/dist/* dist/
-          mkdir -p dist/guide
-          cp -r guide/dist/* dist/guide/
-
-      # 7. Deploy to server via SSH
+      # 5. Deploy to server via SSH
       - name: Deploy to Server
         run: |
           # Write SSH key from GitHub Secret
