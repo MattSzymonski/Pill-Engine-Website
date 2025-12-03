@@ -1,6 +1,6 @@
 # Pill Engine Website
 
-This is a combined landing page, guide and code documentation for Pill Engine as a single deployable website.
+This is a combined landing page, guide and code documentation for Pill project as a single deployable website.
 
 ## Development
 
@@ -10,5 +10,5 @@ This is a combined landing page, guide and code documentation for Pill Engine as
 `npm run preview` - Preview the combined build  
 `npm run install:all` - Install dependencies for both  
 
-For adding new pages to guide check README in `.guide` directory.
+For adding new pages to guide check README in `.guide` directory. 
 
