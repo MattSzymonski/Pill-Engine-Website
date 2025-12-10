@@ -76,11 +76,29 @@ float pattern(vec2 p) {
   return fbm(p + fbm(p2)); 
 }
 
+// Brightness wave that sweeps across periodically
+float brightnessWave(vec2 uv, float t) {
+  // Create a moving wave front
+  float wavePos = mod(t * 0.3, 3.0) - 1.5; // Repeats every ~10 seconds
+  float dist = length(uv - vec2(wavePos, 0.0));
+  
+  // Create a smooth circular wave with falloff (tighter wave)
+  float wave = 1.0 - smoothstep(0.0, 0.7, dist);
+  wave = pow(wave, 2.0);
+  
+  return wave * 0.4; // Max brightness boost of 0.4
+}
+
 void main() {
   vec2 uv = gl_FragCoord.xy / resolution.xy;
   uv -= 0.5;
   uv.x *= resolution.x / resolution.y;
   float f = pattern(uv);
+  
+  // Add brightness wave
+  float brightBoost = brightnessWave(uv, time);
+  f += brightBoost;
+  
   if (enableMouseInteraction == 1) {
     vec2 mouseNDC = (mousePos / resolution - 0.5) * vec2(1.0, -1.0);
     mouseNDC.x *= resolution.x / resolution.y;

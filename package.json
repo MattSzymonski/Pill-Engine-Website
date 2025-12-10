@@ -5,6 +5,7 @@
     "type": "module",
     "description": "Pill Engine Landing Page and Documentation",
     "scripts": {
+        "dev": "concurrently \"npm run dev:landing\" \"npm run dev:guide\"",
         "dev:landing": "cd landing_page && npm run dev",
         "dev:guide": "cd guide && npm run guide:dev",
         "build": "npm run build:landing && npm run build:guide && npm run combine",
@@ -13,5 +14,8 @@
         "combine": "node build-script.js",
         "preview": "npx serve dist",
         "install:all": "cd landing_page && npm install && cd ../guide && npm install"
+    },
+    "devDependencies": {
+        "concurrently": "^9.2.1"
     }
 }
