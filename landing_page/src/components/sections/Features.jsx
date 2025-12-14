@@ -200,11 +200,11 @@ const Features = () => {
                         <h3 className="text-3xl md:text-4xl font-black mb-8 text-white">
                             {section.title}
                         </h3>
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div className="grid grid-cols-2 lg:grid-cols-3 gap-8">
                             {section.features.map((feature, featureIndex) => (
                                 <div
                                     key={featureIndex}
-                                    className="group box rounded-3xl p-10 hover:border-pill-primary transition-all duration-500 relative overflow-hidden animate-scale-in hover:scale-105 hover:shadow-glow-md"
+                                    className="group box rounded-3xl p-3 md:p-10 hover:border-pill-primary transition-all duration-500 relative overflow-hidden animate-scale-in hover:scale-105 hover:shadow-glow-md"
                                     style={{ animationDelay: `${(sectionIndex * section.features.length + featureIndex) * 0.05}s` }}
                                 >
                                     {/* Hover gradient overlay */}
