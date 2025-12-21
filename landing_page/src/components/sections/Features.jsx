@@ -200,38 +200,38 @@ const Features = () => {
                         <h3 className="text-3xl md:text-4xl font-black mb-8 text-white">
                             {section.title}
                         </h3>
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
                             {section.features.map((feature, featureIndex) => (
                                 <div
                                     key={featureIndex}
-                                    className="group box rounded-3xl p-10 hover:border-pill-primary transition-all duration-500 relative overflow-hidden animate-scale-in hover:scale-105 hover:shadow-glow-md"
+                                    className="group box rounded-2xl md:rounded-3xl p-4 md:p-10 hover:border-pill-primary transition-all duration-500 relative overflow-hidden animate-scale-in hover:scale-105 hover:shadow-glow-md"
                                     style={{ animationDelay: `${(sectionIndex * section.features.length + featureIndex) * 0.05}s` }}
                                 >
                                     {/* Hover gradient overlay */}
                                     <div className="absolute inset-0 bg-gradient-to-br from-pill-primary/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
                                     <div className="relative z-10">
-                                        <div className="flex justify-center mb-6">
-                                            <div className="p-4 rounded-2xl bg-gradient-to-br from-pill-primary/20 to-pill-primary-light/10 group-hover:scale-110 transition-all duration-500">
+                                        <div className="flex justify-center mb-3 md:mb-6">
+                                            <div className="p-2 md:p-4 rounded-xl md:rounded-2xl bg-gradient-to-br from-pill-primary/20 to-pill-primary-light/10 group-hover:scale-110 transition-all duration-500">
                                                 {React.cloneElement(feature.icon, {
-                                                    className: 'w-14 h-14 text-pill-primary icon-glow',
+                                                    className: 'w-8 h-8 md:w-14 md:h-14 text-pill-primary icon-glow',
                                                     style: {
                                                         stroke: isDark ? 'url(#redGradient)' : 'url(#blueGradient)',
                                                     }
                                                 })}
                                             </div>
                                         </div>
-                                        <h3 className="text-2xl md:text-3xl font-black text-center mb-4 text-white group-hover:text-pill-primary transition-colors duration-300">
+                                        <h3 className="text-sm md:text-3xl font-black text-center mb-2 md:mb-4 text-white group-hover:text-pill-primary transition-colors duration-300">
                                             {feature.title}
                                         </h3>
-                                        <p className="text-lg text-gray-300 text-center leading-relaxed">
+                                        <p className="text-xs md:text-lg text-gray-300 text-center leading-relaxed">
                                             {feature.description}
                                         </p>
                                     </div>
 
                                     {/* In Progress Stripes */}
                                     {feature.inProgress && (
-                                        <div className="absolute bottom-0 left-0 right-0 h-6 overflow-hidden rounded-b-3xl">
+                                        <div className="absolute bottom-0 left-0 right-0 h-4 md:h-6 overflow-hidden rounded-b-2xl md:rounded-b-3xl">
                                             <div className="w-full h-full bg-gradient-to-r from-transparent via-transparent to-transparent" style={{
                                                 backgroundImage: 'repeating-linear-gradient(45deg, #000 0px, #000 10px, #fbbf24 10px, #fbbf24 20px)',
                                                 backgroundSize: '28.28px 28.28px'
