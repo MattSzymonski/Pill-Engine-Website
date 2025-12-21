@@ -6,9 +6,9 @@ layout: doc
 <div class="hero">
   <div class="hero-inner">
     <div class="hero-left">
-      <h1>pill</h1>
+      <a href="https://pillengine.org"><img src="https://pillengine.org/pill_logo.svg" alt="Pill Engine Logo" class="hero-logo" /></a>
       <p class="tagline">
-        Modern, <strong>free</strong> and <strong>performance-first</strong> game engine
+        Modern, <strong>free</strong> and <strong>blazingly fast</strong> game engine
       </p>
       <p class="badges">
         <img alt="Crates" src="https://img.shields.io/badge/crates.io-publish-4ea94b?style=flat-square" />
