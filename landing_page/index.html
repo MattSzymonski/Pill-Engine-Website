@@ -2,6 +2,39 @@
 <html lang="en" class="dark">
 
 <head>
+    <!-- GA4 RESTRICTED / COOKIELESS MODE -->
+    <script>
+        // Create dataLayer before loading anything
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+
+        // ALWAYS deny storage before loading GA
+        gtag('consent', 'default', {
+            'ad_storage': 'denied',
+            'analytics_storage': 'denied',
+            'ad_user_data': 'denied',
+            'ad_personalization': 'denied'
+        });
+    </script>
+
+    <!-- Load GA4 library -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8LFML428J4"></script>
+
+    <script>
+        gtag('js', new Date());
+
+        // GA4 configuration in restricted mode
+        gtag('config', 'G-8LFML428J4', {
+            'allow_google_signals': false,
+            'allow_ad_personalization_signals': false,
+            'anonymize_ip': true,
+            'ads_data_redaction': true,
+            'debug_mode': false,
+            'transport_type': 'beacon',
+            'cookie_flags': 'SameSite=None;Secure'
+        });
+    </script>
+
     <meta charset="UTF-8" />
     <link rel="icon" type="image/png" href="/favicons/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="/favicons/favicon.svg" />

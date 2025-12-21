@@ -8,7 +8,7 @@ layout: doc
     <div class="hero-left">
       <h1>pill</h1>
       <p class="tagline">
-        Modern, <strong>free</strong> and <strong>blazingly-fast</strong> game engine
+        Modern, <strong>free</strong> and <strong>performance-first</strong> game engine
       </p>
       <p class="badges">
         <img alt="Crates" src="https://img.shields.io/badge/crates.io-publish-4ea94b?style=flat-square" />
@@ -21,22 +21,26 @@ layout: doc
 
 ## Quick start
 
-Follow these commands to run an example locally.
-
-```powershell
-git clone https://github.com/MattSzymonski/Pill-Engine.git
-cd Pill-Engine
-cd docs
-npm install
-npm run docs:dev
-```
-
-To run an example game:
-
-```bash
-cd examples/Empty
-cargo run
-```
+<div class="features-grid">
+  <div class="feature">
+    <a href="/guide/introduction">
+      <h3>📖 Introduction</h3>
+      <p>Learn about Pill Engine's philosophy, architecture, and core concepts.</p>
+    </a>
+  </div>
+  <div class="feature">
+    <a href="/guide/getting-started/setup">
+      <h3>🚀 Getting Started</h3>
+      <p>Set up your development environment and create your first Pill project.</p>
+    </a>
+  </div>
+  <div class="feature">
+    <a href="/guide/troubleshooting">
+      <h3>❓ Help</h3>
+      <p>Find solutions to common issues and get support from the community.</p>
+    </a>
+  </div>
+</div>
 
 ## Highlights
 

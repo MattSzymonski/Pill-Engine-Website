@@ -25,6 +25,11 @@ uniform int isDarkTheme;
 uniform sampler2D patternTexture;
 uniform vec2 textureSize;
 
+const float MIN_WIDTH = 300.0;
+const float MAX_WIDTH = 1920.0;
+const float MIN_SCALE = 1.0;
+const float MAX_SCALE = 1.5;
+
 vec4 mod289(vec4 x) { return x - floor(x * (1.0/289.0)) * 289.0; }
 vec4 permute(vec4 x) { return mod289(((x * 34.0) + 1.0) * x); }
 vec4 taylorInvSqrt(vec4 r) { return 1.79284291400159 - 0.85373472095314 * r; }
@@ -76,11 +81,29 @@ float pattern(vec2 p) {
   return fbm(p + fbm(p2)); 
 }
 
+// Brightness wave that sweeps across periodically
+float brightnessWave(vec2 uv, float t) {
+  // Create a moving wave front
+  float wavePos = mod(t * 0.3, 3.0) - 1.5; // Repeats every ~10 seconds
+  float dist = length(uv - vec2(wavePos, 0.0));
+  
+  // Create a smooth circular wave with falloff (tighter wave)
+  float wave = 1.0 - smoothstep(0.0, 0.7, dist);
+  wave = pow(wave, 2.0);
+  
+  return wave * 0.4; // Max brightness boost of 0.4
+}
+
 void main() {
   vec2 uv = gl_FragCoord.xy / resolution.xy;
   uv -= 0.5;
   uv.x *= resolution.x / resolution.y;
   float f = pattern(uv);
+  
+  // Add brightness wave
+  float brightBoost = brightnessWave(uv, time);
+  f += brightBoost;
+  
   if (enableMouseInteraction == 1) {
     vec2 mouseNDC = (mousePos / resolution - 0.5) * vec2(1.0, -1.0);
     mouseNDC.x *= resolution.x / resolution.y;
@@ -90,8 +113,10 @@ void main() {
   }
   vec3 col = mix(vec3(0.0), waveColor, f);
   
-  // Apply dithering inline with 4x4 Bayer matrix (30% larger pixels)
-  vec2 coord = gl_FragCoord.xy / 1.5;
+  // Apply dithering inline with 4x4 Bayer matrix
+  // Scale factor: MIN_SCALE at MAX_WIDTH, MAX_SCALE at MIN_WIDTH (linear interpolation)
+  float scaleFactor = mix(MAX_SCALE, MIN_SCALE, clamp((resolution.x - MIN_WIDTH) / (MAX_WIDTH - MIN_WIDTH), 0.0, 1.0));
+  vec2 coord = gl_FragCoord.xy / scaleFactor;
   int x = int(mod(coord.x, 4.0));
   int y = int(mod(coord.y, 4.0));
   int idx = y * 4 + x;
@@ -136,8 +161,8 @@ void main() {
     dithered.b *= 1.2;
   }
   
-  // Apply pattern mask
-  vec2 patternUV = mod(gl_FragCoord.xy, textureSize) / textureSize;
+  // Apply pattern mask (scaled with same factor as dithering)
+  vec2 patternUV = mod(gl_FragCoord.xy / scaleFactor, textureSize) / textureSize;
   float patternMask = texture2D(patternTexture, patternUV).r;
   
   gl_FragColor = vec4(dithered * patternMask, 1.0);

@@ -5,10 +5,8 @@ export default defineConfig({
   base: '/guide/',
   srcDir: 'pages',
   title: "pill guide",
-  description: "Guide for Pill - Modern, free and blazingly-fast game engine",
+  description: "Guide for Pill - Modern, free and blazingly fast game engine",
   head: [
-    // Chillax Variable Font
-    ['link', { rel: 'stylesheet', href: 'https://api.fontshare.com/v2/css?f[]=chillax@1&display=swap' }],
     // Google Fonts
     ['link', { rel: 'preconnect', href: 'https://fonts.googleapis.com' }],
     ['link', { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' }],
@@ -16,7 +14,7 @@ export default defineConfig({
     // Social meta & favicon
     ['link', { rel: 'icon', href: '/media/logo/logo-192.png' }],
     ['meta', { property: 'og:title', content: 'Pill - Guide' }],
-    ['meta', { property: 'og:description', content: 'Guide for Pill - Modern, free and blazingly-fast game engine' }],
+    ['meta', { property: 'og:description', content: 'Guide for Pill - Modern, free and blazingly fast game engine' }],
     ['meta', { property: 'og:image', content: '/media/logo/logo-512.png' }],
     ['meta', { name: 'twitter:card', content: 'summary_large_image' }]
   ],
