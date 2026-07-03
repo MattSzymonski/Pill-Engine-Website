@@ -12,6 +12,7 @@ export default {
   enhanceApp(ctx: EnhanceAppContext) {
     // ── Combined route-change handler: scroll-to-top + re-attach enlarge ──
     const onRouteChange = (to: string) => {
+      if (typeof window === 'undefined') return;
       if (!to.includes('#')) {
         window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior });
       }
