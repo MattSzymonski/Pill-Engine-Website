@@ -1,6 +1,6 @@
 # Troubleshooting
 
-This page covers common issues and their solutions when working with Pill-Engine.
+This page covers common issues and their solutions when working with Pill.
 
 ## Build Issues
 
@@ -25,7 +25,7 @@ This page covers common issues and their solutions when working with Pill-Engine
    ```powershell
    rustc --version
    ```
-   Pill-Engine requires Rust 1.70 or later.
+   Pill requires Rust 1.70 or later.
 
 4. **Verify dependencies**:
    Make sure all path dependencies in `Cargo.toml` are correct:
@@ -566,4 +566,4 @@ If you're below these, check the performance optimization section in [Next Steps
 
 ---
 
-Still stuck? Feel free to open an issue on [GitHub](https://github.com/MattSzymonski/Pill-Engine/issues) with details about your problem!
+Still stuck? Feel free to open an issue on [GitHub](https://github.com/MattSzymonski/Pill/issues) with details about your problem!

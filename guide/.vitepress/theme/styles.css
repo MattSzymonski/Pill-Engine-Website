@@ -798,6 +798,23 @@ html {
   background: rgba(0, 0, 0, 0.05);
 }
 
+/* ═══════════════════════════════════════════════════════════════════════
+   MERMAID DIAGRAMS
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* Center mermaid diagrams and add spacing */
+.vp-doc .mermaid {
+  display: flex;
+  justify-content: center;
+  margin: 24px 0;
+}
+
+/* Ensure mermaid SVGs are responsive */
+.vp-doc .mermaid svg {
+  max-width: 100%;
+  height: auto;
+}
+
 :root:not(.dark) .btn:hover {
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
   border-color: rgba(0, 0, 0, 0.15);
@@ -908,4 +925,84 @@ html {
 
 :root:not(.dark) ::-webkit-scrollbar-thumb:hover {
   background-color: var(--vp-c-brand-1);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   MERMAID LIGHTBOX - Click-to-enlarge overlay
+   ═══════════════════════════════════════════════════════════════════════ */
+
+#mermaid-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+#mermaid-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.mermaid-overlay-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(6px);
+}
+
+.mermaid-overlay-content {
+  position: relative;
+  z-index: 1;
+  width: 90vw;
+  height: 85vh;
+  background: var(--vp-c-bg);
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.5);
+  overflow: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mermaid-overlay-content svg {
+  max-width: 100%;
+  max-height: 100%;
+  width: 100%;
+  height: auto;
+}
+
+.mermaid-overlay-close {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  z-index: 2;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: var(--vp-c-text-1);
+  font-size: 28px;
+  line-height: 1;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.mermaid-overlay-close:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.1);
+}
+
+:root:not(.dark) .mermaid-overlay-backdrop {
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(6px);
 }

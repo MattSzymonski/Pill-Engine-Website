@@ -1,6 +1,6 @@
 # Resources
 
-Resources in Pill-Engine are shared assets like meshes, textures, materials, and audio clips. They are loaded once and can be referenced by multiple entities.
+Resources in Pill are shared assets like meshes, textures, materials, and audio clips. They are loaded once and can be referenced by multiple entities.
 
 ## Resource Management
 

@@ -2,13 +2,13 @@
 
 ## What is Pill?
 
-Pill-Engine is a modern game engine built entirely in Rust, designed to provide a robust and efficient framework for game development. It combines the power of Rust's memory safety guarantees with a flexible Entity Component System (ECS) architecture.
+Pill is a modern game engine built entirely in Rust, designed to provide a robust and efficient framework for game development. It combines the power of Rust's memory safety guarantees with a flexible Entity Component System (ECS) architecture.
 
 ## Key Features
 
 ### 🏗️ Entity Component System (ECS)
 
-Pill-Engine is built around a powerful ECS architecture that separates data (Components) from behavior (Systems). This design pattern provides:
+Pill is built around a powerful ECS architecture that separates data (Components) from behavior (Systems). This design pattern provides:
 
 - **Modularity**: Easily add or remove functionality by composing components
 - **Performance**: Cache-friendly data layout and efficient iteration
@@ -59,7 +59,7 @@ Immersive audio capabilities:
 
 ```
 ┌─────────────────────────────────────────────────┐
-│               Pill-Engine                       │
+│               Pill                       │
 ├─────────────────────────────────────────────────┤
 │  Game Logic (Your Code)                         │
 ├─────────────────────────────────────────────────┤
@@ -82,7 +82,7 @@ Immersive audio capabilities:
 
 ## Use Cases
 
-Pill-Engine is suitable for:
+Pill is suitable for:
 
 - **3D Games**: First-person, third-person, and vehicle-based games
 - **Multiplayer Games**: Networked games with client-server architecture
@@ -101,4 +101,4 @@ The engine comes with several example projects:
 
 ## Next Steps
 
-Ready to start building with Pill-Engine? Head over to the [Setup Guide](/getting-started/setup) to get your development environment ready.
+Ready to start building with Pill? Head over to the [Setup Guide](/getting-started/setup) to get your development environment ready.

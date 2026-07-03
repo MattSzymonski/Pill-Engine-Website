@@ -1,6 +1,6 @@
 # ECS (Entity Component System)
 
-Pill-Engine is built around the Entity Component System (ECS) pattern, a powerful architectural approach for game development.
+Pill is built around the Entity Component System (ECS) pattern, a powerful architectural approach for game development.
 
 ## What is ECS?
 
@@ -55,7 +55,7 @@ Components are pure data structures that implement the `Component` trait. They r
 
 ### Built-in Components
 
-Pill-Engine provides several built-in components:
+Pill provides several built-in components:
 
 #### TransformComponent
 
@@ -272,7 +272,7 @@ engine.add_system("Physics", physics_system)?;
 
 ### Iterating Components
 
-Pill-Engine provides several iteration methods:
+Pill provides several iteration methods:
 
 #### Single Component
 

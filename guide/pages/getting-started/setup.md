@@ -1,6 +1,6 @@
 # Setup
 
-This guide will walk you through setting up Pill-Engine and creating your first project.
+This guide will walk you through setting up Pill and creating your first project.
 
 ## Prerequisites
 
@@ -78,7 +78,7 @@ PillLauncher.exe -a run -p <ENGINE-PATH>\Pill-Engine\examples\<EXAMPLE_NAME>
 
 ## Next Steps
 
-Now that you have Pill-Engine set up, learn about:
+Now that you have Pill set up, learn about:
 
 - [ECS (Entity Component System)](/getting-started/ecs) - Core architecture
 - [Resources](/getting-started/resources) - Managing assets

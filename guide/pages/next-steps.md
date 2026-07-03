@@ -1,6 +1,6 @@
 # Next Steps
 
-Congratulations on learning the basics of Pill-Engine! Here are some directions to take your game development further.
+Congratulations on learning the basics of Pill! Here are some directions to take your game development further.
 
 ## Building Game Features
 
@@ -311,7 +311,7 @@ pill_engine = { path = "../Pill-Engine/engine/pill_engine", features = ["net"] }
 
 ### Custom Shaders
 
-While Pill-Engine handles shaders internally, you can customize rendering:
+While Pill handles shaders internally, you can customize rendering:
 
 ```rust
 // Future: Custom shader support
@@ -491,7 +491,7 @@ fn my_system(engine: &mut Engine) -> Result<()> {
 
 ## What's Next?
 
-You now have the knowledge to build complete games with Pill-Engine. Here are some project ideas:
+You now have the knowledge to build complete games with Pill. Here are some project ideas:
 
 ### Beginner Projects
 

@@ -10,6 +10,62 @@ import './styles.css'
 export default {
   extends: DefaultTheme,
   enhanceApp(ctx: EnhanceAppContext) {
+    // ── Combined route-change handler: scroll-to-top + re-attach enlarge ──
+    const onRouteChange = (to: string) => {
+      if (!to.includes('#')) {
+        window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior });
+      }
+      setTimeout(enlargeMermaidDiagrams, 200);
+    };
+    ctx.router.onAfterRouteChange = onRouteChange;
+
+    // ── Click-to-enlarge Mermaid diagrams ────────────────────────────
+    function enlargeMermaidDiagrams() {
+      if (typeof window === 'undefined') return;
+      document.querySelectorAll('.mermaid').forEach((container) => {
+        const htmlContainer = container as HTMLElement;
+        if (htmlContainer.dataset.enlargeReady === 'true') return;
+        htmlContainer.dataset.enlargeReady = 'true';
+        htmlContainer.style.cursor = 'pointer';
+        htmlContainer.title = 'Click to enlarge';
+
+        htmlContainer.addEventListener('click', () => {
+          const svg = htmlContainer.querySelector('svg');
+          if (!svg) return;
+
+          const overlay = document.createElement('div');
+          overlay.id = 'mermaid-overlay';
+          overlay.innerHTML = `
+            <div class="mermaid-overlay-backdrop"></div>
+            <div class="mermaid-overlay-content">
+              ${svg.outerHTML}
+            </div>
+            <button class="mermaid-overlay-close" title="Close (Esc)">&times;</button>
+          `;
+
+          const closeModal = () => {
+            overlay.classList.remove('active');
+            setTimeout(() => overlay.remove(), 300);
+            document.removeEventListener('keydown', onKeyDown);
+          };
+
+          const onKeyDown = (event: KeyboardEvent) => {
+            if (event.key === 'Escape') closeModal();
+          };
+
+          overlay.querySelector('.mermaid-overlay-backdrop')!.addEventListener('click', closeModal);
+          overlay.querySelector('.mermaid-overlay-close')!.addEventListener('click', closeModal);
+          document.addEventListener('keydown', onKeyDown);
+
+          document.body.appendChild(overlay);
+          requestAnimationFrame(() => overlay.classList.add('active'));
+        });
+      });
+    }
+
+    // Run on initial load
+    enlargeMermaidDiagrams();
+
     // Scrolling progress indicator (shows how deep the user scrolled on the page)
     if (typeof window !== 'undefined') {
       try {
