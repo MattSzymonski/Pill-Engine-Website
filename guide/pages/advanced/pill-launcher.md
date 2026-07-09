@@ -29,18 +29,18 @@ flowchart TD
 
 **Component responsibilities:**
 
-| Component                 | Role                                                          |
-| ------------------------- | ------------------------------------------------------------- |
-| `main.rs`                 | Instantiates 8 action objects, passes to dispatcher           |
-| `actions/mod.rs`          | Defines the `Action` trait (name, description, register, run) |
-| `utils/cli.rs`            | Builds clap CLI from action objects, parses args, dispatches  |
-| `utils/native_target.rs`  | Builds and runs native executables via cargo                  |
-| `utils/wasm_target.rs`    | Builds WASM bundles via wasm-pack                             |
-| `utils/web_dev_server.rs` | Serves WASM builds with live reload                           |
-| `utils/workspace.rs`      | Manages engine/Cargo.toml workspace membership                |
-| `utils/assets.rs`         | Delegates to `pill_assets` crate for asset cooking            |
-| `utils/paths.rs`          | Resolves well-known paths (engine root, crate roots)          |
-| `utils/common.rs`         | Shared utilities: ANSI colors, cargo error parsing, timing    |
+| Component                 | Role                                                                                          |
+| ------------------------- | --------------------------------------------------------------------------------------------- |
+| `main.rs`                 | Instantiates 8 action objects, passes to dispatcher                                           |
+| `actions/mod.rs`          | Defines the `Action` trait (name, description, register, run)                                 |
+| `utils/cli.rs`            | Builds clap CLI from action objects, parses args, dispatches                                  |
+| `utils/native_target.rs`  | Builds and runs native executables via cargo                                                  |
+| `utils/wasm_target.rs`    | Builds WASM bundles via wasm-pack                                                             |
+| `utils/web_dev_server.rs` | Serves WASM builds with live reload                                                           |
+| `utils/workspace.rs`      | Manages engine/Cargo.toml workspace membership                                                |
+| `utils/assets.rs`         | Delegates to `pill_assets` crate for asset cooking                                            |
+| `utils/paths.rs`          | Resolves well-known paths (engine root, crate roots)                                          |
+| `utils/common.rs`         | Shared utilities: ANSI colors, cargo error parsing (experimental), timing, filesystem helpers |
 
 ## Environment Variables
 
@@ -48,11 +48,11 @@ flowchart TD
 
 These are intended for users to set:
 
-| Variable                          | Purpose                                  | Default                             |
-| --------------------------------- | ---------------------------------------- | ----------------------------------- |
-| `PILL_LAUNCHER_BIN`               | Override path to launcher binary         | Auto-discovered                     |
-| `PILL_TARGET_DIR`                 | Shared cargo target directory for builds | `engine/target_projects/<project>/` |
-| `PILL_LAUNCHER_EXPERIMENTAL_LOGS` | Enable parsed cargo error output         | Disabled                            |
+| Variable                          | Purpose                                                                             | Default                             |
+| --------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------- |
+| `PILL_LAUNCHER_BIN`               | Override path to launcher binary                                                    | Auto-discovered                     |
+| `PILL_LAUNCHER_EXPERIMENTAL_LOGS` | Enable parsed cargo error output (extracts actionable errors from raw cargo stderr) | Disabled                            |
+| `PILL_TARGET_DIR`                 | Shared cargo target directory for builds                                            | `engine/target_projects/<project>/` |
 
 ### Internal Variables (Set by Launcher)
 
@@ -65,6 +65,7 @@ These are set by the launcher when spawning child processes (game executables). 
 | `PILL_COMPILE_MODE`         | `run_project()`                   | The compile mode the game was built with               |
 | `PILL_STANDALONE_LAYOUT`    | `run_project()`                   | `development` or `packaged` — controls asset paths     |
 | `PILL_ENABLE_HOT_RELOAD`    | `run_project()`                   | `"1"` if hot-reload is active                          |
+| `PILL_HEADLESS`             | `run_project()`                   | `"1"` if `--headless` flag was passed                  |
 | `PROJECT_DIR`               | `run_project()`                   | Absolute path to the project directory                 |
 | `CARGO_TARGET_DIR`          | `build_project_in_workspace()`    | Per-project cargo target directory                     |
 | `CARGO_TERM_COLOR`          | `build_project_in_workspace()`    | `"always"` in hot-reload child to preserve colors      |
@@ -266,7 +267,8 @@ flowchart TD
     CONFIG --> WASM_PACK[wasm-pack build --release]
     WASM_PACK --> WASM_BINDGEN[wasm-bindgen]
     WASM_BINDGEN --> WASM_OPT[wasm-opt -Oz]
-    WASM_OPT --> FLATTEN[Copy artifacts to build/wasm/]
+    WASM_OPT --> ANALYZE[Optional: twiggy analysis]
+    ANALYZE --> FLATTEN[Copy artifacts to build/wasm/]
     FLATTEN --> ASSETS[Copy res/ assets]
 ```
 
@@ -283,6 +285,8 @@ flowchart TD
 - `codegen-units = 1` — maximize optimization potential
 - `panic = "abort"` — smaller panic handler
 - `strip = true` — strip debug symbols
+
+**Size analysis:** The `--wasm-analyze` flag runs `twiggy` on the final `.wasm` binary, producing a per-function and per-codegen-unit size breakdown. The `--max-wasm-size <KB>` flag (release only) fails the build if the `.wasm` exceeds the given limit.
 
 ## Development Web Server
 
@@ -340,14 +344,17 @@ PillLauncher build -p MyGame
 # Build native (release, clean assets)
 PillLauncher build -p MyGame -c release --clean
 
-# Build WASM with size budget
-PillLauncher build -p MyGame -t web -c release --max-wasm-size 500
+# Build WASM with size budget and analysis
+PillLauncher build -p MyGame -t web -c release --max-wasm-size 500 --wasm-analyze
 
-# Build WASM and analyze sizes
-PillLauncher build -p MyGame -t web -c release --wasm-analyze
+# Build native with headless mode (CI, benchmarks)
+PillLauncher build -p MyGame -c release --headless
 
 # Run with additional features
-PillLauncher run -p MyGame -c release --additional-features benchmark_window
+PillLauncher run -p MyGame -c release --additional-features project/benchmark_windowed
+
+# Run headless (no window)
+PillLauncher run -p MyGame -c release --headless
 
 # Run WASM on custom port
 PillLauncher run -p MyGame -t web --wasm-port 3000

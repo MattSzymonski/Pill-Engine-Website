@@ -47,19 +47,22 @@ A window opens with a floating, rotating pill model - your project is working.
 
 ### Common Commands
 
-| Command                                   | What it does                                   |
-| ----------------------------------------- | ---------------------------------------------- |
-| `PillLauncher create -n <name>`           | Scaffold a new project from template           |
-| `PillLauncher build -p <path>`            | Compile to native executable (debug)           |
-| `PillLauncher build -p <path> -c release` | Compile for release                            |
-| `PillLauncher build -p <path> -t web`     | Compile to WASM                                |
-| `PillLauncher run -p <path>`              | Build and launch (native)                      |
-| `PillLauncher run -p <path> -t web`       | Build WASM and start dev server                |
-| `PillLauncher assets -p <path>`           | Run asset pipeline on `res/`                   |
-| `PillLauncher cargo -p <path> -- check`   | Run `cargo check` in project context           |
-| `PillLauncher docs -o <dir>`              | Generate rustdoc for engine crates             |
-| `PillLauncher link -p <path>`             | Link project to engine workspace (IDE support) |
-| `PillLauncher unlink`                     | Remove linked project                          |
+| Command                                              | What it does                                   |
+| ---------------------------------------------------- | ---------------------------------------------- |
+| `PillLauncher create -n <name>`                      | Scaffold a new project from template           |
+| `PillLauncher build -p <path>`                       | Compile to native executable (debug)           |
+| `PillLauncher build -p <path> -c release`            | Compile for release                            |
+| `PillLauncher build -p <path> -t web`                | Compile to WASM                                |
+| `PillLauncher build -p <path> -t web --wasm-analyze` | Build WASM with size analysis                  |
+| `PillLauncher build -p <path> --headless`            | Build for headless mode (no window/GPU)        |
+| `PillLauncher run -p <path>`                         | Build and launch (native)                      |
+| `PillLauncher run -p <path> -t web`                  | Build WASM and start dev server                |
+| `PillLauncher run -p <path> --headless`              | Run in headless mode (benchmarking/CI)         |
+| `PillLauncher assets -p <path>`                      | Run asset pipeline on `res/`                   |
+| `PillLauncher cargo -p <path> -- check`              | Run `cargo check` in project context           |
+| `PillLauncher docs -o <dir>`                         | Generate rustdoc for engine crates             |
+| `PillLauncher link -p <path>`                        | Link project to engine workspace (IDE support) |
+| `PillLauncher unlink`                                | Remove linked project                          |
 
 ### Typical Development Workflow
 
@@ -112,22 +115,34 @@ MyGame/
 
 ### Common Errors
 
-| Error                                              | Cause                   | Fix                                                                     |
-| -------------------------------------------------- | ----------------------- | ----------------------------------------------------------------------- |
-| `PillLauncher binary not found`                    | Launcher not built      | `cargo build --release --manifest-path engine/pill_launcher/Cargo.toml` |
-| `--name <name> is required`                        | Missing project name    | `PillLauncher create -n MyGame`                                         |
-| `Project directory ... already exists`             | Duplicate create        | Choose a different name or remove the existing directory                |
-| `wasm-pack not found`                              | wasm-pack not installed | `cargo install wasm-pack`                                               |
-| `Standalone executable was not built successfully` | Compilation error       | Check cargo output for the actual error                                 |
-| `Address already in use` (port 8080)               | Stale dev server        | Kill lingering PillLauncher processes                                   |
+| Error                                              | Cause                     | Fix                                                                                                            |
+| -------------------------------------------------- | ------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| `PillLauncher binary not found`                    | Launcher not built        | `cargo build --release --manifest-path engine/pill_launcher/Cargo.toml`                                        |
+| `--name <name> is required`                        | Missing project name      | `PillLauncher create -n MyGame`                                                                                |
+| `Project directory ... already exists`             | Duplicate create          | Choose a different name or remove the existing directory                                                       |
+| `wasm-pack not found`                              | wasm-pack not installed   | `cargo install wasm-pack`                                                                                      |
+| `Standalone executable was not built successfully` | Compilation error         | Check cargo output for the actual error                                                                        |
+| `Address already in use` (port 8080)               | Stale dev server          | Kill lingering PillLauncher processes (`kill_server_on_port` in CI)                                            |
+| `The wasm32-unknown-unknown are not supported…`    | Missing getrandom feature | Ensure `PILL_LAUNCHER_EXPERIMENTAL_LOGS` is not causing issues, or add `wasm_js` feature to getrandom for WASM |
 
 ### Build Modes
 
-| Mode       | Flag                 | Use case                                 |
-| ---------- | -------------------- | ---------------------------------------- |
-| Debug      | `-c debug` (default) | Fast iteration, no optimizations         |
-| Release    | `-c release`         | Shipping, benchmarking, size measurement |
-| Hot-reload | `-c hot-reload`      | Edit-compile-reload without restarting   |
+| Mode       | Flag                 | Use case                                              |
+| ---------- | -------------------- | ----------------------------------------------------- |
+| Debug      | `-c debug` (default) | Fast iteration, no optimizations                      |
+| Release    | `-c release`         | Shipping, benchmarking, size measurement              |
+| Hot-reload | `-c hot-reload`      | Edit-compile-reload without restarting                |
+| Headless   | `--headless`         | Build without windowing/GPU (CI, headless benchmarks) |
+
+### Advanced Build Flags
+
+| Flag                        | Purpose                                                |
+| --------------------------- | ------------------------------------------------------ |
+| `--headless`                | Enable headless mode for native builds (no window/GPU) |
+| `--additional-features <f>` | Pass comma-separated Cargo features to the project     |
+| `--wasm-analyze`            | Run `twiggy` on the final `.wasm` for size breakdown   |
+| `--max-wasm-size <KB>`      | Fail the build if the `.wasm` exceeds the given size   |
+| `--wasm-port <port>`        | Override the dev server port (default 8080)            |
 
 ### Hot Reload
 

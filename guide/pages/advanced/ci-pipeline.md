@@ -13,7 +13,7 @@ Pill is a game engine with many moving parts: a launcher CLI, native and WASM bu
 | Code style drift          | `cargo fmt` enforces consistent formatting on every push        |
 | Silent bugs               | `cargo clippy -D warnings` treats all lints as errors           |
 | Broken builds             | Every example project is compiled in release mode               |
-| WASM size bloat           | Budget check fails if the `.wasm` binary exceeds 0.4990 MB      |
+| WASM size bloat           | Budget check fails if the `.wasm` binary exceeds 0.4999 MB      |
 | Performance regressions   | City benchmark runs headlessly, 3× per push                     |
 | Launcher regressions      | Full action suite (create/build/run/docs/link) exercised weekly |
 | Environment inconsistency | Docker image provides identical build environment everywhere    |
@@ -78,7 +78,7 @@ The YAML workflows define **when** and **where** tests run. The shell scripts de
 devops/
 ├── common.sh                       # Shared library sourced by all test scripts
 ├── tests/
-│   ├── Dockerfile                  # Alpine-based CI image definition
+│   ├── Dockerfile                  # Debian Bookworm-based CI image definition
 │   ├── run_basic_tests.sh          # 5 fast checks (fmt, clippy, builds, benchmark)
 │   ├── run_examples_tests.sh       # Builds all example projects
 │   └── run_pill_launcher_tests.sh  # Exhaustive launcher action tests
@@ -155,12 +155,12 @@ After the build, the script:
 
 If the budget is exceeded:
 ```
-FAIL WASM size budget - 0.5234 MB exceeds 0.4990 MB limit
+FAIL WASM size budget - 0.5234 MB exceeds 0.4999 MB limit
 ```
 
 This budget was chosen because the Pill WebGPU runtime, compiled with `opt-level = "z"` + `lto = "fat"` + `wasm-opt -Oz`, fits comfortably under 0.5 MiB. Exceeding it means something significant was added - a new dependency, a codegen regression, or a missing optimization - and needs investigation.
 
-The launcher itself also has a `--max-wasm-size <KB>` flag enforced in `wasm_target.rs` (release builds only), which `bail!`s if the binary exceeds the given limit. The CI script passes a generous value (`--max-wasm-size 99999`) to avoid double-failing, relying on its own `wc -c` measurement for the hard gate. A companion flag `--wasm-analyze` runs `twiggy` on the final `.wasm` for a detailed size breakdown by function and codegen unit.
+The launcher also supports `--max-wasm-size <KB>` (enforced in `wasm_target.rs`, release only) and `--wasm-analyze` (runs `twiggy` for per-function size breakdown).
 
 **4. Dev server smoke test:** The script starts `PillLauncher run -t web` in the background, waits up to 30 seconds for the server to bind on port 8080, and uses `curl` to verify three key files are served:
 - `/` (index.html)
@@ -175,17 +175,19 @@ The performance benchmark measures frame-time consistency by running `examples/c
 
 **How it works:**
 
-1. **Build once:** `PillLauncher build -p examples/city -c release --clean --additional-features <feature>`
+1. **Build once:** `PillLauncher build -p examples/city -c release --clean --headless --additional-features project/benchmark_headless` (or `project/benchmark_windowed` for windowed)
 2. **Run 3 times:** The compiled executable is launched directly (bypassing PillLauncher) to avoid launcher overhead in the measurements
 3. **Extract JSON:** Each run prints a JSON line with per-frame stats - the script parses `average_ms`, `median_ms`, `min_ms`, `max_ms`, `range_ms`, and `stddev_ms`
 4. **Aggregate:** Across the 3 runs, the script computes min, max, and average for each statistic
 
 **Modes:**
 
-| Mode     | Feature flag         | When used                                                  |
-| -------- | -------------------- | ---------------------------------------------------------- |
-| Windowed | `benchmark_window`   | Windows (always), Linux/macOS when `$DISPLAY` is available |
-| Headless | `benchmark_headless` | CI/Docker (no display), fallback if GPU init fails         |
+| Mode     | Feature flag                 | When used                                                  |
+| -------- | ---------------------------- | ---------------------------------------------------------- |
+| Windowed | `project/benchmark_windowed` | Windows (always), Linux/macOS when `$DISPLAY` is available |
+| Headless | `project/benchmark_headless` | CI/Docker (no display), fallback if GPU init fails         |
+
+The `--headless` launcher flag automatically enables `pill_native/headless`, `pill_runtime/headless`, and `pill_engine/headless` features, while `--additional-features` adds project-level features like `project/benchmark_headless`.
 
 The script auto-detects the environment: Windows uses windowed mode; Linux/macOS checks for `$DISPLAY` / `$WAYLAND_DISPLAY`, tries windowed first, then falls back to headless if the GPU is unavailable.
 
@@ -225,10 +227,10 @@ A run is considered passed if at least one of the three iterations completes suc
 
 **Examples tested:**
 
-| Type              | Projects                                                                                                                            |
-| ----------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
-| Pill projects     | `examples/cube`, `examples/floating_pills`, `examples/italian_brainrot`, `examples/city`, `examples/physics`, `examples/pill_tunel` |
-| Standalone crates | `examples/net_minimal/client`, `examples/net_minimal/server`                                                                        |
+| Type              | Projects                                                                                                        |
+| ----------------- | --------------------------------------------------------------------------------------------------------------- |
+| Pill projects     | `examples/cube`, `examples/floating_pills`, `examples/italian_brainrot`, `examples/city`, `examples/pill_tunel` |
+| Standalone crates | `examples/net_minimal/client`, `examples/net_minimal/server`                                                    |
 
 Each Pill project is built via `PillLauncher build -p <project> -c release`. After each build, `print_size_report()` emits a binary size JSON for the `build/release/data/` directory - the same format as the native build check above. Standalone crates are built directly with `cargo build --release`.
 
@@ -281,12 +283,33 @@ Each GitHub Actions job runs in a fresh virtual machine. Installing Rust, system
 
 Defined in `devops/tests/Dockerfile`:
 
-- **Base:** `rust:1.92-alpine` (small, fast)
-- **System packages:** `mold` (fast linker), `alsa-lib-dev`, `eudev-dev`, `plantuml`, `openjdk21-jre`
+- **Base:** `rust:1.92-slim-bookworm` (Debian Bookworm, glibc)
+- **System packages:** `mold` (fast linker), `clang` (C linker), `libasound2-dev` (audio), `libudev-dev` (gamepad), `pkg-config`, `plantuml`, `curl`, `git`, `ca-certificates`
 - **Rust components:** `rustfmt`, `clippy`, `wasm32-unknown-unknown` target
-- **Tools:** `wasm-pack`, Slang shader compiler (`slangc`)
+- **Tools:** `wasm-pack` (v0.13.1), Slang shader compiler (`slangc` v2025.21.2)
+
+**Entrypoint:** On container start, the entrypoint script:
+1. Touches `.wgsl` shader files so `build.rs` skips HLSL→WGSL conversion
+2. Fixes any absolute host paths in `engine/Cargo.toml` (left over from Windows builds)
+
+PillLauncher itself is pre-compiled into the image — see [Prebuilt Pill Launcher](#prebuilt-pill-launcher) below.
 
 The image is rebuilt automatically when the Dockerfile changes and pushed to `ghcr.io/mattszymonski/pill-ci:latest`.
+
+## Prebuilt Pill Launcher
+
+The CI Docker image uses a **multi-stage build** that compiles PillLauncher during `docker build` and bakes the binary directly into the image. This eliminates the ~20-second launcher compilation step that used to run on every container start.
+
+**How it works:**
+
+1. **Stage 1 (builder):** Copies the `engine/` source into a Rust container, runs `cargo build --release` for `pill_launcher`, and produces the binary at a known path.
+2. **Stage 2 (runtime):** Copies only the compiled `PillLauncher` binary from Stage 1 into `/usr/local/bin/PillLauncher` and sets `ENV PILL_LAUNCHER_BIN=/usr/local/bin/PillLauncher`.
+3. **At container start:** The entrypoint script no longer builds anything — it only touches WGSL shaders and fixes stale Cargo.toml paths (both instant operations).
+4. **Test scripts:** `common.sh` reads `$PILL_LAUNCHER_BIN` first, so all test scripts discover the pre-built binary immediately with zero setup time.
+
+**When the image rebuilds:** The `ci-build-image.yml` workflow triggers whenever the Dockerfile, the PillLauncher source (`engine/pill_launcher/**`), or the workflow itself changes. This ensures the baked-in binary is always up to date with the latest launcher code.
+
+**Result:** Container startup went from ~20s (launcher build) to <1s (path fixup only). Tests begin executing immediately after the image is pulled.
 
 ## Running the Pipeline Locally
 
@@ -335,7 +358,7 @@ bash tests/run_examples_tests.sh
 
 **Prerequisites:**
 ```bash
-sudo apt-get install -y pkg-config libasound2-dev libudev-dev plantuml mold curl
+sudo apt-get install -y pkg-config libasound2-dev libudev-dev plantuml mold clang curl
 # Install Rust: https://rustup.rs
 cargo install wasm-pack
 ```
@@ -344,11 +367,15 @@ cargo install wasm-pack
 ```bash
 git clone https://github.com/MattSzymonski/Pill-Engine
 cd Pill-Engine
+
+# Build the launcher (required by all test scripts)
 cargo build --release --manifest-path engine/pill_launcher/Cargo.toml
-cd devops && bash tests/run_basic_tests.sh
+
+# Run tests from devops directory
+bash devops/tests/run_basic_tests.sh
 ```
 
-**Headless benchmarking:** The performance benchmark auto-detects missing `$DISPLAY` and uses `--additional-features benchmark_headless`.
+**Headless benchmarking:** The performance benchmark auto-detects missing `$DISPLAY` and `$WAYLAND_DISPLAY`, then uses `--headless` mode. No xvfb needed.
 
 ### macOS
 
@@ -372,6 +399,11 @@ docker run --rm -v "${PWD}:/src" -w /src `
     bash devops/tests/run_basic_tests.sh
 ```
 
+**Windows (CMD):**
+```cmd
+docker run --rm -v "%cd%:/src" -w /src ghcr.io/mattszymonski/pill-ci:latest bash devops/tests/run_basic_tests.sh
+```
+
 **macOS:**
 ```bash
 docker run --rm -v "$PWD:/src" -w /src \
@@ -383,14 +415,27 @@ docker run --rm -v "$PWD:/src" -w /src \
 - `--rm` - remove container after exit
 - `-v "$PWD:/src"` - mount current directory as `/src` inside container
 - `-w /src` - set working directory
-- `ghcr.io/mattszymonski/pill-ci:latest` - pre-built CI image
+- `ghcr.io/mattszymonski/pill-ci:latest` - pre-built CI image with PillLauncher already compiled
 - Remaining args - the test script to run
 
 **Building the image locally (optional):**
 ```bash
+# Linux / macOS / Git Bash
 docker build -t pill-ci -f devops/tests/Dockerfile .
 docker run --rm -v "$PWD:/src" -w /src pill-ci bash devops/tests/run_basic_tests.sh
 ```
+```powershell
+# Windows PowerShell
+docker build -t pill-ci -f devops/tests/Dockerfile .
+docker run --rm -v "${PWD}:/src" -w /src pill-ci bash devops/tests/run_basic_tests.sh
+```
+```cmd
+REM Windows CMD
+docker build -t pill-ci -f devops/tests/Dockerfile .
+docker run --rm -v "%cd%:/src" -w /src pill-ci bash devops/tests/run_basic_tests.sh
+```
+
+**Note for Windows users:** PillLauncher is pre-compiled into the image at `/usr/local/bin/PillLauncher` — no runtime compilation occurs. The previous "Text file busy" issue (caused by building the launcher on a Windows-mounted volume) is eliminated.
 
 ## Understanding the Results
 
@@ -515,9 +560,22 @@ bash tests/run_pill_launcher_tests.sh create
 ### Run Inside Docker
 
 ```bash
+# Linux / macOS / Git Bash
 docker run --rm -v "$PWD:/src" -w /src \
     ghcr.io/mattszymonski/pill-ci:latest \
     bash devops/tests/run_basic_tests.sh
+```
+
+```powershell
+# Windows PowerShell
+docker run --rm -v "${PWD}:/src" -w /src `
+    ghcr.io/mattszymonski/pill-ci:latest `
+    bash devops/tests/run_basic_tests.sh
+```
+
+```cmd
+REM Windows CMD
+docker run --rm -v "%cd%:/src" -w /src ghcr.io/mattszymonski/pill-ci:latest bash devops/tests/run_basic_tests.sh
 ```
 
 ### Debug a Failing Test
@@ -531,9 +589,12 @@ file engine/pill_launcher/target/release/PillLauncher
 engine/pill_launcher/target/release/PillLauncher --version
 
 # Compare local vs CI by running in Docker
+# Linux / macOS / Git Bash:
 docker run --rm -v "$PWD:/src" -w /src \
     ghcr.io/mattszymonski/pill-ci:latest \
     bash devops/tests/run_basic_tests.sh
+# Windows CMD:
+docker run --rm -v "%cd%:/src" -w /src ghcr.io/mattszymonski/pill-ci:latest bash devops/tests/run_basic_tests.sh
 ```
 
 ### Generate Documentation
