@@ -85,6 +85,15 @@ export default withMermaid(
         {
           text: 'Engine Development',
           items: [
+            {
+              text: 'Contributing',
+              link: '/contributing/contributing',
+              items: [
+                { text: 'Coding Standards', link: '/contributing/coding-standards' },
+                { text: 'Code of Conduct', link: '/contributing/code-of-conduct' },
+              ]
+            },
+           
             { text: 'CI Pipeline', link: '/advanced/ci-pipeline' }
           ]
         }
