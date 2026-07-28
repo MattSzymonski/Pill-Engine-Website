@@ -1,73 +1,84 @@
-import React, { useState, useEffect } from 'react';
-import { Github } from 'lucide-react';
+import { useState, useEffect } from 'react';
+
+const NAV_LINKS = [
+    { label: 'Guide', href: '/guide' },
+    { label: 'Examples', href: 'https://github.com/MattSzymonski/Pill-Engine/tree/main/examples' },
+    { label: 'GitHub', href: 'https://github.com/MattSzymonski/Pill-Engine' },
+];
 
 const Navbar = () => {
-    const [theme, setTheme] = useState('dark');
+    const [scrolled, setScrolled] = useState(false);
+    const [mobileOpen, setMobileOpen] = useState(false);
 
     useEffect(() => {
-        // Check initial theme
-        const isDark = document.documentElement.classList.contains('dark');
-        setTheme(isDark ? 'dark' : 'light');
+        const handleScroll = () => setScrolled(window.scrollY > 20);
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
-    const toggleTheme = (e) => {
-        e.preventDefault(); // Prevent navigation
-        const newTheme = theme === 'dark' ? 'light' : 'dark';
-        setTheme(newTheme);
-
-        // Support View Transitions API for smooth theme change
-        if (!document.startViewTransition) {
-            document.documentElement.classList.toggle('dark');
-            localStorage.setItem('theme', newTheme);
-            return;
-        }
-
-        document.startViewTransition(() => {
-            document.documentElement.classList.toggle('dark');
-            localStorage.setItem('theme', newTheme);
-        });
-    };
-
     return (
-        <nav className="fixed top-0 left-0 right-0 z-50 bg-black/50 backdrop-blur-md border-b border-gray-800/50">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex items-center justify-between h-16">
-                    {/* Logo/Brand - Clickable theme toggle */}
-                    <div className="flex-shrink-0">
-                        <span
-                            onClick={toggleTheme}
-                            className="pill-logo-text text-2xl font-bold text-white hover:text-pill-primary cursor-pointer transition-all duration-300 hover:scale-105 inline-block select-none"
-                            title="Click to toggle theme"
-                        >
-                            pill
-                        </span>
-                    </div>
-
-                    {/* Navigation Links */}
-                    <div className="flex items-center gap-8">
-                        <a
-                            href="/guide"
-                            className="text-gray-300 hover:text-white transition-colors duration-300 font-medium"
-                        >
-                            Guide
-                        </a>
-                        <a
-                            href="https://github.com/MattSzymonski/Pill-Engine/tree/main/examples"
-                            className="text-gray-300 hover:text-white transition-colors duration-300 font-medium"
-                        >
-                            Examples
-                        </a>
-                        <a
-                            href="https://github.com/MattSzymonski/Pill-Engine"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-gray-300 hover:text-pill-red transition-colors duration-300"
-                        >
-                            <Github className="w-6 h-6" />
-                        </a>
-                    </div>
+        <nav
+            id="navbar"
+            className={`fixed top-3 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-24px)] max-w-[1280px] rounded-xl navbar-glass ${scrolled ? 'navbar-scrolled' : ''}`}
+        >
+            <div className="flex items-center justify-between h-14 px-5 max-w-[1440px] mx-auto">
+                {/* Logo */}
+                <div className="flex items-center gap-3">
+                    <a href="/" className="flex items-center gap-2.5 group">
+                        <img
+                            src="/pill_logo.svg"
+                            alt="Pill Engine"
+                            className="h-12 w-12 transition-transform duration-200 group-hover:scale-105"
+                        />
+                    </a>
                 </div>
+
+                {/* Desktop nav links */}
+                <div className="hidden md:flex items-center gap-1">
+                    {NAV_LINKS.map((link) => (
+                        <a
+                            key={link.label}
+                            href={link.href}
+                            className="px-3.5 py-1.5 text-[13px] font-medium text-white/50 hover:text-white rounded-md hover:bg-white/[0.06] transition-all duration-150"
+                        >
+                            {link.label}
+                        </a>
+                    ))}
+                </div>
+
+                {/* Mobile hamburger - right side */}
+                <button
+                    type="button"
+                    onClick={() => setMobileOpen(!mobileOpen)}
+                    className="md:hidden flex flex-col gap-1 p-1.5"
+                    aria-label="Toggle menu"
+                >
+                    <div className="w-4 h-px bg-white/60 transition-all" />
+                    <div className="w-4 h-px bg-white/60 transition-all" />
+                    <div className="w-4 h-px bg-white/60 transition-all" />
+                </button>
             </div>
+
+            {/* Mobile menu */}
+            {mobileOpen && (
+                <div className="md:hidden border-t border-white/[0.06] px-5 py-4 space-y-1">
+                    {NAV_LINKS.map((link) => (
+                        <a
+                            key={link.label}
+                            href={link.href}
+                            className="block px-3 py-2 text-sm font-medium text-white/50 hover:text-white rounded-md hover:bg-white/[0.06] transition-all duration-150"
+                        >
+                            {link.label}
+                        </a>
+                    ))}
+                    <a
+                        href="/guide"
+                        className="block px-3 py-2 text-sm font-semibold text-white bg-brand-500 hover:bg-brand-400 rounded-md transition-all duration-150 text-center mt-2"
+                    >
+                        Get Started
+                    </a>
+                </div>
+            )}
         </nav>
     );
 };

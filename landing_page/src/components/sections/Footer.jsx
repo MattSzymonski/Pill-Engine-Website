@@ -1,104 +1,98 @@
-import React from 'react';
-import { Github, Twitter, MessageCircle } from 'lucide-react';
+import { Github } from 'lucide-react';
 
 const Footer = () => {
     const currentYear = new Date().getFullYear();
 
+    const footerLinks = {
+        Product: [
+            { label: 'Guide', href: '/guide' },
+            { label: 'Examples', href: 'https://github.com/MattSzymonski/Pill-Engine/tree/main/examples' },
+            { label: 'GitHub', href: 'https://github.com/MattSzymonski/Pill-Engine' },
+        ],
+        Community: [
+            { label: 'GitHub', href: 'https://github.com/MattSzymonski/Pill-Engine' },
+            { label: 'Contributing', href: 'https://pillengine.org/guide/contributing/contributing.html' },
+        ],
+    };
+
     return (
-        <footer className="relative py-16 px-4 sm:px-6 lg:px-8 border-t border-gray-800">
-            <div className="max-w-6xl mx-auto relative z-10">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+        <footer className="relative py-16 px-4 sm:px-6 lg:px-8 border-t border-white/[0.06]">
+            <div className="max-w-6xl mx-auto">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16">
                     {/* Brand */}
-                    <div>
-                        <h3 className="text-3xl font-bold mb-4 text-pill-red pill-logo-text">
-                            pill
-                        </h3>
-                        <p className="text-gray-300 mb-6 max-w-md">
-                            Modern, 100% free and blazingly fast game engine. Building the future of game development.
+                    <div className="col-span-2 md:col-span-1">
+                        <a href="/" className="flex items-center gap-2.5 mb-4">
+                            <img
+                                src="/pill_logo.svg"
+                                alt="Pill Engine"
+                                className="h-6 w-6"
+                            />
+                            <span className="pill-logo-text text-lg text-white">
+                                Pill
+                            </span>
+                        </a>
+                        <p className="text-sm text-gray-500 mb-4 max-w-xs leading-relaxed">
+                            Modern, free and blazingly fast game engine. Building the future of game development.
                         </p>
-                        <div className="flex gap-4">
-                            <a href="https://github.com/MattSzymonski/Pill-Engine" target="_blank" rel="noopener noreferrer"
-                                className="text-gray-300 hover:text-pill-red transition-colors duration-300">
-                                <Github className="w-6 h-6" />
-                            </a>
-                            {/* <a href="#" className="text-gray-300 hover:text-pill-red-light-light transition-colors duration-300">
-                                <Twitter className="w-6 h-6" />
-                            </a>
-                            <a href="#" className="text-gray-300 hover:text-rust-orange transition-colors duration-300">
-                                <MessageCircle className="w-6 h-6" />
-                            </a> */}
+                        <a
+                            href="https://github.com/MattSzymonski/Pill-Engine"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-gray-300 transition-colors duration-200"
+                        >
+                            <Github className="w-4 h-4" />
+                            GitHub
+                        </a>
+                    </div>
+
+                    {/* Link columns */}
+                    {Object.entries(footerLinks).map(([category, links]) => (
+                        <div key={category}>
+                            <h4 className="text-sm font-semibold text-white mb-4">
+                                {category}
+                            </h4>
+                            <ul className="space-y-3">
+                                {links.map((link) => (
+                                    <li key={link.label}>
+                                        <a
+                                            href={link.href}
+                                            className="text-sm text-gray-500 hover:text-gray-300 transition-colors duration-200"
+                                        >
+                                            {link.label}
+                                        </a>
+                                    </li>
+                                ))}
+                            </ul>
                         </div>
-                    </div>
+                    ))}
 
-                    {/* Resources */}
-                    <div className="flex flex-col items-start md:items-center">
-                        <h4 className="text-lg font-semibold mb-4 text-white">Resources</h4>
-                        <ul className="space-y-3">
-                            <li>
-                                <a href="#" className="text-gray-300 hover:text-pill-red transition-colors duration-300">
-                                    Guide
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" className="text-gray-300 hover:text-pill-red transition-colors duration-300">
-                                    Examples
-                                </a>
-                            </li>
-                            {/* <li>
-                                <a href="#" className="text-gray-300 hover:text-pill-red transition-colors duration-300">
-                                    API Reference
-                                </a>
-                            </li> */}
-                            {/* <li>
-                                <a href="#" className="text-gray-300 hover:text-pill-red transition-colors duration-300">
-                                    Tutorials
-                                </a>
-                            </li> */}
-                        </ul>
-                    </div>
-
-                    {/* Community */}
-                    <div className="flex flex-col items-start md:items-end">
-                        <h4 className="text-lg font-semibold mb-4 text-white">Community</h4>
-                        <ul className="space-y-3 text-left md:text-right">
-                            <li>
-                                <a href="https://github.com/pill-engine" target="_blank" rel="noopener noreferrer"
-                                    className="text-gray-300 hover:text-pill-red transition-colors duration-300">
-                                    GitHub
-                                </a>
-                            </li>
-                            {/* <li>
-                                <a href="#" className="text-gray-300 hover:text-pill-red transition-colors duration-300">
-                                    Discord
-                                </a>
-                            </li> */}
-                            <li>
-                                <a href="#" className="text-gray-300 hover:text-pill-red transition-colors duration-300">
-                                    Contributing
-                                </a>
-                            </li>
-                            {/* <li>
-                                <a href="#" className="text-gray-300 hover:text-pill-red transition-colors duration-300">
-                                    Showcase
-                                </a>
-                            </li> */}
-                        </ul>
+                    {/* Newsletter / Subscribe */}
+                    <div>
+                        <h4 className="text-sm font-semibold text-white mb-4">
+                            Stay updated
+                        </h4>
+                        <p className="text-sm text-gray-500 mb-3 leading-relaxed">
+                            Get product updates and news. No spam.
+                        </p>
+                        <a
+                            href="https://github.com/MattSzymonski/Pill-Engine"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-white/[0.05] border border-white/[0.08] rounded-lg hover:bg-white/[0.08] transition-all duration-200"
+                        >
+                            <Github className="w-4 h-4" />
+                            Star on GitHub
+                        </a>
                     </div>
                 </div>
 
                 {/* Bottom bar */}
-                <div className="pt-8 border-t border-gray-800">
-                    <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-                        <p className="text-gray-300 text-sm">
-                            © {currentYear} Pill. Fueled by passion.
-                        </p>
-
-                    </div>
+                <div className="pt-8 border-t border-white/[0.06] flex flex-col sm:flex-row justify-between items-center gap-4">
+                    <p className="text-sm text-gray-500">
+                        &copy; {currentYear} Pill. Fueled by passion.
+                    </p>
                 </div>
             </div>
-
-            {/* Decorative line */}
-            <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-pill-red to-transparent opacity-50"></div>
         </footer>
     );
 };

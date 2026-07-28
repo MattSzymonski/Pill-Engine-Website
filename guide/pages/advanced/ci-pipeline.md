@@ -292,7 +292,7 @@ Defined in `devops/tests/Dockerfile`:
 1. Touches `.wgsl` shader files so `build.rs` skips HLSL→WGSL conversion
 2. Fixes any absolute host paths in `engine/Cargo.toml` (left over from Windows builds)
 
-PillLauncher itself is pre-compiled into the image — see [Prebuilt Pill Launcher](#prebuilt-pill-launcher) below.
+PillLauncher itself is pre-compiled into the image - see [Prebuilt Pill Launcher](#prebuilt-pill-launcher) below.
 
 The image is rebuilt automatically when the Dockerfile changes and pushed to `ghcr.io/mattszymonski/pill-ci:latest`.
 
@@ -304,7 +304,7 @@ The CI Docker image uses a **multi-stage build** that compiles PillLauncher duri
 
 1. **Stage 1 (builder):** Copies the `engine/` source into a Rust container, runs `cargo build --release` for `pill_launcher`, and produces the binary at a known path.
 2. **Stage 2 (runtime):** Copies only the compiled `PillLauncher` binary from Stage 1 into `/usr/local/bin/PillLauncher` and sets `ENV PILL_LAUNCHER_BIN=/usr/local/bin/PillLauncher`.
-3. **At container start:** The entrypoint script no longer builds anything — it only touches WGSL shaders and fixes stale Cargo.toml paths (both instant operations).
+3. **At container start:** The entrypoint script no longer builds anything - it only touches WGSL shaders and fixes stale Cargo.toml paths (both instant operations).
 4. **Test scripts:** `common.sh` reads `$PILL_LAUNCHER_BIN` first, so all test scripts discover the pre-built binary immediately with zero setup time.
 
 **When the image rebuilds:** The `ci-build-image.yml` workflow triggers whenever the Dockerfile, the PillLauncher source (`engine/pill_launcher/**`), or the workflow itself changes. This ensures the baked-in binary is always up to date with the latest launcher code.
@@ -435,7 +435,7 @@ docker build -t pill-ci -f devops/tests/Dockerfile .
 docker run --rm -v "%cd%:/src" -w /src pill-ci bash devops/tests/run_basic_tests.sh
 ```
 
-**Note for Windows users:** PillLauncher is pre-compiled into the image at `/usr/local/bin/PillLauncher` — no runtime compilation occurs. The previous "Text file busy" issue (caused by building the launcher on a Windows-mounted volume) is eliminated.
+**Note for Windows users:** PillLauncher is pre-compiled into the image at `/usr/local/bin/PillLauncher` - no runtime compilation occurs. The previous "Text file busy" issue (caused by building the launcher on a Windows-mounted volume) is eliminated.
 
 ## Understanding the Results
 

@@ -1,6 +1,5 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-    darkMode: 'class',
     content: [
         "./index.html",
         "./src/**/*.{js,ts,jsx,tsx}",
@@ -8,21 +7,29 @@ export default {
     theme: {
         extend: {
             colors: {
-                // Theme-aware colors (automatically switch with light/dark)
-                'pill-primary': 'var(--pill-primary)',
-                'pill-primary-light': 'var(--pill-primary-light)',
-                'pill-primary-dark': 'var(--pill-primary-dark)',
-                'pill-accent': 'var(--pill-accent)',
-
-                // Legacy names for backward compatibility
-                'pill-red': 'var(--pill-primary)',
-                'pill-red-light': 'var(--pill-primary-light)',
-                'pill-red-dark': 'var(--pill-primary-dark)',
-                'pill-blue': 'var(--pill-primary)',
-                'pill-blue-light': 'var(--pill-primary-light)',
-                'pill-blue-dark': 'var(--pill-primary-dark)',
-                'rust-orange': 'var(--pill-accent)',
-            }
+                brand: {
+                    50: '#fff5f5',
+                    100: '#ffe0e0',
+                    200: '#ffc2c2',
+                    300: '#ff9494',
+                    400: '#ff6363',
+                    500: '#ff4444',
+                    600: '#e62e2e',
+                    700: '#c41c1c',
+                    800: '#a31818',
+                    900: '#871919',
+                },
+                surface: {
+                    DEFAULT: '#0A0A0A',
+                    elevated: '#111111',
+                    hover: '#1A1A1A',
+                    border: 'rgba(255,255,255,0.06)',
+                    'border-hover': 'rgba(255,255,255,0.12)',
+                },
+            },
+            fontFamily: {
+                sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+            },
         },
     },
     plugins: [],

@@ -65,13 +65,13 @@ layout: doc
 
 ## Examples
 
-- **Trucks** — vehicle physics and controls.
-- **Floating-Pills** — basic 3D demo and rendering.
-- **Net-Minimal** — shows networking basics.
+- **Trucks** - vehicle physics and controls.
+- **Floating-Pills** - basic 3D demo and rendering.
+- **Net-Minimal** - shows networking basics.
 
 ## Want more juice?
 
-Try the Trucks example (`examples/Trucks`) — it shows physics, camera, materials, and optional networking.
+Try the Trucks example (`examples/Trucks`) - it shows physics, camera, materials, and optional networking.
 
 If you'd like, I can further:
 
@@ -81,4 +81,4 @@ If you'd like, I can further:
 
 ***
 
-Feel free to tell me which of the above you'd like me to add next — screenshots, tutorials, or a prettier hero image.
+Feel free to tell me which of the above you'd like me to add next - screenshots, tutorials, or a prettier hero image.

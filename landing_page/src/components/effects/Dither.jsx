@@ -25,147 +25,98 @@ uniform int isDarkTheme;
 uniform sampler2D patternTexture;
 uniform vec2 textureSize;
 
-const float MIN_WIDTH = 300.0;
-const float MAX_WIDTH = 1920.0;
-const float MIN_SCALE = 1.0;
-const float MAX_SCALE = 1.5;
-
-vec4 mod289(vec4 x) { return x - floor(x * (1.0/289.0)) * 289.0; }
-vec4 permute(vec4 x) { return mod289(((x * 34.0) + 1.0) * x); }
-vec4 taylorInvSqrt(vec4 r) { return 1.79284291400159 - 0.85373472095314 * r; }
-vec2 fade(vec2 t) { return t*t*t*(t*(t*6.0-15.0)+10.0); }
-
-float cnoise(vec2 P) {
-  vec4 Pi = floor(P.xyxy) + vec4(0.0,0.0,1.0,1.0);
-  vec4 Pf = fract(P.xyxy) - vec4(0.0,0.0,1.0,1.0);
-  Pi = mod289(Pi);
-  vec4 ix = Pi.xzxz;
-  vec4 iy = Pi.yyww;
-  vec4 fx = Pf.xzxz;
-  vec4 fy = Pf.yyww;
-  vec4 i = permute(permute(ix) + iy);
-  vec4 gx = fract(i * (1.0/41.0)) * 2.0 - 1.0;
-  vec4 gy = abs(gx) - 0.5;
-  vec4 tx = floor(gx + 0.5);
-  gx = gx - tx;
-  vec2 g00 = vec2(gx.x, gy.x);
-  vec2 g10 = vec2(gx.y, gy.y);
-  vec2 g01 = vec2(gx.z, gy.z);
-  vec2 g11 = vec2(gx.w, gy.w);
-  vec4 norm = taylorInvSqrt(vec4(dot(g00,g00), dot(g01,g01), dot(g10,g10), dot(g11,g11)));
-  g00 *= norm.x; g01 *= norm.y; g10 *= norm.z; g11 *= norm.w;
-  float n00 = dot(g00, vec2(fx.x, fy.x));
-  float n10 = dot(g10, vec2(fx.y, fy.y));
-  float n01 = dot(g01, vec2(fx.z, fy.z));
-  float n11 = dot(g11, vec2(fx.w, fy.w));
-  vec2 fade_xy = fade(Pf.xy);
-  vec2 n_x = mix(vec2(n00, n01), vec2(n10, n11), fade_xy.x);
-  return 2.3 * mix(n_x.x, n_x.y, fade_xy.y);
+// --- Noise functions ---
+float hash(vec2 p) {
+    return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453);
 }
 
-const int OCTAVES = 4;
+float noise(vec2 p) {
+    vec2 i = floor(p);
+    vec2 f = fract(p);
+    f = f * f * (3.0 - 2.0 * f);
+    return mix(
+        mix(hash(i), hash(i + vec2(1.0, 0.0)), f.x),
+        mix(hash(i + vec2(0.0, 1.0)), hash(i + vec2(1.0, 1.0)), f.x),
+        f.y
+    );
+}
+
 float fbm(vec2 p) {
-  float value = 0.0;
-  float amp = 1.0;
-  float freq = waveFrequency;
-  for (int i = 0; i < OCTAVES; i++) {
-    value += amp * abs(cnoise(p));
-    p *= freq;
-    amp *= waveAmplitude;
-  }
-  return value;
-}
-
-float pattern(vec2 p) {
-  vec2 p2 = p - time * waveSpeed;
-  return fbm(p + fbm(p2)); 
-}
-
-// Brightness wave that sweeps across periodically
-float brightnessWave(vec2 uv, float t) {
-  // Create a moving wave front
-  float wavePos = mod(t * 0.3, 3.0) - 1.5; // Repeats every ~10 seconds
-  float dist = length(uv - vec2(wavePos, 0.0));
-  
-  // Create a smooth circular wave with falloff (tighter wave)
-  float wave = 1.0 - smoothstep(0.0, 0.7, dist);
-  wave = pow(wave, 2.0);
-  
-  return wave * 0.4; // Max brightness boost of 0.4
+    float value = 0.0;
+    float amp = 0.5;
+    float freq = 1.0;
+    for (int i = 0; i < 3; i++) {
+        value += amp * noise(p * freq);
+        freq *= 2.0;
+        amp *= 0.5;
+    }
+    return value;
 }
 
 void main() {
-  vec2 uv = gl_FragCoord.xy / resolution.xy;
-  uv -= 0.5;
-  uv.x *= resolution.x / resolution.y;
-  float f = pattern(uv);
-  
-  // Add brightness wave
-  float brightBoost = brightnessWave(uv, time);
-  f += brightBoost;
-  
-  if (enableMouseInteraction == 1) {
-    vec2 mouseNDC = (mousePos / resolution - 0.5) * vec2(1.0, -1.0);
-    mouseNDC.x *= resolution.x / resolution.y;
-    float dist = length(uv - mouseNDC);
-    float effect = 1.0 - smoothstep(0.0, mouseRadius, dist);
-    f -= 0.5 * effect;
-  }
-  vec3 col = mix(vec3(0.0), waveColor, f);
-  
-  // Apply dithering inline with 4x4 Bayer matrix
-  // Scale factor: MIN_SCALE at MAX_WIDTH, MAX_SCALE at MIN_WIDTH (linear interpolation)
-  float scaleFactor = mix(MAX_SCALE, MIN_SCALE, clamp((resolution.x - MIN_WIDTH) / (MAX_WIDTH - MIN_WIDTH), 0.0, 1.0));
-  vec2 coord = gl_FragCoord.xy / scaleFactor;
-  int x = int(mod(coord.x, 4.0));
-  int y = int(mod(coord.y, 4.0));
-  int idx = y * 4 + x;
-  
-  // Bayer 4x4 thresholds (WebGL 1.0 compatible)
-  float threshold = 0.0;
-  if (idx == 0) threshold = 0.0/16.0;
-  else if (idx == 1) threshold = 8.0/16.0;
-  else if (idx == 2) threshold = 2.0/16.0;
-  else if (idx == 3) threshold = 10.0/16.0;
-  else if (idx == 4) threshold = 12.0/16.0;
-  else if (idx == 5) threshold = 4.0/16.0;
-  else if (idx == 6) threshold = 14.0/16.0;
-  else if (idx == 7) threshold = 6.0/16.0;
-  else if (idx == 8) threshold = 3.0/16.0;
-  else if (idx == 9) threshold = 11.0/16.0;
-  else if (idx == 10) threshold = 1.0/16.0;
-  else if (idx == 11) threshold = 9.0/16.0;
-  else if (idx == 12) threshold = 15.0/16.0;
-  else if (idx == 13) threshold = 7.0/16.0;
-  else if (idx == 14) threshold = 13.0/16.0;
-  else if (idx == 15) threshold = 5.0/16.0;
-  
-  threshold -= 0.25;
-  float step = 1.0 / (colorNum - 1.0);
-  float brightness = col.r;
-  
-  if (isDarkTheme == 1) {
-    float boostFactor = smoothstep(0.02, 0.07, brightness) * (1.0 - smoothstep(0.17, 0.22, brightness));
-    col.rgb += vec3(col.r * 0.2 * boostFactor, 0.0, 0.0);
-  } else {
-    float boostFactor = smoothstep(0.02, 0.07, brightness) * (1.0 - smoothstep(0.17, 0.22, brightness));
-    col.rgb += vec3(0.0, 0.0, col.b * 0.2 * boostFactor);
-  }
-  
-  col += threshold * step;
-  vec3 dithered = floor(clamp(col - 0.2, 0.0, 1.0) * (colorNum - 1.0) + 0.5) / (colorNum - 1.0) + vec3(0.033);
-  
-  if (isDarkTheme == 1) {
-    dithered.r *= 1.2;
-  } else {
-    dithered.b *= 1.2;
-  }
-  
-  // Apply pattern mask (scaled with same factor as dithering)
-  vec2 patternUV = mod(gl_FragCoord.xy / scaleFactor, textureSize) / textureSize;
-  float patternMask = texture2D(patternTexture, patternUV).r;
-  
-  gl_FragColor = vec4(dithered * patternMask, 1.0);
+    vec2 uv = gl_FragCoord.xy / resolution.xy;
+    float t = time;
+
+    // --- Animated grain - faster, more alive ---
+    float grain = hash(uv + t * 0.3 + sin(uv.y * 50.0 + t) * 0.02) * 0.05;
+
+    // --- Noise field with drifting motion ---
+    float n = fbm(uv * 3.0 + vec2(t * 0.08, t * 0.05)) * waveAmplitude * 0.45;
+    float n2 = fbm(uv * 5.5 + vec2(-t * 0.06, t * 0.07) + n) * 0.15;
+
+    // --- Drifting orbs ---
+    // Brand red orb - slowly orbits
+    vec2 orb1Center = vec2(0.75 + sin(t * 0.15) * 0.06, 0.35 + cos(t * 0.18) * 0.05);
+    vec2 orb1 = uv - orb1Center;
+    float glow1 = exp(-length(orb1) * 2.5) * (0.10 + sin(t * 0.4) * 0.03);
+    vec3 orbColor1 = vec3(1.0, 0.39, 0.39);
+
+    // Blue orb - slowly orbits opposite direction
+    vec2 orb2Center = vec2(0.22 + cos(t * 0.13) * 0.05, 0.75 + sin(t * 0.16) * 0.06);
+    vec2 orb2 = uv - orb2Center;
+    float glow2 = exp(-length(orb2) * 3.0) * (0.07 + cos(t * 0.35) * 0.02);
+    vec3 orbColor2 = vec3(0.25, 0.45, 0.9);
+
+    // Warm center glow - gently pulsing
+    vec2 center = uv - vec2(0.5 + sin(t * 0.1) * 0.03, 0.45 + cos(t * 0.12) * 0.02);
+    float glowCenter = exp(-length(center) * 4.0) * (0.04 + sin(t * 0.5) * 0.015);
+
+    // --- Floating specks ---
+    float specks = 0.0;
+    for (int i = 0; i < 6; i++) {
+        float fi = float(i);
+        vec2 speckPos = vec2(
+            sin(t * (0.3 + fi * 0.03) + fi) * 0.45 + 0.5,
+            cos(t * (0.22 + fi * 0.04) + fi * 2.0) * 0.45 + 0.5
+        );
+        float dist = length(uv - speckPos);
+        float speckGlow = exp(-dist * 40.0) * (0.02 + sin(t * 1.5 + fi) * 0.01);
+        specks += speckGlow;
+    }
+
+    // --- Compose ---
+    float base = n + n2 + grain;
+    vec3 col = vec3(0.0);
+
+    col += orbColor1 * glow1;
+    col += orbColor2 * glow2;
+    col += vec3(1.0, 0.7, 0.5) * glowCenter;
+    col += vec3(1.0, 0.9, 0.8) * specks * 0.6;
+    col += base * 0.055;
+
+    // Subtle vignette
+    float vignette = 1.0 - length(uv - 0.5) * 0.4;
+    col *= vignette;
+
+    // --- Pill pattern mask ---
+    vec2 patternUV = mod(gl_FragCoord.xy, textureSize) / textureSize;
+    float patternMask = texture2D(patternTexture, patternUV).r;
+    float pillMask = 1.0 - patternMask * 0.25;
+    col *= pillMask;
+
+    col = clamp(col, 0.0, 1.0);
+
+    gl_FragColor = vec4(col, 1.0);
 }
 `;
 

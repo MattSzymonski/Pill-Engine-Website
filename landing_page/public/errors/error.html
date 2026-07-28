@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Error</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background: #0A0A0A;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+        .container { text-align: center; padding: 2rem; }
+        .code { font-size: 8rem; font-weight: 900; line-height: 1; color: rgba(255,255,255,0.06); margin-bottom: -1rem; }
+        h1 { font-size: 1.5rem; font-weight: 700; margin-bottom: 0.75rem; }
+        p { color: rgba(255,255,255,0.5); max-width: 24rem; margin: 0 auto 2rem; line-height: 1.6; }
+        a { color: #ff6363; text-decoration: none; font-weight: 600; }
+        a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="code" id="code">---</div>
+        <h1 id="title">Something went wrong</h1>
+        <p id="message">An unexpected error occurred. Please try again later.</p>
+        <a href="/">Back to home</a>
+    </div>
+    <script>
+        // Read status code from nginx error_page ?code=$status
+        const params = new URLSearchParams(window.location.search);
+        const code = params.get('code') || '---';
+
+        const messages = {
+            '401': ['Unauthorized', 'You need valid credentials to access this resource.'],
+            '403': ['Forbidden', 'You don\'t have permission to access this resource.'],
+            '404': ['Page not found', 'The page you\'re looking for doesn\'t exist or has been moved.'],
+            '500': ['Internal server error', 'Something went wrong on our end. Please try again shortly.'],
+            '501': ['Not implemented', 'The server doesn\'t support the functionality required.'],
+            '502': ['Bad gateway', 'The upstream server returned an invalid response.'],
+            '503': ['Service unavailable', 'The server is temporarily unable to handle your request.'],
+            '504': ['Gateway timeout', 'The upstream server didn\'t respond in time.'],
+        };
+
+        document.getElementById('code').textContent = code;
+
+        const [title, message] = messages[code] || ['Unexpected error', 'An error occurred. Please try again later.'];
+        document.getElementById('title').textContent = title;
+        document.getElementById('message').textContent = message;
+        document.title = code + ' - ' + title;
+    </script>
+</body>
+</html>

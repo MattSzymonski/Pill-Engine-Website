@@ -1,0 +1,78 @@
+import { Code2, Rocket, Package, Terminal, Book } from 'lucide-react';
+import { generateGranuleField } from '../effects/granules';
+import { useMemo } from 'react';
+
+const capabilities = [
+    {
+        icon: <Code2 className="w-5 h-5" />,
+        title: 'Developer-Friendly API',
+        description: 'Clean, intuitive API designed for productivity. Write less boilerplate and focus on what matters - creating amazing gameplay experiences.',
+    },
+    {
+        icon: <Rocket className="w-5 h-5" />,
+        title: 'Production Ready',
+        description: 'Battle-tested architecture for real-world game development. Built with performance and stability in mind from day one.',
+    },
+    {
+        icon: <Package className="w-5 h-5" />,
+        title: 'Modular Design',
+        description: 'Use only what you need with fully modular components. Cherry-pick systems and features without bloating your build.',
+    },
+    {
+        icon: <Terminal className="w-5 h-5" />,
+        title: 'CLI Tools',
+        description: 'Powerful command-line tools for project management, asset pipeline, and build automation.',
+    },
+    {
+        icon: <Book className="w-5 h-5" />,
+        title: 'Open Source',
+        description: 'Fully open source with an active community. Transparent development, community-driven features, and complete freedom.',
+    },
+];
+
+const Experience = () => {
+    const granuleField = useMemo(() => generateGranuleField(), []);
+
+    return (
+        <section className="relative py-24 sm:py-32 px-4 sm:px-6 lg:px-8 section-divider">
+            <div className="max-w-6xl mx-auto">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white leading-[1.15] tracking-tight mb-4">
+                    Built for{' '}
+                    <span className="text-brand-400">Developers</span>
+                    {' '}by{' '}
+                    <span className="text-brand-400">Developers</span>
+                </h2>
+                <p className="text-lg text-gray-400 max-w-3xl mb-14 leading-relaxed">
+                    Every aspect of Pill is designed with developer experience in mind. From the API
+                    design to the tooling ecosystem, everything is focused on making game development
+                    faster, safer, and more enjoyable.
+                </p>
+
+                <div className="relative">
+                    {/* Granule-field backdrop */}
+                    <div
+                        className="absolute -inset-8 pointer-events-none"
+                        dangerouslySetInnerHTML={granuleField}
+                    />
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 relative z-10">
+                        {capabilities.map((capability, index) => (
+                            <div key={index} className="glass-card p-6 group">
+                                <div className="w-10 h-10 rounded-xl bg-brand-500/10 flex items-center justify-center text-brand-400 mb-4 group-hover:bg-brand-500/20 transition-colors duration-300">
+                                    {capability.icon}
+                                </div>
+                                <h3 className="text-base font-semibold text-white mb-2">
+                                    {capability.title}
+                                </h3>
+                                <p className="text-sm text-gray-500 leading-relaxed">
+                                    {capability.description}
+                                </p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
+};
+
+export default Experience;

@@ -1,19 +1,26 @@
-import React from 'react';
 import Navbar from './components/sections/Navbar';
-import Hero from './components/sections//Hero';
-import About from './components/sections//About';
-import CTA from './components/sections//CTA';
-import Footer from './components/sections//Footer';
-import Paragraphs from './components/sections//Paragraphs';
+import Hero from './components/sections/Hero';
+import About from './components/sections/About';
+import CTA from './components/sections/CTA';
+import Footer from './components/sections/Footer';
+import SectionDivider from './components/effects/SectionDivider';
+import Features from './components/sections/Features';
+import Performance from './components/sections/Performance';
+import Experience from './components/sections/Experience';
 import './App.css';
 
 function App() {
     return (
-        <div className="min-h-screen bg-gradient-to-b from-[#080808] via-zinc-950 to-[#020202] text-white overflow-hidden transition-colors duration-300">
+        <div className="min-h-screen bg-[#0A0A0A] text-white">
             <Navbar />
             <Hero />
+            <Performance />
+            <SectionDivider label="About" />
             <About />
-            <Paragraphs />
+            <SectionDivider label="Features" />
+            <Features />
+            <SectionDivider label="Community" />
+            <Experience />
             <CTA />
             <Footer />
         </div>

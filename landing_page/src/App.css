@@ -1,512 +1,134 @@
 /* ═══════════════════════════════════════════════════════════════════════
    FONT IMPORTS
    ═══════════════════════════════════════════════════════════════════════ */
-@import url('https://api.fontshare.com/v2/css?f[]=chillax@400,500,600,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
 
 /* ═══════════════════════════════════════════════════════════════════════
-   THEME VARIABLES
+   ANIMATIONS
    ═══════════════════════════════════════════════════════════════════════ */
-:root {
-    /* Light theme - Blue */
-    --theme-primary: 59, 130, 246;
-    /* blue-500 */
-    --theme-primary-light: 96, 165, 250;
-    /* blue-400 */
-    --theme-primary-dark: 37, 99, 235;
-    /* blue-600 */
 
-    /* Named color variables for use in components */
-    --pill-primary: #3b82f6;
-    --pill-primary-light: #60a5fa;
-    --pill-primary-dark: #2563eb;
-    --pill-accent: #ff6b35;
-}
-
-.dark {
-    /* Dark theme - Red */
-    --theme-primary: 220, 38, 38;
-    /* red-600 */
-    --theme-primary-light: 239, 68, 68;
-    /* red-500 */
-    --theme-primary-dark: 153, 27, 27;
-    /* red-800 */
-
-    /* Named color variables for use in components */
-    --pill-primary: #dc2626;
-    --pill-primary-light: #ef4444;
-    --pill-primary-dark: #991b1b;
-    --pill-accent: #ff6b35;
-}
-
-@keyframes float {
-
-    0%,
-    100% {
-        transform: translateY(0px) rotate(0deg);
-    }
-
-    50% {
-        transform: translateY(-30px) rotate(2deg);
-    }
-}
-
-@keyframes pulse-glow {
-
-    0%,
-    100% {
-        opacity: 1;
-        transform: scale(1);
-    }
-
-    50% {
-        opacity: 0.7;
-        transform: scale(1.05);
-    }
-}
-
-@keyframes slide-up {
+@keyframes fadeInUp {
     from {
         opacity: 0;
-        transform: translateY(50px);
+        transform: translateY(30px);
     }
-
     to {
         opacity: 1;
         transform: translateY(0);
     }
 }
 
-@keyframes shimmer {
-    0% {
-        background-position: -1000px 0;
-    }
-
-    100% {
-        background-position: 1000px 0;
-    }
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
-@keyframes glow-pulse {
-
-    0%,
-    100% {
-        box-shadow: 0 0 20px rgba(var(--theme-primary), 0.5),
-            0 0 40px rgba(var(--theme-primary), 0.3),
-            0 0 60px rgba(var(--theme-primary), 0.2);
-    }
-
-    50% {
-        box-shadow: 0 0 30px rgba(var(--theme-primary), 0.8),
-            0 0 60px rgba(var(--theme-primary), 0.5),
-            0 0 80px rgba(var(--theme-primary), 0.3);
-    }
+@keyframes floatSlow {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-12px); }
 }
 
-@keyframes slide-in-left {
-    from {
-        opacity: 0;
-        transform: translateX(-100px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
+.animate-fade-in-up {
+    animation: fadeInUp 0.7s ease-out forwards;
 }
 
-@keyframes slide-in-right {
-    from {
-        opacity: 0;
-        transform: translateX(100px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
+.animate-fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
 }
 
-@keyframes scale-in {
-    from {
-        opacity: 0;
-        transform: scale(0.8);
-    }
-
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
+.animate-float-slow {
+    animation: floatSlow 6s ease-in-out infinite;
 }
 
-@keyframes spin-slow {
-    from {
-        transform: rotate(0deg);
-    }
+/* Staggered animation delays */
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+.delay-400 { animation-delay: 0.4s; }
+.delay-500 { animation-delay: 0.5s; }
 
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-@keyframes gradient-shift {
-
-    0%,
-    100% {
-        background-position: 0% 50%;
-    }
-
-    50% {
-        background-position: 100% 50%;
-    }
-}
-
-.light-rays-container {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    pointer-events: none;
-    z-index: 3;
-    overflow: hidden;
-}
-
-.white-text-glow {
-    text-shadow: 0 0 12px rgb(0, 0, 0),
-        0 0 26px rgba(24, 5, 5, 0.897),
-        0 0 34px rgba(24, 5, 5, 0.774);
-}
-
-html {
-    scroll-behavior: smooth;
+@keyframes orbPulse {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.1); }
 }
 
 /* ═══════════════════════════════════════════════════════════════════════
-   GENERAL POLISH
+   UTILITY ANIMATION CLASSES
    ═══════════════════════════════════════════════════════════════════════ */
-::selection {
-    background: rgba(var(--theme-primary), 0.3);
-    color: #fff;
+
+.animate-orb-pulse {
+    animation: orbPulse 6s ease-in-out infinite;
 }
 
-::-webkit-scrollbar {
-    width: 7px;
-    height: 10px;
+/* ═══════════════════════════════════════════════════════════════════════
+   COMPONENT STYLES
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* Glass reflection - sweeps light diagonally */
+.glass-reflection {
+    position: relative;
 }
 
-::-webkit-scrollbar-track {
-    background: rgba(0, 0, 0, 0.3);
-}
-
-::-webkit-scrollbar-thumb {
-    background-color: var(--pill-primary);
-    border-radius: 5px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background-color: var(--pill-primary-light);
-}
-
-/* .cta-bg::before {
+.glass-reflection::before,
+.glass-reflection::after {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image:
-        radial-gradient(circle at 20% 50%, rgba(255, 44, 44, 0.24) 0%, transparent 50%),
-        radial-gradient(circle at 80% 80%, rgba(199, 0, 33, 0.233) 0%, transparent 50%);
-    animation: heroGlow 8s ease-in-out infinite alternate;
-    pointer-events: none;
-} */
-
-/* @keyframes heroGlow {
-    0% {
-        opacity: 0.3;
-        transform: scale(1);
-    }
-
-    100% {
-        opacity: 0.6;
-        transform: scale(1.05);
-    }
-} */
-
-.pill-logo-text {
-    font-family: 'Chillax', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif !important;
-    font-weight: 600;
-    letter-spacing: -0.025em;
-}
-
-.background-grid {
-    position: absolute;
     inset: 0;
-    opacity: 0.18;
-    background-image:
-        linear-gradient(rgba(var(--theme-primary), 0.12) 2px, transparent 2px),
-        linear-gradient(90deg, rgba(var(--theme-primary), 0.12) 2px, transparent 2px);
-    background-size: 60px 60px;
-    -webkit-mask-image: linear-gradient(to bottom,
-            transparent 0%,
-            black 150px,
-            black calc(100% - 100px),
-            transparent 100%);
-    mask-image: linear-gradient(to bottom,
-            transparent 0%,
-            black 150px,
-            black calc(100% - 100px),
-            transparent 100%);
+    pointer-events: none;
+    border-radius: inherit;
 }
 
-.animate-float {
-    animation: float 4s ease-in-out infinite;
+/* Primary sweep - diagonal top-left to bottom-right */
+.glass-reflection::before {
+    background: linear-gradient(
+        135deg,
+        transparent 30%,
+        rgba(255, 255, 255, 0.02) 45%,
+        rgba(255, 255, 255, 0.03) 50%,
+        rgba(255, 255, 255, 0.02) 55%,
+        transparent 70%
+    );
+    background-size: 300% 300%;
+    animation: glass-sweep-1 8s ease-in-out infinite;
 }
 
-.animate-pulse-glow {
-    animation: pulse-glow 3s ease-in-out infinite;
+/* Secondary sweep - opposite diagonal, slower, dimmer */
+.glass-reflection::after {
+    background: linear-gradient(
+        -45deg,
+        transparent 40%,
+        rgba(255, 99, 99, 0.015) 48%,
+        rgba(255, 99, 99, 0.025) 50%,
+        rgba(255, 99, 99, 0.015) 52%,
+        transparent 60%
+    );
+    background-size: 250% 250%;
+    animation: glass-sweep-2 10s ease-in-out infinite;
 }
 
-.animate-slide-up {
-    animation: slide-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+@keyframes glass-sweep-1 {
+    0%   { background-position: 0% 0%; }
+    50%  { background-position: 100% 100%; }
+    100% { background-position: 0% 0%; }
 }
 
-.animate-slide-in-left {
-    animation: slide-in-left 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+@keyframes glass-sweep-2 {
+    0%   { background-position: 100% 0%; }
+    50%  { background-position: 0% 100%; }
+    100% { background-position: 100% 0%; }
 }
 
-.animate-slide-in-right {
-    animation: slide-in-right 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-.animate-scale-in {
-    animation: scale-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-.animate-spin-slow {
-    animation: spin-slow 30s linear infinite;
-}
-
-.shimmer {
-    background: linear-gradient(90deg,
-            transparent,
-            rgba(var(--theme-primary), 0.1),
-            transparent);
-    background-size: 200% 100%;
-    animation: shimmer 6s ease-in-out infinite;
-}
-
-.gradient-text {
-    background: linear-gradient(90deg,
-            rgb(var(--theme-primary)),
-            rgb(var(--theme-primary-light)),
-            rgb(var(--theme-primary)));
-    background-size: 200% 200%;
+/* Gradient text utility */
+.text-gradient {
+    background: linear-gradient(135deg, #ff6363, #ff9494);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    animation: gradient-shift 3s ease infinite;
 }
 
-.feature-card {
-    position: relative;
-    overflow: hidden;
-    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    background: rgba(255, 255, 255, 0.03);
-    backdrop-filter: blur(20px);
-}
-
-.feature-card:hover::before {
-    left: 100%;
-}
-
-.feature-card::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at center, rgba(var(--theme-primary), 0.1), transparent 70%);
-    opacity: 0;
-    transition: opacity 0.4s ease;
-}
-
-.feature-card:hover::after {
-    opacity: 1;
-}
-
-.feature-card:hover {
-    transform: translateY(-6px) scale(1.01);
-    box-shadow: 0 25px 80px rgba(var(--theme-primary), 0.4),
-        0 10px 30px rgba(var(--theme-primary), 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    border-color: rgba(var(--theme-primary), 0.6) !important;
-}
-
-.glass {
-    background: rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(20px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4),
-        inset 0 1px 0 rgba(255, 255, 255, 0.05);
-}
-
-.box {
-    background: rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(20px) saturate(180%);
-    border: 1px solid rgba(var(--theme-primary), 0.3);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4),
-        inset 0 1px 0 rgba(var(--theme-primary), 0.2);
-}
-
-/* Stunning button effects */
-.btn-glow {
-    position: relative;
-    overflow: hidden;
-}
-
-.btn-glow::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    transform: translateX(-100%);
-    transition: transform 0.6s;
-}
-
-.btn-glow:hover::before {
-    transform: translateX(100%);
-}
-
-/* Glow effect for icons */
-.icon-glow {
-    filter: drop-shadow(0 0 8px currentColor);
-    transition: filter 0.3s ease;
-}
-
-.icon-glow:hover {
-    filter: drop-shadow(0 0 16px currentColor) drop-shadow(0 0 24px currentColor);
-}
-
-/* Particle effect background */
-.particles-bg {
-    position: absolute;
-    inset: 0;
-    overflow: hidden;
-    pointer-events: none;
-}
-
-/* Scroll reveal animations */
-.reveal {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.reveal.active {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* View Transitions API support - Circular reveal animation */
-::view-transition-old(root),
-::view-transition-new(root) {
-    animation: none;
-    mix-blend-mode: normal;
-}
-
-::view-transition-old(root) {
-    animation: fade-out 0.5s ease-out;
-}
-
-::view-transition-new(root) {
-    animation: circular-reveal 0.5s ease-in;
-}
-
-@keyframes fade-out {
-    to {
-        opacity: 0;
-    }
-}
-
-@keyframes circular-reveal {
-    from {
-        clip-path: circle(0% at 50% 50%);
-    }
-
-    to {
-        clip-path: circle(150% at 50% 50%);
-    }
-}
-
-/* ═══════════════════════════════════════════════════════════════════════
-   UTILITY CLASSES FOR THEME-AWARE EFFECTS
-   ═══════════════════════════════════════════════════════════════════════ */
-
-/* Shadow utilities */
-.shadow-glow-sm {
-    box-shadow: 0 0 30px rgba(var(--theme-primary), 0.2);
-}
-
-.shadow-glow-md {
-    box-shadow: 0 0 50px rgba(var(--theme-primary), 0.3);
-}
-
-.shadow-glow-lg {
-    box-shadow: 0 0 50px rgba(var(--theme-primary), 0.4);
-}
-
-.shadow-glow-xl {
-    box-shadow: 0 0 60px rgba(var(--theme-primary), 0.7);
-}
-
-/* Drop shadow utilities */
-.drop-shadow-glow-sm {
-    filter: drop-shadow(0 0 20px rgba(var(--theme-primary), 0.5));
-}
-
-.drop-shadow-glow-md {
-    filter: drop-shadow(0 0 30px rgba(var(--theme-primary), 0.5));
-}
-
-.drop-shadow-glow-lg {
-    filter: drop-shadow(0 0 40px rgba(var(--theme-primary), 0.6));
-}
-
-/* Text shadow utilities */
-.text-glow-sm {
-    text-shadow: 0 0 20px rgba(var(--theme-primary), 0.5);
-}
-
-.text-glow-md {
-    text-shadow: 0 0 30px rgba(var(--theme-primary), 0.5);
-}
-
-.text-glow-lg {
-    text-shadow: 0 0 40px rgba(var(--theme-primary), 0.6);
-}
-
-/* Hover shadow utilities */
-.hover\:shadow-glow-sm:hover {
-    box-shadow: 0 0 30px rgba(var(--theme-primary), 0.2);
-}
-
-.hover\:shadow-glow-md:hover {
-    box-shadow: 0 0 50px rgba(var(--theme-primary), 0.3);
-}
-
-.hover\:shadow-glow-lg:hover {
-    box-shadow: 0 0 50px rgba(var(--theme-primary), 0.4);
-}
-
-.hover\:shadow-glow-xl:hover {
-    box-shadow: 0 0 60px rgba(var(--theme-primary), 0.7);
-}
-
-/* ═══════════════════════════════════════════════════════════════════════
-   FONT FAMILIES
-   ═══════════════════════════════════════════════════════════════════════ */
-.font-family-chillax {
-    font-family: "Chillax Variable", sans-serif;
-}
-
-/* Icon filter utilities for SVG gradients */
-.icon-filter-glow {
-    filter: drop-shadow(0 0 8px rgba(var(--theme-primary), 0.6));
+/* Pill logo text */
+.pill-logo-text {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-weight: 800;
+    letter-spacing: -0.03em;
 }

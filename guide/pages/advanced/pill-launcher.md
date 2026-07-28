@@ -63,7 +63,7 @@ These are set by the launcher when spawning child processes (game executables). 
 | `PILL_ENGINE_WORKSPACE_DIR` | `run_project()`                   | Tells the game where the engine workspace is           |
 | `PILL_HOT_RELOAD_CHILD`     | `run_project()` (hot-reload mode) | Signals that cargo was invoked by a hot-reload rebuild |
 | `PILL_COMPILE_MODE`         | `run_project()`                   | The compile mode the game was built with               |
-| `PILL_STANDALONE_LAYOUT`    | `run_project()`                   | `development` or `packaged` — controls asset paths     |
+| `PILL_STANDALONE_LAYOUT`    | `run_project()`                   | `development` or `packaged` - controls asset paths     |
 | `PILL_ENABLE_HOT_RELOAD`    | `run_project()`                   | `"1"` if hot-reload is active                          |
 | `PILL_HEADLESS`             | `run_project()`                   | `"1"` if `--headless` flag was passed                  |
 | `PROJECT_DIR`               | `run_project()`                   | Absolute path to the project directory                 |
@@ -89,7 +89,7 @@ sequenceDiagram
     L->>L: cargo build (project compiles in workspace)
     L->>C: Guard drops → restore original
 
-    Note over L,C: If crash occurs during build,<br/>Drop still fires — Cargo.toml is safe
+    Note over L,C: If crash occurs during build,<br/>Drop still fires - Cargo.toml is safe
 ```
 
 **Why it exists:** Pill projects and engine crates (`pill_native`, `pill_runtime`) must compile in the same cargo workspace. Without this, Rust's type IDs (used by generics and `TypeId`) would be inconsistent between the project DLL and the engine, causing subtle runtime failures.
@@ -112,10 +112,10 @@ impl Drop for WorkspaceGuard {
 1. `prepare_workspace_for_project()` reads `engine/Cargo.toml` and stores the original content
 2. It injects a line like `"D:/path/to/MyGame", # pill-launcher-managed-workspace-member` into the `members` array
 3. It also rewrites the project's own `Cargo.toml` workspace field to point to the engine workspace
-4. A `WorkspaceGuard` is returned — its `Drop` implementation writes the original content back
+4. A `WorkspaceGuard` is returned - its `Drop` implementation writes the original content back
 5. For `run_project()`, the guard is held through both build AND execution (the game needs workspace membership for hot-reload child processes)
 
-**Failure recovery:** The `# pill-launcher-managed-workspace-member` comment acts as a sentinel. The CI test infrastructure (`common.sh`) contains `fix_stale_workspace_members()` which removes any line with this marker — if a previous run crashed mid-build, the next run auto-cleans.
+**Failure recovery:** The `# pill-launcher-managed-workspace-member` comment acts as a sentinel. The CI test infrastructure (`common.sh`) contains `fix_stale_workspace_members()` which removes any line with this marker - if a previous run crashed mid-build, the next run auto-cleans.
 
 ### Workspace Preparation Lifecycle
 
@@ -131,7 +131,7 @@ impl Drop for WorkspaceGuard {
 
 The launcher modifies two Cargo.toml files during every build:
 
-**1. `engine/Cargo.toml` — workspace members injection**
+**1. `engine/Cargo.toml` - workspace members injection**
 
 Before build:
 ```toml
@@ -161,7 +161,7 @@ members = [
 ]
 ```
 
-**2. Project `Cargo.toml` — workspace path rewriting**
+**2. Project `Cargo.toml` - workspace path rewriting**
 
 Before build (template default):
 ```toml
@@ -191,7 +191,7 @@ PillLauncher link -p MyGame
 - `rust-analyzer` can then resolve types across engine and project crates
 - The marker comment `# pill-launcher-managed-workspace-member` identifies linked entries
 - `PillLauncher unlink` removes the entry
-- Linking is idempotent — running it twice is harmless
+- Linking is idempotent - running it twice is harmless
 
 ## Hot Reload
 
@@ -280,11 +280,11 @@ flowchart TD
 6. Resource files are copied alongside
 
 **Optimization flags** (release WASM):
-- `opt-level = "z"` — optimize for size
-- `lto = "fat"` — full link-time optimization
-- `codegen-units = 1` — maximize optimization potential
-- `panic = "abort"` — smaller panic handler
-- `strip = true` — strip debug symbols
+- `opt-level = "z"` - optimize for size
+- `lto = "fat"` - full link-time optimization
+- `codegen-units = 1` - maximize optimization potential
+- `panic = "abort"` - smaller panic handler
+- `strip = true` - strip debug symbols
 
 **Size analysis:** The `--wasm-analyze` flag runs `twiggy` on the final `.wasm` binary, producing a per-function and per-codegen-unit size breakdown. The `--max-wasm-size <KB>` flag (release only) fails the build if the `.wasm` exceeds the given limit.
 
