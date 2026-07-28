@@ -1,5 +1,5 @@
 import { Layers } from 'lucide-react';
-import { useId } from 'react';
+import { useId, useMemo } from 'react';
 import Card from './Card';
 
 // ── Layout ──
@@ -21,9 +21,7 @@ const PILL_HEIGHT         = 12;    // px
 const PILL_RADIUS         = 6;     // px (height / 2)
 const PILL_STROKE_W       = 0.2;   // px
 const PILL_FILL_OPACITY   = 0.05;
-const PILL_DURATION_BASE  = 16.4;   // s - fastest lane cycle
-const PILL_DURATION_STEP  = 2.5;   // s - added per lane
-const PILL_DELAY_STEP     = 2.4;   // s - stagger per lane
+
 
 // ── Fade ──
 const FADE_COLOR          = '#140B2A';
@@ -33,9 +31,25 @@ const FADE_STOP_OFFSET    = '80%';
 const ANIM_START_X        = -40;   // px - start offscreen left
 const ANIM_END_X          = 400;   // px - end offscreen right
 
+// ── Randomization ranges ──
+const PILL_DURATION_MIN   = 14;    // s - minimum per-pill cycle duration
+const PILL_DURATION_MAX   = 26;    // s - maximum per-pill cycle duration
+
 function ThreadsVisual() {
     const gid = useId().replace(/[^a-zA-Z0-9]/g, '');
     const color = 'rgb(167,139,250)';
+
+    // Generate stable random per-lane values: randomized duration and a negative prewarm delay
+    // so each pill appears already mid-flight when the component mounts
+    const laneAnimations = useMemo(() => {
+        return Array.from({ length: LANES }, () => {
+            const duration = PILL_DURATION_MIN + Math.random() * (PILL_DURATION_MAX - PILL_DURATION_MIN);
+            // Negative delay offsets the animation start into the past, placing the pill
+            // at a random position along its path on first render
+            const prewarmDelay = -(Math.random() * duration);
+            return { duration, prewarmDelay };
+        });
+    }, []);
 
     return (
         <svg viewBox="0 0 360 360" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
@@ -74,14 +88,13 @@ function ThreadsVisual() {
             {/* Moving thread pills */}
             {Array.from({ length: LANES }, (_, i) => {
                 const y = LANE_START_Y + i * LANE_SPACING;
-                const dur = PILL_DURATION_BASE + i * PILL_DURATION_STEP;
-                const delay = i * PILL_DELAY_STEP;
+                const { duration, prewarmDelay } = laneAnimations[i];
                 return (
                     <g key={`thread-${i}`}>
                         <rect x="0" y={y - PILL_HEIGHT / 2} width={PILL_WIDTH} height={PILL_HEIGHT} rx={PILL_RADIUS} fill={`url(#pill-${gid})`} opacity={PILL_FILL_OPACITY}
-                            style={{ animation: `thread-${gid} ${dur}s ${delay}s linear infinite` }} />
+                            style={{ animation: `thread-${gid} ${duration}s ${prewarmDelay}s linear infinite` }} />
                         <rect x="0" y={y - PILL_HEIGHT / 2} width={PILL_WIDTH} height={PILL_HEIGHT} rx={PILL_RADIUS} stroke={color} strokeWidth={PILL_STROKE_W} fill="none"
-                            style={{ animation: `thread-${gid} ${dur}s ${delay}s linear infinite` }} />
+                            style={{ animation: `thread-${gid} ${duration}s ${prewarmDelay}s linear infinite` }} />
                     </g>
                 );
             })}
