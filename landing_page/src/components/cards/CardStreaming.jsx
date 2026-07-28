@@ -92,7 +92,11 @@ function StreamVisual() {
     );
 }
 
-const metric = <><span className="text-xl font-bold text-white tracking-tight tabular-nums leading-none">&lt;1</span><span className="text-xs font-medium text-gray-400 leading-none">ms</span></>;
+const metric = <>
+    <span className="text-sm font-light text-white translate-y-[-2px] leading-none">&lt;</span>
+    <span className="text-xl font-bold text-white tracking-tight tabular-nums leading-none">1</span>
+    <span className="text-xs font-medium text-gray-400 leading-none">ms</span>
+</>;
 
 export default function CardStreaming() {
     return (
