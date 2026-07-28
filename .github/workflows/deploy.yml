@@ -39,17 +39,33 @@ jobs:
       # 5. Deploy to server via SSH
       - name: Deploy to Server
         run: |
-          # Write SSH key from GitHub Secret
+          set -e
+
+          echo "=== Build output ==="
+          ls -la dist/
+          echo ""
+          echo "=== File count ==="
+          find dist -type f | wc -l
+          echo ""
+          echo "=== Deploy target ==="
+          echo "Host: ${{ secrets.SERVER_HOST }}"
+          echo "User: ${{ secrets.SERVER_USER }}"
+          echo "Port: ${{ secrets.SERVER_PORT || 22 }}"
+          echo ""
+
+          # Write SSH key
           echo "${{ secrets.SERVER_KEY }}" > deploy_key
           chmod 600 deploy_key
 
-          # Stream the build output directly to server
-          # The authorized_keys command handles extraction
+          # Deploy via SSH with verbose logging
           tar -czf - -C dist . | \
-            ssh -i deploy_key \
+            ssh -v -i deploy_key \
                 -o StrictHostKeyChecking=no \
+                -o ConnectTimeout=30 \
                 -p ${{ secrets.SERVER_PORT || 22 }} \
-                ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}
+                ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} 2>&1
 
-          # Clean up SSH key
+          echo ""
+          echo "=== Deploy complete ==="
+
           rm -f deploy_key
