@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 
+const GUIDE_URL = 'https://guide.pill.rocks';
+
 const NAV_LINKS = [
-    { label: 'Guide', href: '/guide' },
+    { label: 'Guide', href: GUIDE_URL },
     { label: 'Examples', href: 'https://github.com/MattSzymonski/Pill-Engine/tree/main/examples' },
     { label: 'GitHub', href: 'https://github.com/MattSzymonski/Pill-Engine' },
 ];
@@ -72,7 +74,7 @@ const Navbar = () => {
                         </a>
                     ))}
                     <a
-                        href="/guide"
+                        href={GUIDE_URL}
                         className="block px-3 py-2 text-sm font-semibold text-white bg-brand-500 hover:bg-brand-400 rounded-md transition-all duration-150 text-center mt-2"
                     >
                         Get Started

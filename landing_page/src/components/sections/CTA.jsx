@@ -29,7 +29,7 @@ const CTA = () => {
                         </p>
 
                         <a
-                            href="/guide"
+                            href="https://guide.pill.rocks"
                             className="group inline-flex items-center gap-2 px-8 py-3.5 bg-brand-500 hover:bg-brand-400 text-white font-semibold rounded-xl transition-all duration-200 text-base"
                         >
                             <BookOpen className="w-4 h-4" />

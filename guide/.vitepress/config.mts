@@ -4,7 +4,7 @@ import { withMermaid } from 'vitepress-plugin-mermaid'
 // https://vitepress.dev/reference/site-config
 export default withMermaid(
   defineConfig({
-    base: '/guide/',
+    base: '/',
     srcDir: 'pages',
     title: "pill guide",
     description: "Guide for Pill - Modern, free and blazingly fast game engine",

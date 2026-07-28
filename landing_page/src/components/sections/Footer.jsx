@@ -5,13 +5,13 @@ const Footer = () => {
 
     const footerLinks = {
         Product: [
-            { label: 'Guide', href: '/guide' },
+            { label: 'Guide', href: 'https://guide.pill.rocks' },
             { label: 'Examples', href: 'https://github.com/MattSzymonski/Pill-Engine/tree/main/examples' },
             { label: 'GitHub', href: 'https://github.com/MattSzymonski/Pill-Engine' },
         ],
         Community: [
             { label: 'GitHub', href: 'https://github.com/MattSzymonski/Pill-Engine' },
-            { label: 'Contributing', href: 'https://pillengine.org/guide/contributing/contributing.html' },
+            { label: 'Contributing', href: 'https://guide.pill.rocks/contributing/contributing.html' },
         ],
     };
 
