@@ -9,6 +9,7 @@ on:
       - "guide/**"
       - "build-script.js"
       - "package.json"
+      - .github/workflows/deploy.yml
 
 jobs:
   build-and-deploy:
