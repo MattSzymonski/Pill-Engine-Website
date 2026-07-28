@@ -1,7 +1,8 @@
 {
-    "name": "pill-engine-website",
+    "name": "pill-landing-page",
     "private": true,
-    "version": "0.0.0",
+    "version": "1.0.0",
+    "description": "Landing page of Pill - modern, free and blazingly fast game engine",
     "type": "module",
     "scripts": {
         "dev": "vite",
@@ -14,8 +15,6 @@
         "react-dom": "^18.3.1"
     },
     "devDependencies": {
-        "@types/react": "^18.3.3",
-        "@types/react-dom": "^18.3.0",
         "@vitejs/plugin-react": "^4.3.1",
         "autoprefixer": "^10.4.20",
         "postcss": "^8.4.47",

@@ -13,11 +13,16 @@ export default withMermaid(
       ['link', { rel: 'preconnect', href: 'https://fonts.googleapis.com' }],
       ['link', { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' }],
       ['link', { href: 'https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap', rel: 'stylesheet' }],
-      // Social meta & favicon
-      ['link', { rel: 'icon', href: '/media/logo/logo-192.png' }],
+      // Favicons
+      ['link', { rel: 'icon', type: 'image/png', href: '/favicons/favicon-96x96.png', sizes: '96x96' }],
+      ['link', { rel: 'icon', type: 'image/svg+xml', href: '/favicons/favicon.svg' }],
+      ['link', { rel: 'shortcut icon', href: '/favicons/favicon.ico' }],
+      ['link', { rel: 'apple-touch-icon', sizes: '180x180', href: '/favicons/apple-touch-icon.png' }],
+      ['link', { rel: 'manifest', href: '/favicons/site.webmanifest' }],
+      // Social meta
       ['meta', { property: 'og:title', content: 'Pill - Guide' }],
       ['meta', { property: 'og:description', content: 'Guide for Pill - Modern, free and blazingly fast game engine' }],
-      ['meta', { property: 'og:image', content: '/media/logo/logo-512.png' }],
+      ['meta', { property: 'og:image', content: '/favicons/web-app-manifest-512x512.png' }],
       ['meta', { name: 'twitter:card', content: 'summary_large_image' }]
     ],
 

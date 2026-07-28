@@ -1,7 +1,8 @@
 {
-  "name": "pill-engine-guide",
+  "name": "pill-guide",
+  "private": true,
   "version": "1.0.0",
-  "description": "Documentation for Pill-Engine",
+  "description": "Guide for Pill - modern, free and blazingly fast game engine",
   "scripts": {
     "guide:dev": "vitepress dev",
     "guide:build": "vitepress build",
@@ -9,7 +10,7 @@
   },
   "devDependencies": {
     "vitepress": "^1.6.4",
-    "vitepress-plugin-nprogress": "latest"
+    "vitepress-plugin-nprogress": "^0.1.1"
   },
   "dependencies": {
     "@catppuccin/vitepress": "^0.1.2",
