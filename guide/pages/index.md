@@ -23,19 +23,19 @@ layout: doc
 
 <div class="features-grid">
   <div class="feature">
-    <a href="/guide/introduction">
+    <a href="/introduction">
       <h3>📖 Introduction</h3>
       <p>Learn about Pill Engine's philosophy, architecture, and core concepts.</p>
     </a>
   </div>
   <div class="feature">
-    <a href="/guide/getting-started/setup">
+    <a href="/getting-started/setup">
       <h3>🚀 Getting Started</h3>
       <p>Set up your development environment and create your first Pill project.</p>
     </a>
   </div>
   <div class="feature">
-    <a href="/guide/troubleshooting">
+    <a href="/troubleshooting">
       <h3>❓ Help</h3>
       <p>Find solutions to common issues and get support from the community.</p>
     </a>

@@ -9,13 +9,10 @@
     "guide:preview": "vitepress preview"
   },
   "devDependencies": {
-    "vitepress": "^1.6.4",
-    "vitepress-plugin-nprogress": "^0.1.1"
+    "vitepress": "^1.6.4"
   },
   "dependencies": {
-    "@catppuccin/vitepress": "^0.1.2",
     "mermaid": "^11.16.0",
-    "vitepress-openapi": "^0.1.10",
     "vitepress-plugin-mermaid": "^2.0.17"
   }
 }

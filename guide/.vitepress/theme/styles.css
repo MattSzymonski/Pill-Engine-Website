@@ -10,9 +10,7 @@
 }
 
 :root {
-  --vp-c-brand-1: #d64a4a;
-  --vp-c-brand-1-dim-1: #a33b3b;
-  --vp-c-brand-1-dim-2: #6d2929;
+  /* Brand colors are defined once in shared.css and reused by rustdoc. */
   /* Background Colors */
   /* --vp-c-bg: #1f1f22;
   --vp-c-bg-alt: #242427;
@@ -26,26 +24,26 @@
     'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'; */
 
   /* Shiki (code syntax) color variables - use these to tweak code highlighting */
-  --shiki-light: #F6C177;
+  --shiki-light: var(--pill-syntax-number);
 
 
   --shiki-background: var(--vp-c-bg);
   --shiki-foreground: var(--vp-c-text-1);
   --shiki-comment: var(--vp-c-text-3);
-  --shiki-keyword: #FF7AB6;
+  --shiki-keyword: var(--pill-syntax-keyword);
   /* flamingo */
-  --shiki-function: #7DD3FC;
+  --shiki-function: var(--pill-syntax-function);
   /* sky */
-  --shiki-string: #A7F3D0;
+  --shiki-string: var(--pill-syntax-string);
   /* greenish */
-  --shiki-number: #F6C177;
+  --shiki-number: var(--pill-syntax-number);
   /* warm number color */
-  --shiki-constant: #F6C177;
-  --shiki-type: #B4A7F8;
+  --shiki-constant: var(--pill-syntax-number);
+  --shiki-type: var(--pill-syntax-type);
   /* lavender-ish */
   --shiki-operator: var(--vp-c-text-2);
   --shiki-punctuation: var(--vp-c-text-2);
-  --shiki-selection-bg: rgba(125, 211, 252, 0.12);
+  --shiki-selection-bg: var(--pill-syntax-selection);
 }
 
 .VPNavBar .title {
@@ -248,70 +246,6 @@
   font-weight: 600;
 }
 
-/* ═══════════════════════════════════════════════════════════════════════
-   BUTTONS - Enhanced with hover effects and animations
-   ═══════════════════════════════════════════════════════════════════════ */
-.actions {
-  display: flex;
-  gap: 14px;
-  margin-bottom: 20px;
-}
-
-.btn {
-  display: inline-block;
-  padding: 12px 24px;
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.04);
-  color: var(--vp-c-text-1);
-  text-decoration: none;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  font-weight: 500;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  overflow: hidden;
-}
-
-.btn::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 0;
-  height: 0;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.1);
-  transform: translate(-50%, -50%);
-  transition: width 0.6s, height 0.6s;
-}
-
-.btn:hover::before {
-  width: 300px;
-  height: 300px;
-}
-
-.btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-  border-color: rgba(255, 255, 255, 0.12);
-}
-
-.btn.primary {
-  background: linear-gradient(135deg, var(--vp-c-brand-1), var(--vp-c-brand-1-dim-2));
-  color: #0a0a0a;
-  border: none;
-  box-shadow: 0 4px 15px rgba(255, 122, 182, 0.3);
-  font-weight: 600;
-}
-
-.btn.primary:hover {
-  box-shadow: 0 8px 25px rgba(255, 122, 182, 0.5);
-  transform: translateY(-3px);
-}
-
-.btn.primary::before {
-  background: rgba(255, 255, 255, 0.2);
-}
-
 /* Badges with subtle animation */
 .badges {
   display: flex;
@@ -337,68 +271,6 @@
 
 .badges img:hover {
   transform: scale(1.05);
-}
-
-/* ═══════════════════════════════════════════════════════════════════════
-   HERO CARD - Right side showcase
-   ═══════════════════════════════════════════════════════════════════════ */
-.hero-card {
-  width: 360px;
-  height: 240px;
-  background: linear-gradient(135deg, rgba(255, 122, 182, 0.08) 0%, rgba(125, 211, 252, 0.08) 100%);
-  border-radius: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  position: relative;
-  overflow: hidden;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-  animation: fadeInRight 0.8s ease-out 0.2s both;
-}
-
-@keyframes fadeInRight {
-  from {
-    opacity: 0;
-    transform: translateX(30px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-.hero-card::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.03), transparent);
-  transform: rotate(45deg);
-  animation: shimmer 3s infinite;
-}
-
-@keyframes shimmer {
-  0% {
-    transform: translateX(-100%) translateY(-100%) rotate(45deg);
-  }
-
-  100% {
-    transform: translateX(100%) translateY(100%) rotate(45deg);
-  }
-}
-
-.hero-card-inner {
-  color: var(--vp-c-text-2);
-  padding: 20px;
-  text-align: center;
-  font-size: 16px;
-  font-weight: 500;
-  z-index: 1;
-  position: relative;
 }
 
 /* ═══════════════════════════════════════════════════════════════════════
@@ -495,17 +367,8 @@
     text-align: center;
   }
 
-  .hero-card {
-    width: 100%;
-    max-width: 360px;
-  }
-
   .hero h1 {
     font-size: 120px;
-  }
-
-  .actions {
-    justify-content: center;
   }
 
   .features-grid {
@@ -610,6 +473,14 @@ div[class*="language-"]::before {
   background: linear-gradient(90deg, rgba(255, 122, 182, 0.08), transparent);
 }
 
+.VPSidebar {
+  margin-top: 12px;
+}
+
+.VPNavBarTitle.has-sidebar .title {
+  border-bottom: 0px;
+}
+
 /* ═══════════════════════════════════════════════════════════════════════
    CUSTOM CONTAINERS (TIP, WARNING, DANGER)
    ═══════════════════════════════════════════════════════════════════════ */
@@ -647,11 +518,10 @@ div[class*="language-"]::before {
   position: relative;
   text-decoration: none;
   border-bottom: 2px solid transparent;
-  transition: border-color 0.3s ease;
   background-size: 0% 2px;
   background-position: 0 100%;
   background-repeat: no-repeat;
-  transition: background-size 0.3s ease;
+  transition: border-color 0.3s ease, background-size 0.3s ease;
 }
 
 .vp-doc a:hover {
@@ -789,47 +659,6 @@ html {
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
 }
 
-:root:not(.dark) .btn {
-  background: rgba(0, 0, 0, 0.03);
-  border: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-:root:not(.dark) .btn::before {
-  background: rgba(0, 0, 0, 0.05);
-}
-
-/* ═══════════════════════════════════════════════════════════════════════
-   MERMAID DIAGRAMS
-   ═══════════════════════════════════════════════════════════════════════ */
-
-/* Center mermaid diagrams and add spacing */
-.vp-doc .mermaid {
-  display: flex;
-  justify-content: center;
-  margin: 24px 0;
-}
-
-/* Ensure mermaid SVGs are responsive */
-.vp-doc .mermaid svg {
-  max-width: 100%;
-  height: auto;
-}
-
-:root:not(.dark) .btn:hover {
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-  border-color: rgba(0, 0, 0, 0.15);
-}
-
-:root:not(.dark) .btn.primary {
-  background: linear-gradient(135deg, var(--vp-c-brand-1), var(--vp-c-brand-1-dim-2));
-  color: #fff;
-  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
-}
-
-:root:not(.dark) .btn.primary:hover {
-  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
-}
-
 :root:not(.dark) .VPNav {
   border-bottom: 1px solid rgba(0, 0, 0, 0.08);
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
@@ -895,12 +724,6 @@ html {
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
 }
 
-:root:not(.dark) .hero-card {
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.08) 0%, rgba(96, 165, 250, 0.08) 100%);
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-}
-
 :root:not(.dark) .DocSearch-Button:hover {
   background: rgba(59, 130, 246, 0.08);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -925,6 +748,23 @@ html {
 
 :root:not(.dark) ::-webkit-scrollbar-thumb:hover {
   background-color: var(--vp-c-brand-1);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   MERMAID DIAGRAMS
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* Center mermaid diagrams and add spacing */
+.vp-doc .mermaid {
+  display: flex;
+  justify-content: center;
+  margin: 24px 0;
+}
+
+/* Ensure mermaid SVGs are responsive */
+.vp-doc .mermaid svg {
+  max-width: 100%;
+  height: auto;
 }
 
 /* ═══════════════════════════════════════════════════════════════════════

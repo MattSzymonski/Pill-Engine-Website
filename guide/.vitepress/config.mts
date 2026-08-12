@@ -6,7 +6,7 @@ export default withMermaid(
   defineConfig({
     base: '/',
     srcDir: 'pages',
-    title: "Pill Guide",
+    title: "pill guide",
     description: "Guide for Pill - Modern, free and blazingly fast game engine",
     head: [
       // Google Fonts
@@ -53,10 +53,7 @@ export default withMermaid(
           items: [
             {
               text: 'What is Pill?',
-              link: '/introduction',
-              items: [
-                { text: 'Intro (test)', link: '/introduction_test' }
-              ]
+              link: '/introduction'
             }
           ],
         },
@@ -98,7 +95,7 @@ export default withMermaid(
                 { text: 'Code of Conduct', link: '/contributing/code-of-conduct' },
               ]
             },
-           
+
             { text: 'CI Pipeline', link: '/advanced/ci-pipeline' }
           ]
         }
