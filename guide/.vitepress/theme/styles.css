@@ -1,5 +1,8 @@
-/* https://github.com/vuejs/vitepress/blob/main/src/client/theme-default/styles/vars.css */
-/* https://catppuccin.com/palette */
+/* VitePress theme overrides for the Pill Guide.
+   Design tokens live in shared.css (shared with the rustdoc API docs);
+   this file only maps them onto VitePress classes and components.
+   Reference: https://github.com/vuejs/vitepress/blob/main/src/client/theme-default/styles/vars.css
+   Palette inspiration: https://catppuccin.com/palette */
 
 @font-face {
   font-family: 'Chillax';
@@ -9,45 +12,113 @@
   font-style: normal;
 }
 
+/* ═══════════════════════════════════════════════════════════════════════
+   THEME VARIABLES - Shiki syntax colors
+   ═══════════════════════════════════════════════════════════════════════ */
 :root {
-  /* Brand colors are defined once in shared.css and reused by rustdoc. */
-  /* Background Colors */
-  /* --vp-c-bg: #1f1f22;
-  --vp-c-bg-alt: #242427;
-  --vp-c-bg-elv: #11111b;
-  --vp-c-bg-soft: #181825; */
-  /* --vp-c-text-1: #dfdfdf;
-  --vp-c-text-2: #bac2de;
-  --vp-c-text-3: #a6adc8; */
-  /*   
-  --vp-font-family-base: 'Montserrat', ui-sans-serif, system-ui, sans-serif,
-    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'; */
-
   /* Shiki (code syntax) color variables - use these to tweak code highlighting */
-  --shiki-light: var(--pill-syntax-number);
-
-
   --shiki-background: var(--vp-c-bg);
   --shiki-foreground: var(--vp-c-text-1);
   --shiki-comment: var(--vp-c-text-3);
-  --shiki-keyword: var(--pill-syntax-keyword);
-  /* flamingo */
-  --shiki-function: var(--pill-syntax-function);
-  /* sky */
-  --shiki-string: var(--pill-syntax-string);
-  /* greenish */
-  --shiki-number: var(--pill-syntax-number);
-  /* warm number color */
+  --shiki-keyword: var(--pill-syntax-keyword);  /* flamingo */
+  --shiki-function: var(--pill-syntax-function); /* sky */
+  --shiki-string: var(--pill-syntax-string);   /* mint */
+  --shiki-number: var(--pill-syntax-number);   /* amber */
   --shiki-constant: var(--pill-syntax-number);
-  --shiki-type: var(--pill-syntax-type);
-  /* lavender-ish */
+  --shiki-type: var(--pill-syntax-type);       /* lavender */
   --shiki-operator: var(--vp-c-text-2);
   --shiki-punctuation: var(--vp-c-text-2);
   --shiki-selection-bg: var(--pill-syntax-selection);
 }
 
+/* ═══════════════════════════════════════════════════════════════════════
+   GLOBAL - Page-level defaults
+   ═══════════════════════════════════════════════════════════════════════ */
+html {
+  scroll-behavior: smooth;
+}
+
+::selection {
+  background: rgba(125, 211, 252, 0.3);
+  color: #fff;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--vp-c-brand-1-dim-1);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--vp-c-brand-1-dim-2);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   NAVBAR & SEARCH - Top navigation bar
+   ═══════════════════════════════════════════════════════════════════════ */
+.VPNav {
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+}
+
 .VPNavBar .title {
   font-size: 24px !important;
+}
+
+.VPNavBarTitle .title {
+  transition: all 0.3s ease;
+  font-family: "Chillax", sans-serif;
+}
+
+.VPNavBarTitle.has-sidebar .title {
+  border-bottom: none;
+}
+
+.VPNavBarTitle:hover .title {
+  color: var(--vp-c-brand-1);
+}
+
+.VPNavBarMenuLink,
+.VPLink {
+  transition: color 0.2s ease;
+  position: relative;
+}
+
+.VPNavBarMenuLink::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  transition: width 0.3s ease;
+}
+
+.VPNavBarMenuLink:hover::after {
+  width: 100%;
+}
+
+.VPNavBarSearch {
+  justify-content: flex-end;
+  margin-right: 16px;
+}
+
+.DocSearch-Button {
+  transition: all 0.2s ease;
+}
+
+.DocSearch-Button:hover {
+  background: rgba(255, 122, 182, 0.08);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .DocSearch-Button-Keys {
@@ -58,91 +129,21 @@
   width: 175px !important;
 }
 
-.VPNavBarSearch {
-  justify-content: flex-end;
-  margin-right: 16px;
-}
-
-/* Map shiki token classes to the variables above. These overrides make it
-   easy to tweak syntax coloring without replacing the whole Shiki theme. */
-.shiki {
-  background: var(--shiki-background);
-  color: var(--shiki-foreground);
-  border-radius: 6px;
-  padding: 0.75rem;
-}
-
-.shiki .token.comment,
-.shiki .token.block-comment,
-.shiki .token.line-comment {
-  color: var(--shiki-comment) !important;
-}
-
-.shiki .token.keyword {
-  color: var(--shiki-keyword) !important;
-}
-
-.shiki .token.function,
-.shiki .token.inserted {
-  color: var(--shiki-function) !important;
-}
-
-.shiki .token.string,
-.shiki .token.char {
-  color: var(--shiki-string) !important;
-}
-
-.shiki .token.number,
-.shiki .token.constant {
-  color: var(--shiki-number) !important;
-}
-
-.shiki .token.type {
-  color: var(--shiki-type) !important;
-}
-
-.shiki .token.operator {
-  color: var(--shiki-operator) !important;
-}
-
-.shiki .token.punctuation {
-  color: var(--shiki-punctuation) !important;
-}
-
-.shiki ::selection {
-  background: var(--shiki-selection-bg);
-}
-
-/* Scroll progress bar at top of the page */
 /* ═══════════════════════════════════════════════════════════════════════
-   SCROLL PROGRESS BAR - Top page progress indicator
+   SIDEBAR - Left navigation
    ═══════════════════════════════════════════════════════════════════════ */
-#scroll-progress {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 3px;
-  background: linear-gradient(90deg, var(--vp-c-brand-1-dim-2), var(--vp-c-brand-1-dim-2));
-  animation: gradientShift 3s ease infinite;
-  z-index: 9999;
-  transition: width 0.1s ease-out;
+.VPSidebar {
+  margin-top: 12px;
 }
 
-@keyframes gradientShift {
-
-  0%,
-  100% {
-    background-position: 0% 50%;
-  }
-
-  50% {
-    background-position: 100% 50%;
-  }
+.VPSidebarItem.level-0 .link {
+  transition: all 0.2s ease;
+  padding-left: 6px !important;
+  border-radius: 4px;
 }
 
-/* hide when not scrolling for a cleaner look */
-#scroll-progress.hidden {
-  opacity: 0;
+.VPSidebarItem.is-active>.item>.link {
+  background: linear-gradient(90deg, rgba(255, 122, 182, 0.08), transparent);
 }
 
 /* ═══════════════════════════════════════════════════════════════════════
@@ -150,7 +151,6 @@
    ═══════════════════════════════════════════════════════════════════════ */
 .hero {
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  /* background: radial-gradient(ellipse at top, rgba(255, 122, 182, 0.08), transparent 60%); */
   position: relative;
   overflow: hidden;
 }
@@ -360,63 +360,59 @@
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
 }
 
-/* responsive */
-@media (max-width: 900px) {
-  .hero-inner {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .hero h1 {
-    font-size: 120px;
-  }
-
-  .features-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
 /* ═══════════════════════════════════════════════════════════════════════
-   NAVBAR ENHANCEMENTS
+   CODE BLOCKS & SYNTAX HIGHLIGHTING
    ═══════════════════════════════════════════════════════════════════════ */
-.VPNav {
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+/* Map shiki token classes to the variables above. These overrides make it
+   easy to tweak syntax coloring without replacing the whole Shiki theme. */
+.shiki {
+  background: var(--shiki-background);
+  color: var(--shiki-foreground);
+  border-radius: 6px;
+  padding: 0.75rem;
 }
 
-.VPNavBarTitle .title {
-  transition: all 0.3s ease;
-  font-family: "Chillax", sans-serif;
+.shiki .token.comment,
+.shiki .token.block-comment,
+.shiki .token.line-comment {
+  color: var(--shiki-comment) !important;
 }
 
-.VPNavBarTitle:hover .title {
-  color: var(--vp-c-brand-1)
+.shiki .token.keyword {
+  color: var(--shiki-keyword) !important;
 }
 
-.VPNavBarMenuLink,
-.VPLink {
-  transition: color 0.2s ease;
-  position: relative;
+.shiki .token.function,
+.shiki .token.inserted {
+  color: var(--shiki-function) !important;
 }
 
-.VPNavBarMenuLink::after {
-  content: '';
-  position: absolute;
-  bottom: -4px;
-  left: 0;
-  width: 0;
-  height: 2px;
-  transition: width 0.3s ease;
+.shiki .token.string,
+.shiki .token.char {
+  color: var(--shiki-string) !important;
 }
 
-.VPNavBarMenuLink:hover::after {
-  width: 100%;
+.shiki .token.number,
+.shiki .token.constant {
+  color: var(--shiki-number) !important;
 }
 
-/* ═══════════════════════════════════════════════════════════════════════
-   CODE BLOCKS - Enhanced syntax highlighting
-   ═══════════════════════════════════════════════════════════════════════ */
+.shiki .token.type {
+  color: var(--shiki-type) !important;
+}
+
+.shiki .token.operator {
+  color: var(--shiki-operator) !important;
+}
+
+.shiki .token.punctuation {
+  color: var(--shiki-punctuation) !important;
+}
+
+.shiki ::selection {
+  background: var(--shiki-selection-bg);
+}
+
 div[class*="language-"] {
   border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.05);
@@ -461,27 +457,6 @@ div[class*="language-"]::before {
 }
 
 /* ═══════════════════════════════════════════════════════════════════════
-   SIDEBAR ENHANCEMENTS
-   ═══════════════════════════════════════════════════════════════════════ */
-.VPSidebarItem.level-0 .link {
-  transition: all 0.2s ease;
-  padding-left: 6px !important;
-  border-radius: 4px;
-}
-
-.VPSidebarItem.is-active>.item>.link {
-  background: linear-gradient(90deg, rgba(255, 122, 182, 0.08), transparent);
-}
-
-.VPSidebar {
-  margin-top: 12px;
-}
-
-.VPNavBarTitle.has-sidebar .title {
-  border-bottom: 0px;
-}
-
-/* ═══════════════════════════════════════════════════════════════════════
    CUSTOM CONTAINERS (TIP, WARNING, DANGER)
    ═══════════════════════════════════════════════════════════════════════ */
 .custom-block {
@@ -512,7 +487,7 @@ div[class*="language-"]::before {
 }
 
 /* ═══════════════════════════════════════════════════════════════════════
-   LINKS - Styled with gradient underline
+   CONTENT LINKS - Gradient underline on hover
    ═══════════════════════════════════════════════════════════════════════ */
 .vp-doc a {
   position: relative;
@@ -576,48 +551,51 @@ div[class*="language-"]::before {
 }
 
 /* ═══════════════════════════════════════════════════════════════════════
-   SEARCH BOX ENHANCEMENT
+   SCROLL PROGRESS BAR - Top page progress indicator
    ═══════════════════════════════════════════════════════════════════════ */
-.DocSearch-Button {
-  transition: all 0.2s ease;
+#scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--vp-c-brand-1-dim-2), var(--vp-c-brand-1-dim-2));
+  animation: gradientShift 3s ease infinite;
+  z-index: 9999;
+  transition: width 0.1s ease-out;
 }
 
-.DocSearch-Button:hover {
-  background: rgba(255, 122, 182, 0.08);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+@keyframes gradientShift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Hide when not scrolling for a cleaner look */
+#scroll-progress.hidden {
+  opacity: 0;
 }
 
 /* ═══════════════════════════════════════════════════════════════════════
-   SMOOTH SCROLL BEHAVIOR
+   RESPONSIVE - Smaller screens
    ═══════════════════════════════════════════════════════════════════════ */
-html {
-  scroll-behavior: smooth;
-}
+@media (max-width: 900px) {
+  .hero-inner {
+    flex-direction: column;
+    text-align: center;
+  }
 
-/* ═══════════════════════════════════════════════════════════════════════
-   GENERAL POLISH
-   ═══════════════════════════════════════════════════════════════════════ */
-::selection {
-  background: rgba(125, 211, 252, 0.3);
-  color: #fff;
-}
+  .hero h1 {
+    font-size: 120px;
+  }
 
-::-webkit-scrollbar {
-  width: 6px;
-  height: 10px;
-}
-
-::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.3);
-}
-
-::-webkit-scrollbar-thumb {
-  background-color: var(--vp-c-brand-1-dim-1);
-  border-radius: 5px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background-color: var(--vp-c-brand-1-dim-2);
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* ═══════════════════════════════════════════════════════════════════════
@@ -750,10 +728,14 @@ html {
   background-color: var(--vp-c-brand-1);
 }
 
+:root:not(.dark) .mermaid-overlay-backdrop {
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(6px);
+}
+
 /* ═══════════════════════════════════════════════════════════════════════
    MERMAID DIAGRAMS
    ═══════════════════════════════════════════════════════════════════════ */
-
 /* Center mermaid diagrams and add spacing */
 .vp-doc .mermaid {
   display: flex;
@@ -770,7 +752,6 @@ html {
 /* ═══════════════════════════════════════════════════════════════════════
    MERMAID LIGHTBOX - Click-to-enlarge overlay
    ═══════════════════════════════════════════════════════════════════════ */
-
 #mermaid-overlay {
   position: fixed;
   inset: 0;
@@ -840,9 +821,4 @@ html {
 .mermaid-overlay-close:hover {
   background: rgba(255, 255, 255, 0.2);
   transform: scale(1.1);
-}
-
-:root:not(.dark) .mermaid-overlay-backdrop {
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(6px);
 }

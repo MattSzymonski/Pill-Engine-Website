@@ -6,7 +6,7 @@ Pill Launcher is built around a **trait-based action dispatch** system. Each sub
 
 ```mermaid
 flowchart TD
-    MAIN[main()] --> DISPATCH[utils::cli::run_app]
+    MAIN["main()"] --> DISPATCH["utils::cli::run_app"]
     DISPATCH --> ACTIONS[8 Action trait objects]
     ACTIONS --> CREATE[Create]
     ACTIONS --> RUN[Run]
