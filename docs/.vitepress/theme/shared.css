@@ -1,0 +1,89 @@
+/* Shared design tokens for the Pill Guide (VitePress) and the API docs
+   (rustdoc). This single file is imported by .vitepress/theme/index.ts and
+   passed to rustdoc with --extend-css (see Rust-Hybrid-ECS/.cargo/config.toml).
+
+   Keep this file free of framework-specific selectors. Only custom property
+   declarations belong here, so both consumers can use it unchanged. */
+
+:root {
+  /* Brand */
+  --pill-brand: #d64a4a;
+  --pill-brand-dim-1: #a33b3b;
+  --pill-brand-dim-2: #6d2929;
+
+  /* Syntax accents (mirror the Shiki palette of the guide) */
+  --pill-syntax-keyword: #ff7ab6;
+  --pill-syntax-function: #7dd3fc;
+  --pill-syntax-string: #a7f3d0;
+  --pill-syntax-number: #f6c177;
+  --pill-syntax-type: #b4a7f8;
+  --pill-syntax-comment: #a6adc8;
+  --pill-syntax-selection: rgba(125, 211, 252, 0.12);
+
+  /* Surfaces */
+  --pill-background: #1e1e20;
+  --pill-background-alt: #161618;
+  --pill-background-elevated: #202127;
+  --pill-border: rgba(60, 60, 67, 0.29);
+  --pill-text-primary: rgba(255, 255, 245, 0.86);
+  --pill-text-secondary: rgba(235, 235, 245, 0.6);
+
+  /* Typography. The guide loads Poppins and Chillax itself; rustdoc falls
+     back to the system fonts listed after them. */
+  --pill-font-family: 'Poppins', 'Chillax', ui-sans-serif, system-ui, sans-serif;
+  --pill-font-family-code: 'Cascadia Mono', Consolas, ui-monospace, monospace;
+
+  /* VitePress aliases */
+  --vp-c-brand-1: var(--pill-brand);
+  --vp-c-brand-1-dim-1: var(--pill-brand-dim-1);
+  --vp-c-brand-1-dim-2: var(--pill-brand-dim-2);
+}
+
+/* rustdoc theme mapping. rustdoc scopes its themes as
+   :root[data-theme="..."], so these selectors repeat that specificity to
+   reliably win the cascade for every theme. The result is that the API
+   docs always show the guide's dark look. */
+:root:not([data-theme]),
+:root[data-theme="light"],
+:root[data-theme="dark"],
+:root[data-theme="ayu"] {
+  --main-background-color: var(--pill-background);
+  --main-color: var(--pill-text-primary);
+  --link-color: var(--pill-brand);
+  --sidebar-background-color: var(--pill-background-alt);
+  --sidebar-background-color-hover: var(--pill-background-elevated);
+  --sidebar-current-link-background-color: var(--pill-brand-dim-2);
+  --sidebar-link-color: var(--pill-text-secondary);
+  --sidebar-border-color: var(--pill-border);
+  --border-color: var(--pill-border);
+  --headings-border-bottom-color: var(--pill-border);
+  --code-block-background-color: var(--pill-background-alt);
+  --table-alt-row-background-color: var(--pill-background-elevated);
+  --scrollbar-thumb-background-color: var(--pill-brand-dim-1);
+  --scrollbar-track-background-color: var(--pill-background-alt);
+  --search-input-focused-border-color: var(--pill-brand);
+  --font-family: var(--pill-font-family);
+  --font-family-code: var(--pill-font-family-code);
+
+  /* Syntax highlighting mirrors the Shiki palette of the guide */
+  --code-highlight-comment-color: var(--pill-syntax-comment);
+  --code-highlight-doc-comment-color: var(--pill-syntax-comment);
+  --code-highlight-kw-color: var(--pill-syntax-keyword);
+  --code-highlight-kw-2-color: var(--pill-syntax-keyword);
+  --code-highlight-string-color: var(--pill-syntax-string);
+  --code-highlight-number-color: var(--pill-syntax-number);
+  --code-highlight-literal-color: var(--pill-syntax-number);
+  --code-highlight-attribute-color: var(--pill-syntax-type);
+  --code-highlight-macro-color: var(--pill-syntax-function);
+  --code-highlight-lifetime-color: var(--pill-syntax-number);
+
+  /* Item links share the guide's accent colors */
+  --function-link-color: var(--pill-syntax-function);
+  --mod-link-color: var(--pill-syntax-function);
+  --macro-link-color: var(--pill-syntax-function);
+  --assoc-item-link-color: var(--pill-syntax-function);
+  --trait-link-color: var(--pill-syntax-type);
+  --type-link-color: var(--pill-syntax-type);
+  --keyword-link-color: var(--pill-syntax-keyword);
+  --attribute-link-color: var(--pill-syntax-number);
+}

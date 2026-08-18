@@ -6,21 +6,21 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const distDir = path.join(__dirname, 'dist');
-const landingBuildDir = path.join(__dirname, 'landing_page', 'dist');
-const guideBuildDir = path.join(__dirname, 'guide', '.vitepress', 'dist');
+const docsBuildDir = path.join(__dirname, 'docs', '.vitepress', 'dist');
 
-console.log('🚀 Combining builds...');
+console.log('🚀 Publishing documentation...');
 
-// Create dist directory if it doesn't exist
-if (!fs.existsSync(distDir)) {
-    fs.mkdirSync(distDir, { recursive: true });
+// The distribution directory is generated output. Recreate it so obsolete
+// routes such as the former /docs/ subtree cannot survive between builds.
+if (fs.existsSync(distDir)) {
+    fs.rmSync(distDir, { recursive: true, force: true });
 }
+fs.mkdirSync(distDir, { recursive: true });
 
 // Function to copy directory recursively
 function copyRecursive(src, dest) {
     if (!fs.existsSync(src)) {
-        console.error(`❌ Source directory does not exist: ${src}`);
-        return;
+        throw new Error(`Source directory does not exist: ${src}`);
     }
 
     const exists = fs.existsSync(src);
@@ -42,21 +42,17 @@ function copyRecursive(src, dest) {
     }
 }
 
-// Copy landing page to root of dist
-console.log('📄 Copying landing page...');
-copyRecursive(landingBuildDir, distDir);
-console.log('✅ Landing page copied to dist/');
-
-// Copy guide to /guide subdirectory
-console.log('📚 Copying guide...');
-const guideDestDir = path.join(distDir, 'guide');
-copyRecursive(guideBuildDir, guideDestDir);
-console.log('✅ Guide copied to dist/guide/');
+// The documentation home page is the website root. Guide and reference are
+// emitted directly as /guide/ and /reference/ beneath it.
+console.log('📚 Copying documentation...');
+copyRecursive(docsBuildDir, distDir);
+console.log('✅ Documentation copied to dist/');
 
 console.log('🎉 Build complete!');
 console.log('');
 console.log('📁 Structure:');
-console.log('  dist/              → Landing page (root)');
-console.log('  dist/guide/        → Guide & Documentation');
+console.log('  dist/              → Documentation home');
+console.log('  dist/guide/        → Guide');
+console.log('  dist/reference/    → API reference');
 console.log('');
 console.log('To preview: npm run preview');
