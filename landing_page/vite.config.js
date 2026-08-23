@@ -7,5 +7,9 @@ export default defineConfig({
     appType: 'spa',
     server: {
         port: 5175,
+        fs: {
+            // Allow importing /pill_style.css from the repository root.
+            allow: ['..'],
+        },
     },
 })

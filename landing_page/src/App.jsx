@@ -7,7 +7,6 @@ import SectionDivider from './components/effects/SectionDivider';
 import Features from './components/sections/Features';
 import Performance from './components/sections/Performance';
 import Experience from './components/sections/Experience';
-import './App.css';
 
 function App() {
     return (

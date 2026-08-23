@@ -6,29 +6,26 @@ export default {
     ],
     theme: {
         extend: {
+            // Colors come from the design tokens in /pill_style.css. The raw RGB
+            // triplet variables keep Tailwind's alpha modifiers (e.g. /10)
+            // working for brand colors.
             colors: {
                 brand: {
-                    50: '#fff5f5',
-                    100: '#ffe0e0',
-                    200: '#ffc2c2',
-                    300: '#ff9494',
-                    400: '#ff6363',
-                    500: '#ff4444',
-                    600: '#e62e2e',
-                    700: '#c41c1c',
-                    800: '#a31818',
-                    900: '#871919',
+                    300: 'rgb(var(--brand-300-rgb) / <alpha-value>)',
+                    400: 'rgb(var(--brand-400-rgb) / <alpha-value>)',
+                    500: 'rgb(var(--brand-500-rgb) / <alpha-value>)',
+                    600: 'rgb(var(--brand-600-rgb) / <alpha-value>)',
                 },
                 surface: {
-                    DEFAULT: '#0A0A0A',
-                    elevated: '#111111',
-                    hover: '#1A1A1A',
-                    border: 'rgba(255,255,255,0.06)',
-                    'border-hover': 'rgba(255,255,255,0.12)',
+                    DEFAULT: 'var(--surface)',
+                    elevated: 'var(--surface-elevated)',
+                    hover: 'var(--surface-hover)',
+                    border: 'var(--border)',
+                    'border-hover': 'var(--border-hover)',
                 },
             },
             fontFamily: {
-                sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+                sans: ['var(--font-sans)'],
             },
         },
     },

@@ -3,7 +3,7 @@
 import DefaultTheme from 'vitepress/theme'
 import type { Theme, EnhanceAppContext } from 'vitepress'
 import { enlargeMermaidDiagrams } from './mermaid'
-import './shared.css'
+import '../../../pill_style.css'
 import './styles.css'
 
 // Scroll progress bar showing how deep the user has scrolled on the page.

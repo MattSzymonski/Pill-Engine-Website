@@ -30,6 +30,15 @@ export default withMermaid(
       html: true
     },
 
+    vite: {
+      // Allow the theme to import /pill_style.css from the repository root.
+      server: {
+        fs: {
+          allow: ['..']
+        }
+      }
+    },
+
     mermaid: {
       flowchart: {
         curve: 'step'

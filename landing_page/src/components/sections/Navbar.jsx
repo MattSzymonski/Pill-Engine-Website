@@ -21,7 +21,7 @@ const Navbar = () => {
     return (
         <nav
             id="navbar"
-            className={`fixed top-3 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-24px)] max-w-[1280px] rounded-xl navbar-glass ${scrolled ? 'navbar-scrolled' : ''}`}
+            className={`fixed top-3 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-24px)] max-w-[var(--container-max)] rounded-xl navbar-glass ${scrolled ? 'navbar-scrolled' : ''}`}
         >
             <div className="flex items-center justify-between h-14 px-5 max-w-[1440px] mx-auto">
                 {/* Logo */}

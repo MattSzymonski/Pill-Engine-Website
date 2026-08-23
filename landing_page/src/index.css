@@ -1,73 +1,40 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   LANDING PAGE STYLES - Pill landing page (Vite + Tailwind)
+   ═══════════════════════════════════════════════════════════════════════
+   Landing page specific styles. All design tokens (colors, fonts, sizes,
+   roundness, gradients, shadows, glass) live in /pill_style.css at the
+   repository root and are consumed here as CSS variables.
+   ═══════════════════════════════════════════════════════════════════════ */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
-    :root {
-        --brand-400: #ff6363;
-        --brand-500: #ff4444;
-        --brand-600: #e62e2e;
-    }
-
     * {
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
     }
 
     html {
-        scroll-behavior: smooth;
-        background-color: #0A0A0A;
+        background-color: var(--surface);
     }
 
     body {
         margin: 0;
-        background-color: #0A0A0A;
-        color: #ffffff;
-        font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        background-color: var(--surface);
+        color: var(--text-primary);
+        font-family: var(--font-sans);
     }
 
     #root {
         width: 100%;
     }
-
-    ::selection {
-        background: rgba(255, 99, 99, 0.3);
-        color: #fff;
-    }
-
-    ::-webkit-scrollbar {
-        width: 6px;
-    }
-
-    ::-webkit-scrollbar-track {
-        background: transparent;
-    }
-
-    ::-webkit-scrollbar-thumb {
-        background: rgba(255, 255, 255, 0.1);
-        border-radius: 3px;
-    }
-
-    ::-webkit-scrollbar-thumb:hover {
-        background: rgba(255, 255, 255, 0.2);
-    }
 }
 
 @layer components {
-    /* Glass card - the signature Raycast card style */
-    .glass-card {
-        background: rgba(255, 255, 255, 0.03);
-        border: 1px solid rgba(255, 255, 255, 0.06);
-        backdrop-filter: blur(12px);
-        border-radius: 16px;
-        transition: all 0.3s ease;
-    }
-
-    .glass-card:hover {
-        background: rgba(255, 255, 255, 0.05);
-        border-color: rgba(255, 255, 255, 0.1);
-        transform: translateY(-2px);
-    }
+    /* .glass-card and .text-gradient live in /pill_style.css */
 
     /* Glow orb for hero background */
     .glow-orb {
@@ -79,16 +46,16 @@
 
     /* Subtle border bottom for sections */
     .section-divider {
-        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        border-bottom: 1px solid var(--border);
     }
 
     /* Floating glass navbar */
     .navbar-glass {
-        background: rgba(255, 255, 255, 0.02);
-        backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
-        border: 1px solid rgba(255, 255, 255, 0.05);
-        box-shadow: 0 2px 16px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.02);
+        background: var(--glass-background-navbar);
+        backdrop-filter: blur(var(--glass-blur-navbar));
+        -webkit-backdrop-filter: blur(var(--glass-blur-navbar));
+        border: 1px solid var(--glass-border-navbar);
+        box-shadow: var(--shadow-navbar), inset 0 1px 0 rgba(255, 255, 255, 0.02);
         transition: all 0.3s ease;
     }
 
@@ -102,10 +69,130 @@
     }
 
     .navbar-glass.navbar-scrolled {
-        background: rgba(255, 255, 255, 0.03);
-        backdrop-filter: blur(32px);
-        -webkit-backdrop-filter: blur(32px);
-        border-color: rgba(255, 255, 255, 0.08);
-        box-shadow: 0 4px 32px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+        background: var(--glass-background-navbar-scrolled);
+        backdrop-filter: blur(var(--glass-blur-navbar-scrolled));
+        -webkit-backdrop-filter: blur(var(--glass-blur-navbar-scrolled));
+        border-color: var(--glass-border-navbar-scrolled);
+        box-shadow: var(--shadow-navbar-scrolled), inset 0 1px 0 rgba(255, 255, 255, 0.04);
     }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   ANIMATIONS
+   ═══════════════════════════════════════════════════════════════════════ */
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes floatSlow {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-12px); }
+}
+
+.animate-fade-in-up {
+    animation: fadeInUp 0.7s ease-out forwards;
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+}
+
+.animate-float-slow {
+    animation: floatSlow 6s ease-in-out infinite;
+}
+
+/* Staggered animation delays */
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+.delay-400 { animation-delay: 0.4s; }
+.delay-500 { animation-delay: 0.5s; }
+
+@keyframes orbPulse {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.1); }
+}
+
+.animate-orb-pulse {
+    animation: orbPulse 6s ease-in-out infinite;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   COMPONENT STYLES
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* Glass reflection - sweeps light diagonally */
+.glass-reflection {
+    position: relative;
+}
+
+.glass-reflection::before,
+.glass-reflection::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    border-radius: inherit;
+}
+
+/* Primary sweep - diagonal top-left to bottom-right */
+.glass-reflection::before {
+    background: linear-gradient(
+        135deg,
+        transparent 30%,
+        rgba(255, 255, 255, 0.02) 45%,
+        rgba(255, 255, 255, 0.03) 50%,
+        rgba(255, 255, 255, 0.02) 55%,
+        transparent 70%
+    );
+    background-size: 300% 300%;
+    animation: glass-sweep-1 8s ease-in-out infinite;
+}
+
+/* Secondary sweep - opposite diagonal, slower, dimmer */
+.glass-reflection::after {
+    background: linear-gradient(
+        -45deg,
+        transparent 40%,
+        rgb(var(--brand-400-rgb) / 0.015) 48%,
+        rgb(var(--brand-400-rgb) / 0.025) 50%,
+        rgb(var(--brand-400-rgb) / 0.015) 52%,
+        transparent 60%
+    );
+    background-size: 250% 250%;
+    animation: glass-sweep-2 10s ease-in-out infinite;
+}
+
+@keyframes glass-sweep-1 {
+    0%   { background-position: 0% 0%; }
+    50%  { background-position: 100% 100%; }
+    100% { background-position: 0% 0%; }
+}
+
+@keyframes glass-sweep-2 {
+    0%   { background-position: 100% 0%; }
+    50%  { background-position: 0% 100%; }
+    100% { background-position: 100% 0%; }
+}
+
+/* Gradient text utility (.text-gradient) lives in /pill_style.css */
+
+/* Pill logo text */
+.pill-logo-text {
+    font-family: var(--font-sans);
+    font-weight: 800;
+    letter-spacing: -0.03em;
 }

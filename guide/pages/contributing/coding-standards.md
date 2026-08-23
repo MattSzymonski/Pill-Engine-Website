@@ -87,8 +87,8 @@ For how to write the comments themselves, see
 <style>
 .diagram { display:flex; flex-direction:column; align-items:center; gap:4px; font-family:inherit; margin-top:48px; margin-bottom:48px }
 .diagram-arrow { color:#6b7280; font-size:20px; line-height:1; }
-.diagram-box-1 { font-size:16px; width:320px; border-radius:4px; padding:10px 16px; text-align:center; border:2px solid #d64a4a; background:#1f1f1f; color:#e5e5e5; }
-.diagram-box-2 { font-size:16px; width:100%; border-radius:4px; padding:10px 16px; text-align:center; border:2px solid #d64a4a; background:#1f1f1f; color:#e5e5e5; }
+.diagram-box-1 { font-size:16px; width:320px; border-radius:4px; padding:10px 16px; text-align:center; border:2px solid var(--brand); background:#1f1f1f; color:#e5e5e5; }
+.diagram-box-2 { font-size:16px; width:100%; border-radius:4px; padding:10px 16px; text-align:center; border:2px solid var(--brand); background:#1f1f1f; color:#e5e5e5; }
 .diagram-repeat-group { position:relative; border:1px dashed #6b7280; padding:22px; display:flex; flex-direction:column; align-items:center; gap:4px; }
 .diagram-repeat-label { position:absolute; left:-1px; top:50%; transform:translate(-50%,-50%) rotate(-90deg); font-size:13px; color:#9ca3af; white-space:nowrap; letter-spacing:0.05em; background:#1a1a1a; padding:2px 6px; }
 </style>

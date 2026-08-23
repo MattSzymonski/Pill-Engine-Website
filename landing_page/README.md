@@ -90,10 +90,13 @@ src/
 │   ├── ThemeToggler.jsx  # Dark/light mode toggle
 │   └── LightRays.tsx     # Animated light rays effect
 ├── App.jsx               # Main app component
-├── App.css               # Custom styles and animations
-├── index.css             # Global styles with Tailwind
+├── index.css             # Landing page styles (Tailwind directives included)
 └── main.jsx              # App entry point
 ```
+
+Styles shared with the guide (colors, fonts, sizes, roundness, gradients,
+shadows, glass) live in `pill_style.css` at the repository root and are imported
+by `main.jsx`. This file only contains landing page specific styles.
 
 ## 🎯 Features Highlights
 

@@ -1,6 +1,8 @@
 /* VitePress theme overrides for the Pill Guide.
-   Design tokens live in shared.css (shared with the rustdoc API docs);
-   this file only maps them onto VitePress classes and components.
+   All design tokens (colors, fonts, sizes, roundness, gradients,
+   shadows, glass, syntax accents) live in /pill_style.css at the
+   repository root; this file only maps them onto VitePress classes
+   and components.
    Reference: https://github.com/vuejs/vitepress/blob/main/src/client/theme-default/styles/vars.css
    Palette inspiration: https://catppuccin.com/palette */
 
@@ -20,45 +22,33 @@
   --shiki-background: var(--vp-c-bg);
   --shiki-foreground: var(--vp-c-text-1);
   --shiki-comment: var(--vp-c-text-3);
-  --shiki-keyword: var(--pill-syntax-keyword);  /* flamingo */
-  --shiki-function: var(--pill-syntax-function); /* sky */
-  --shiki-string: var(--pill-syntax-string);   /* mint */
-  --shiki-number: var(--pill-syntax-number);   /* amber */
-  --shiki-constant: var(--pill-syntax-number);
-  --shiki-type: var(--pill-syntax-type);       /* lavender */
+  --shiki-keyword: var(--syntax-keyword);  /* flamingo */
+  --shiki-function: var(--syntax-function); /* sky */
+  --shiki-string: var(--syntax-string);   /* mint */
+  --shiki-number: var(--syntax-number);   /* amber */
+  --shiki-constant: var(--syntax-number);
+  --shiki-type: var(--syntax-type);       /* lavender */
   --shiki-operator: var(--vp-c-text-2);
   --shiki-punctuation: var(--vp-c-text-2);
-  --shiki-selection-bg: var(--pill-syntax-selection);
+  --shiki-selection-bg: var(--syntax-selection);
 }
 
 /* ═══════════════════════════════════════════════════════════════════════
    GLOBAL - Page-level defaults
    ═══════════════════════════════════════════════════════════════════════ */
-html {
-  scroll-behavior: smooth;
-}
+/* Maps VitePress brand variables onto the shared palette and overrides
+   the /pill_style.css selection and scrollbar tokens for the dark theme. */
+:root {
+  --vp-c-brand-1: var(--brand);
+  --vp-c-brand-1-dim-1: var(--brand-600);
+  --vp-c-brand-1-dim-2: var(--brand-700);
 
-::selection {
-  background: rgba(125, 211, 252, 0.3);
-  color: #fff;
-}
-
-::-webkit-scrollbar {
-  width: 6px;
-  height: 10px;
-}
-
-::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.3);
-}
-
-::-webkit-scrollbar-thumb {
-  background-color: var(--vp-c-brand-1-dim-1);
-  border-radius: 5px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background-color: var(--vp-c-brand-1-dim-2);
+  --selection-background: rgba(125, 211, 252, 0.3);
+  --selection-text: #fff;
+  --scrollbar-track: rgba(0, 0, 0, 0.3);
+  --scrollbar-thumb: var(--vp-c-brand-1-dim-1);
+  --scrollbar-thumb-hover: var(--vp-c-brand-1-dim-2);
+  --scrollbar-thumb-radius: 5px;
 }
 
 /* ═══════════════════════════════════════════════════════════════════════
@@ -67,7 +57,7 @@ html {
 .VPNav {
   backdrop-filter: blur(12px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--shadow-navbar);
 }
 
 .VPNavBar .title {
@@ -76,7 +66,7 @@ html {
 
 .VPNavBarTitle .title {
   transition: all 0.3s ease;
-  font-family: "Chillax", sans-serif;
+  font-family: var(--font-display);
 }
 
 .VPNavBarTitle.has-sidebar .title {
@@ -215,14 +205,14 @@ html {
 
 .hero h1 {
   font-size: 150px;
-  background: linear-gradient(135deg, #fff 0%, #bac2de 100%);
+  background: var(--gradient-hero-text);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   font-weight: 700 !important;
   line-height: 1.3;
   letter-spacing: -0.02em;
-  font-family: 'Chillax', sans-serif !important;
+  font-family: var(--font-display) !important;
 }
 
 .hero-logo {
@@ -321,8 +311,8 @@ html {
 .feature:hover {
   transform: translateY(-4px);
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
-  border-color: rgba(255, 255, 255, 0.1);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+  border-color: var(--glass-border-hover);
+  box-shadow: var(--shadow-lift);
 }
 
 .feature h3 {
@@ -347,17 +337,17 @@ html {
    ═══════════════════════════════════════════════════════════════════════ */
 .callout {
   padding: 16px 20px;
-  border-radius: 10px;
+  border-radius: var(--radius-md);
   background: linear-gradient(135deg, rgba(125, 211, 252, 0.05), rgba(125, 211, 252, 0.02));
   border-left: 4px solid rgba(125, 211, 252, 0.4);
   margin: 20px 0;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--shadow-soft);
   transition: all 0.3s ease;
 }
 
 .callout:hover {
   border-left-color: rgba(125, 211, 252, 0.6);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--shadow-soft-hover);
 }
 
 /* ═══════════════════════════════════════════════════════════════════════
@@ -414,16 +404,16 @@ html {
 }
 
 div[class*="language-"] {
-  border-radius: 12px;
+  border-radius: var(--radius-lg);
   border: 1px solid rgba(255, 255, 255, 0.05);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--shadow-card);
   transition: all 0.3s ease;
   margin: 16px 0;
 }
 
 div[class*="language-"]:hover {
   border-color: rgba(255, 255, 255, 0.08);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  box-shadow: var(--shadow-card-hover);
 }
 
 div[class*="language-"]::before {
@@ -460,15 +450,15 @@ div[class*="language-"]::before {
    CUSTOM CONTAINERS (TIP, WARNING, DANGER)
    ═══════════════════════════════════════════════════════════════════════ */
 .custom-block {
-  border-radius: 10px;
+  border-radius: var(--radius-md);
   margin: 20px 0;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--shadow-soft);
 }
 
 .custom-block:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--shadow-soft-hover);
 }
 
 .custom-block.tip {
@@ -605,6 +595,13 @@ div[class*="language-"]::before {
   --vp-c-brand-1: #3b82f6;
   --vp-c-brand-1-dim-1: #2563eb;
   --vp-c-brand-1-dim-2: #1d4ed8;
+
+  /* Shared token overrides for the light theme */
+  --selection-background: rgba(59, 130, 246, 0.3);
+  --selection-text: #000;
+  --scrollbar-track: rgba(0, 0, 0, 0.05);
+  --scrollbar-thumb: var(--vp-c-brand-1-dim-1);
+  --scrollbar-thumb-hover: var(--vp-c-brand-1);
 }
 
 :root:not(.dark) .hero {
@@ -616,7 +613,7 @@ div[class*="language-"]::before {
 }
 
 :root:not(.dark) .hero h1 {
-  background: linear-gradient(135deg, #1e293b 0%, #475569 100%);
+  background: var(--gradient-hero-text-light);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -711,23 +708,6 @@ div[class*="language-"]::before {
   background: rgba(59, 130, 246, 0.15);
 }
 
-:root:not(.dark) ::selection {
-  background: rgba(59, 130, 246, 0.3);
-  color: #000;
-}
-
-:root:not(.dark) ::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.05);
-}
-
-:root:not(.dark) ::-webkit-scrollbar-thumb {
-  background-color: var(--vp-c-brand-1-dim-1);
-}
-
-:root:not(.dark) ::-webkit-scrollbar-thumb:hover {
-  background-color: var(--vp-c-brand-1);
-}
-
 :root:not(.dark) .mermaid-overlay-backdrop {
   background: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(6px);
@@ -782,9 +762,9 @@ div[class*="language-"]::before {
   width: 90vw;
   height: 85vh;
   background: var(--vp-c-bg);
-  border-radius: 12px;
+  border-radius: var(--radius-lg);
   padding: 24px;
-  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.5);
+  box-shadow: var(--shadow-overlay);
   overflow: auto;
   display: flex;
   align-items: center;
