@@ -45,12 +45,12 @@ const Hero = () => {
                 </div>
 
                 {/* Headline */}
-                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-[1.1] tracking-tight mb-6 animate-fade-in-up">
+                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl  text-white leading-[1.1] tracking-tight mb-6 animate-fade-in-up">
                     Modern, <span className="text-gradient">free</span> and <span className="text-gradient">blazingly fast</span> game engine<br />
                 </h1>
 
                 {/* Subheadline */}
-                <p className="text-lg sm:text-xl text-gray-400 max-w-2xl mx-auto mb-10 animate-fade-in-up delay-100 leading-relaxed">
+                <p className="text-xl sm:text-xl text-gray-400 max-w-2xl mx-auto mb-10 animate-fade-in-up delay-100 leading-relaxed">
                     Because everyone's idea deserves an open source, next generation game engine to bring it to life
                 </p>
 

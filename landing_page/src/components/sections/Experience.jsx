@@ -36,13 +36,13 @@ const Experience = () => {
     return (
         <section className="relative py-24 sm:py-32 px-4 sm:px-6 lg:px-8 section-divider">
             <div className="max-w-6xl mx-auto">
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white leading-[1.15] tracking-tight mb-4">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl  text-white leading-[1.15] tracking-tight mb-4">
                     Built for{' '}
                     <span className="text-brand-400">Developers</span>
                     {' '}by{' '}
                     <span className="text-brand-400">Developers</span>
                 </h2>
-                <p className="text-lg text-gray-400 max-w-3xl mb-14 leading-relaxed">
+                <p className="text-xl text-gray-400 max-w-3xl mb-14 leading-relaxed">
                     Every aspect of Pill is designed with developer experience in mind. From the API
                     design to the tooling ecosystem, everything is focused on making game development
                     faster, safer, and more enjoyable.
@@ -60,10 +60,10 @@ const Experience = () => {
                                 <div className="w-10 h-10 rounded-xl bg-brand-500/10 flex items-center justify-center text-brand-400 mb-4 group-hover:bg-brand-500/20 transition-colors duration-300">
                                     {capability.icon}
                                 </div>
-                                <h3 className="text-base font-semibold text-white mb-2">
+                                <h3 className="text-lg font-semibold text-white mb-2">
                                     {capability.title}
                                 </h3>
-                                <p className="text-sm text-gray-500 leading-relaxed">
+                                <p className="text-md text-gray-500 leading-relaxed">
                                     {capability.description}
                                 </p>
                             </div>

@@ -33,7 +33,7 @@ const SectionDivider = ({ label }) => {
             </svg>
 
             {/* Label */}
-            <span className="text-sm font-semibold text-brand-300 tracking-widest uppercase flex-shrink-0">
+            <span className="text-md font-semibold text-brand-300 tracking-widest uppercase flex-shrink-0">
                 {label}
             </span>
 

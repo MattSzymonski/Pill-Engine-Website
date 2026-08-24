@@ -28,7 +28,7 @@ const Footer = () => {
                                 className="size-20"
                             />
                         </a>
-                        <p className="text-sm text-gray-500 mb-4 max-w-xs leading-relaxed">
+                        <p className="text-lg text-gray-500 mb-4 max-w-xs leading-relaxed">
                             Modern, free and blazingly fast game engine. Building the future of game development.
                         </p>
                     </div>
@@ -37,7 +37,7 @@ const Footer = () => {
                     {/* Link columns */}
                     {Object.entries(footerLinks).map(([category, links]) => (
                         <div key={category}>
-                            <h4 className="text-sm font-semibold text-white mb-4">
+                            <h4 className="text-lg font-semibold text-white mb-4">
                                 {category}
                             </h4>
                             <ul className="space-y-3">
@@ -45,7 +45,7 @@ const Footer = () => {
                                     <li key={link.label}>
                                         <a
                                             href={link.href}
-                                            className="text-sm text-gray-500 hover:text-gray-300 transition-colors duration-200"
+                                            className="text-md text-gray-500 hover:text-gray-300 transition-colors duration-200"
                                         >
                                             {link.label}
                                         </a>
@@ -57,10 +57,10 @@ const Footer = () => {
 
                     {/* Newsletter / Subscribe */}
                     <div>
-                        <h4 className="text-sm font-semibold text-white mb-4">
+                        <h4 className="text-lg font-semibold text-white mb-4">
                             Stay updated
                         </h4>
-                        <p className="text-sm text-gray-500 mb-3 leading-relaxed">
+                        <p className="text-md text-gray-500 mb-3 leading-relaxed">
                             Get product updates and news. No spam.
                         </p>
                         <a
@@ -78,7 +78,7 @@ const Footer = () => {
 
                 {/* Bottom bar */}
                 <div className="pt-8 border-t border-white/[0.06] flex flex-col sm:flex-row justify-between items-center gap-4">
-                    <p className="text-sm text-gray-500">
+                    <p className="text-lg text-gray-500">
                         &copy; {currentYear} Pill. Fueled by passion.
                     </p>
                 </div>

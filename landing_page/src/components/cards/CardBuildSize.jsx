@@ -71,7 +71,7 @@ function PillPulseVisual() {
 }
 
 const metric = <>
-    <span className="text-sm font-light text-white translate-y-[-2px] leading-none">&lt;</span>
+    <span className="text-md font-light text-white translate-y-[-2px] leading-none">&lt;</span>
     <span className="text-xl font-bold text-white tracking-tight tabular-nums leading-none">0.5</span>
     <span className="text-xs font-medium text-gray-400 leading-none">MB</span>
 </>;

@@ -59,6 +59,8 @@
 
     /* ── Fonts ── */
     --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+    --font-heading: 'Outfit', 'Chillax', 'Inter', sans-serif;
+    --font-body: 'Outfit', 'Inter', system-ui, -apple-system, sans-serif;
     --font-display: 'Chillax', 'Inter', sans-serif;
     --font-docs: 'Poppins', ui-sans-serif, system-ui, sans-serif;
     --font-code: 'Cascadia Mono', Consolas, ui-monospace, monospace;

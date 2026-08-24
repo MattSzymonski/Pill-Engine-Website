@@ -6,6 +6,11 @@
    repository root and are consumed here as CSS variables.
    ═══════════════════════════════════════════════════════════════════════ */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+/* Fredoka - kept for later. Uncomment to switch back, and comment out Outfit above.
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap');
+*/
+
 
 @tailwind base;
 @tailwind components;
@@ -26,6 +31,18 @@
         background-color: var(--surface);
         color: var(--text-primary);
         font-family: var(--font-sans);
+    }
+
+    /* All headings use the display/heading face (Outfit) */
+    h1, h2, h3, h4, h5, h6 {
+        font-family: var(--font-heading);
+        font-weight: 700;
+    }
+
+    /* Paragraph text uses the Outfit face */
+    p {
+        font-family: var(--font-body);
+        font-weight: 300;
     }
 
     #root {

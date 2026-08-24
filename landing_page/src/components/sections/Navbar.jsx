@@ -68,17 +68,11 @@ const Navbar = () => {
                         <a
                             key={link.label}
                             href={link.href}
-                            className="block px-3 py-2 text-sm font-medium text-white/50 hover:text-white rounded-md hover:bg-white/[0.06] transition-all duration-150"
+                            className="block px-3 py-2 text-md font-medium text-white/50 hover:text-white rounded-md hover:bg-white/[0.06] transition-all duration-150"
                         >
                             {link.label}
                         </a>
                     ))}
-                    <a
-                        href={GUIDE_URL}
-                        className="block px-3 py-2 text-sm font-semibold text-white bg-brand-500 hover:bg-brand-400 rounded-md transition-all duration-150 text-center mt-2"
-                    >
-                        Get Started
-                    </a>
                 </div>
             )}
         </nav>

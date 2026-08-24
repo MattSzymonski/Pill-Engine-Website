@@ -61,10 +61,10 @@ const Features = () => {
             <div className="max-w-6xl mx-auto">
                 {/* Section heading */}
                 <div className="mb-16">
-                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white leading-[1.15] tracking-tight mb-4">
+                    <h2 className="text-3xl sm:text-4xl md:text-5xl  text-white leading-[1.15] tracking-tight mb-4">
                         Everything you need
                     </h2>
-                    <p className="text-lg text-gray-400 max-w-2xl">
+                    <p className="text-xl text-gray-400 max-w-2xl">
                         Pill ships with a comprehensive set of tools and systems out of the box.
                     </p>
                 </div>
@@ -73,7 +73,7 @@ const Features = () => {
                 <div className="space-y-16">
                     {featureCategories.map((category, categoryIndex) => (
                         <div key={categoryIndex}>
-                            <h3 className="text-lg font-semibold text-gray-300 mb-5 flex items-center gap-3">
+                            <h3 className="text-xl font-semibold text-gray-300 mb-5 flex items-center gap-3">
                                 <span className="w-1.5 h-1.5 rounded-full bg-brand-400" />
                                 {category.title}
                             </h3>
@@ -92,7 +92,7 @@ const Features = () => {
                                         </div>
                                         <div className="min-w-0">
                                             <div className="flex items-center gap-2 mb-1">
-                                                <h4 className="text-sm font-semibold text-white">
+                                                <h4 className="text-lg font-semibold text-white">
                                                     {feature.title}
                                                 </h4>
                                                 {feature.inProgress && (
@@ -101,7 +101,7 @@ const Features = () => {
                                                     </span>
                                                 )}
                                             </div>
-                                            <p className="text-xs text-gray-500 leading-relaxed">
+                                            <p className="text-md text-gray-500 leading-relaxed">
                                                 {feature.description}
                                             </p>
                                         </div>

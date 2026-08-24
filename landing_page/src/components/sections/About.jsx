@@ -30,12 +30,12 @@ const About = () => {
             <div className="max-w-6xl mx-auto">
                 {/* Section heading */}
                 <div className="mb-20">
-                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white leading-[1.15] tracking-tight mb-6">
+                    <h2 className="text-3xl sm:text-4xl md:text-5xl  text-white leading-[1.15] tracking-tight mb-6">
                         Power that never falls short
                         <br />
                         of your boldest ambitions
                     </h2>
-                    <p className="text-lg text-gray-400 max-w-3xl leading-relaxed">
+                    <p className="text-xl text-gray-400 max-w-3xl leading-relaxed">
                         Built for developers who refuse to compromise, Pill is an engine that delivers the raw speed
                         and creative freedom needed to bring even the wildest ideas to life. Designed from the ground
                         up to empower both teams and solo creators, it simplifies the complex while unlocking
@@ -54,10 +54,10 @@ const About = () => {
                                 <div className="w-10 h-10 rounded-xl bg-brand-500/10 flex items-center justify-center text-brand-400 mb-4 group-hover:bg-brand-500/20 transition-colors duration-300">
                                     {goal.icon}
                                 </div>
-                                <h3 className="text-base font-semibold text-white mb-2">
+                                <h3 className="text-xl font-semibold text-white mb-2">
                                     {goal.title}
                                 </h3>
-                                <p className="text-sm text-gray-500 leading-relaxed">
+                                <p className="text-lg text-gray-500 leading-relaxed">
                                     {goal.description}
                                 </p>
                             </div>
@@ -67,18 +67,18 @@ const About = () => {
 
                 {/* Ships fully loaded section */}
                 <div>
-                    <h3 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white leading-[1.15] tracking-tight mb-6">
+                    <h3 className="text-3xl sm:text-4xl md:text-5xl  text-white leading-[1.15] tracking-tight mb-6">
                         Ships fully equipped for
                         <br />
                         every kind of creator
                     </h3>
-                    <p className="text-lg text-gray-400 max-w-3xl leading-relaxed mb-4">
+                    <p className="text-xl text-gray-400 max-w-3xl leading-relaxed mb-4">
                         Develop games. Create simulations. Build next-generation visualizations. Or design
                         immersive experiences we haven&apos;t even thought of yet. No matter what style, screen
                         size, or project you have in mind, Pill comes standard with everything you need to
                         help you make it real.
                     </p>
-                    <p className="text-lg text-gray-400 max-w-3xl leading-relaxed">
+                    <p className="text-xl text-gray-400 max-w-3xl leading-relaxed">
                         Engineered with passion. Aiming to deliver{' '}
                         <span className="text-brand-400 font-semibold">unmatched performance</span> for modern
                         game development.
