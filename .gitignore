@@ -1,7 +1,5 @@
 node_modules
 dist
+dist-docs
 .DS_Store
 *.log
-
-/docs/pages/guide/**
-/docs/pages/reference/**

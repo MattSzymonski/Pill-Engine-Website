@@ -5,19 +5,25 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+// pill.rocks → landing page
+const landingBuildDir = path.join(__dirname, 'landing_page', 'dist');
 const distDir = path.join(__dirname, 'dist');
+
+// docs.pill.rocks → VitePress documentation (guide + API reference)
 const docsBuildDir = path.join(__dirname, 'docs', '.vitepress', 'dist');
+const distDocsDir = path.join(__dirname, 'dist-docs');
 
-console.log('🚀 Publishing documentation...');
+console.log('🚀 Assembling deploy outputs...');
 
-// The distribution directory is generated output. Recreate it so obsolete
-// routes such as the former /docs/ subtree cannot survive between builds.
-if (fs.existsSync(distDir)) {
-    fs.rmSync(distDir, { recursive: true, force: true });
+// Generated output - recreate it so obsolete files cannot survive between builds.
+function resetDirectory(dir) {
+    if (fs.existsSync(dir)) {
+        fs.rmSync(dir, { recursive: true, force: true });
+    }
+    fs.mkdirSync(dir, { recursive: true });
 }
-fs.mkdirSync(distDir, { recursive: true });
 
-// Function to copy directory recursively
+// Recursively copy a directory.
 function copyRecursive(src, dest) {
     if (!fs.existsSync(src)) {
         throw new Error(`Source directory does not exist: ${src}`);
@@ -42,17 +48,24 @@ function copyRecursive(src, dest) {
     }
 }
 
-// The documentation home page is the website root. Guide and reference are
-// emitted directly as /guide/ and /reference/ beneath it.
-console.log('📚 Copying documentation...');
-copyRecursive(docsBuildDir, distDir);
-console.log('✅ Documentation copied to dist/');
+// ── Landing page → dist/ (served at https://pill.rocks) ──
+console.log('🌐 Assembling landing page...');
+resetDirectory(distDir);
+copyRecursive(landingBuildDir, distDir);
+console.log('✅ Landing page copied to dist/');
+
+// ── Documentation → dist-docs/ (served at https://docs.pill.rocks) ──
+console.log('📚 Assembling documentation...');
+resetDirectory(distDocsDir);
+copyRecursive(docsBuildDir, distDocsDir);
+console.log('✅ Documentation copied to dist-docs/');
 
 console.log('🎉 Build complete!');
 console.log('');
 console.log('📁 Structure:');
-console.log('  dist/              → Documentation home');
-console.log('  dist/guide/        → Guide');
-console.log('  dist/reference/    → API reference');
+console.log('  dist/          → Landing page (served at https://pill.rocks)');
+console.log('  dist-docs/     → Documentation (served at https://docs.pill.rocks)');
+console.log('    dist-docs/guide/      → Guide');
+console.log('    dist-docs/reference/  → API reference');
 console.log('');
-console.log('To preview: npm run preview');
+console.log('To preview the landing page: npm run preview');

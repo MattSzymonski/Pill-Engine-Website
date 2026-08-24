@@ -8,7 +8,7 @@
         "dev": "concurrently \"npm run dev:landing\" \"npm run dev:docs\"",
         "dev:landing": "cd landing_page && npm run dev",
         "dev:docs": "cd docs && npm run docs:dev",
-        "build": "npm run build:docs && npm run combine",
+        "build": "npm run build:landing && npm run build:docs && npm run combine",
         "build:landing": "cd landing_page && npm run build",
         "build:docs": "cd docs && npm run docs:build",
         "combine": "node build-script.js",
