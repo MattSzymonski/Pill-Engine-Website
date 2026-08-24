@@ -37,41 +37,34 @@ jobs:
       - name: Build landing page and docs
         run: npm run build
 
-      # 5. Deploy landing page and docs to their domains via SSH.
-      #    Requires secrets: SERVER_HOST, SERVER_USER, SERVER_KEY,
-      #    LANDING_WEBROOT (server path for https://pill.rocks) and
-      #    DOCS_WEBROOT (server path for https://docs.pill.rocks).
+      # 5. Deploy to server via SSH
       - name: Deploy to Server
         run: |
           set -e
 
-          echo "=== Landing output ==="
+          echo "=== Build output ==="
           ls -la dist/
           echo ""
-          echo "=== Docs output ==="
-          ls -la dist-docs/
+          echo "=== File count ==="
+          find dist -type f | wc -l
           echo ""
-          echo "=== Deploy targets ==="
-          echo "Landing (pill.rocks):      ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:${{ secrets.LANDING_WEBROOT }}"
-          echo "Docs (docs.pill.rocks):    ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:${{ secrets.DOCS_WEBROOT }}"
+          echo "=== Deploy target ==="
+          echo "Host: ${{ secrets.SERVER_HOST }}"
+          echo "User: ${{ secrets.SERVER_USER }}"
+          echo "Port: ${{ secrets.SERVER_PORT || 22 }}"
           echo ""
 
           # Write SSH key
           echo "${{ secrets.SERVER_KEY }}" > deploy_key
           chmod 600 deploy_key
 
-          SSH_TARGET="${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}"
-          SSH_OPTS="-i deploy_key -o StrictHostKeyChecking=no -o ConnectTimeout=30 -p ${{ secrets.SERVER_PORT || 22 }}"
-
-          # Deploy the landing page to pill.rocks
-          echo "=== Deploying landing page to ${{ secrets.LANDING_WEBROOT }} ==="
-          tar -czf - -C dist . | ssh $SSH_OPTS $SSH_TARGET \
-            "mkdir -p ${{ secrets.LANDING_WEBROOT }} && tar -xzf - -C ${{ secrets.LANDING_WEBROOT }}"
-
-          # Deploy the docs to docs.pill.rocks
-          echo "=== Deploying docs to ${{ secrets.DOCS_WEBROOT }} ==="
-          tar -czf - -C dist-docs . | ssh $SSH_OPTS $SSH_TARGET \
-            "mkdir -p ${{ secrets.DOCS_WEBROOT }} && tar -xzf - -C ${{ secrets.DOCS_WEBROOT }}"
+          # Deploy via SSH with verbose logging
+          tar -czf - -C dist . | \
+            ssh -v -i deploy_key \
+                -o StrictHostKeyChecking=no \
+                -o ConnectTimeout=30 \
+                -p ${{ secrets.SERVER_PORT || 22 }} \
+                ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} 2>&1
 
           echo ""
           echo "=== Deploy complete ==="
