@@ -158,9 +158,17 @@
    NAVBAR & SEARCH - Top navigation bar
    ═══════════════════════════════════════════════════════════════════════ */
 .VPNav {
-  backdrop-filter: blur(12px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   box-shadow: var(--shadow-navbar);
+}
+
+/* The glass blur lives on the bar itself, NOT on the whole .VPNav container.
+   backdrop-filter turns an element into a containing block for position:fixed
+   descendants - applied to .VPNav it clips the fixed mobile menu
+   (.VPNavScreen) to the nav's own tiny box (height 0), hiding all options. */
+.VPNavBar {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .VPNavBar .title {
