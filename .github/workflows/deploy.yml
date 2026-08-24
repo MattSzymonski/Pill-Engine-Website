@@ -6,7 +6,7 @@ on:
       - main
     paths:
       - "landing_page/**"
-      - "docs/**"
+      - "docs_page/**"
       - "build-script.js"
       - "package.json"
       - .github/workflows/deploy.yml
@@ -31,7 +31,7 @@ jobs:
         run: |
           npm install
           cd landing_page && npm install
-          cd ../docs && npm install
+          cd ../docs_page && npm install
 
       # 4. Build both sites (uses root build script)
       - name: Build landing page and docs

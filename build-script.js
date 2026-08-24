@@ -10,7 +10,7 @@ const landingBuildDir = path.join(__dirname, 'landing_page', 'dist');
 const distDir = path.join(__dirname, 'dist');
 
 // docs.pill.rocks → VitePress documentation (guide + API reference)
-const docsBuildDir = path.join(__dirname, 'docs', '.vitepress', 'dist');
+const docsBuildDir = path.join(__dirname, 'docs_page', '.vitepress', 'dist');
 const distDocsDir = path.join(__dirname, 'dist-docs');
 
 console.log('🚀 Assembling deploy outputs...');

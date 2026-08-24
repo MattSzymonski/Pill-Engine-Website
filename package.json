@@ -7,13 +7,13 @@
     "scripts": {
         "dev": "concurrently \"npm run dev:landing\" \"npm run dev:docs\"",
         "dev:landing": "cd landing_page && npm run dev",
-        "dev:docs": "cd docs && npm run docs:dev",
+        "dev:docs": "cd docs_page && npm run docs:dev",
         "build": "npm run build:landing && npm run build:docs && npm run combine",
         "build:landing": "cd landing_page && npm run build",
-        "build:docs": "cd docs && npm run docs:build",
+        "build:docs": "cd docs_page && npm run docs:build",
         "combine": "node build-script.js",
         "preview": "npx serve dist",
-        "install:all": "cd landing_page && npm install && cd ../docs && npm install"
+        "install:all": "cd landing_page && npm install && cd ../docs_page && npm install"
     },
     "devDependencies": {
         "concurrently": "^9.2.1"

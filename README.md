@@ -3,7 +3,7 @@
 This repository builds and deploys the Pill landing page and documentation:
 
 - **https://pill.rocks** → the landing page (`landing_page/`)
-- **https://docs.pill.rocks** → the VitePress documentation (`docs/`), with
+- **https://docs.pill.rocks** → the VitePress documentation (`docs_page/`), with
   the guide at `/guide/` and the generated API reference at `/reference/`
 
 ## Development
@@ -14,5 +14,5 @@ This repository builds and deploys the Pill landing page and documentation:
 - `npm run preview` - Preview the landing page production build.
 - `npm run install:all` - Install dependencies for both workspace projects.
 
-For documentation structure and generation details, see `docs/README.md`.
+For documentation structure and generation details, see `docs_page/README.md`.
 
