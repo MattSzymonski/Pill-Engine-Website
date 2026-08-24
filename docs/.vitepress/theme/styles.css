@@ -18,16 +18,83 @@
 .VPHome {
   position: relative;
   overflow: hidden;
+  /* Keep home content above the fixed hero background layer that
+     hero-dither.ts appends to <body> (the navbar still sits on top). */
+  z-index: 1;
 }
 
-.VPHome::before {
-  content: '';
-   position: fixed;
-  inset: var(--vp-nav-height) 0 0;
+/* ── Landing-page hero background (dither + orbs + grid) ──
+   hero-dither.ts appends this fixed layer to <body> while the home page
+   is active. It replicates the landing page hero background exactly:
+   animated WebGL dither canvas, three pulsing brand-red glow orbs and a
+   subtle 64px grid. */
+
+.hero-background {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
   pointer-events: none;
-  background:
-    radial-gradient(circle at 72% 30%, rgba(214, 74, 74, 0.18), transparent 28rem),
-    radial-gradient(circle at 18% 74%, rgba(109, 41, 41, 0.12), transparent 24rem);
+}
+
+.hero-background canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Glow orbs - match .glow-orb + .animate-orb-pulse on the landing hero. */
+.hero-background .hero-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  pointer-events: none;
+  animation: hero-orb-pulse 6s ease-in-out infinite;
+}
+
+.hero-background .orb-one {
+  width: 800px;
+  height: 800px;
+  background: rgba(255, 99, 99, 0.10);
+  top: -160px;
+  right: -160px;
+}
+
+.hero-background .orb-two {
+  width: 600px;
+  height: 600px;
+  background: rgba(255, 68, 68, 0.08);
+  bottom: 0;
+  left: -160px;
+  animation-delay: 3s;
+}
+
+.hero-background .orb-three {
+  width: 400px;
+  height: 400px;
+  background: rgba(255, 99, 99, 0.05);
+  top: 50%;
+  left: 50%;
+  margin: -200px 0 0 -200px;
+  animation-delay: 1.5s;
+}
+
+@keyframes hero-orb-pulse {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.1); }
+}
+
+/* Subtle 64px grid pattern - match the landing hero grid. */
+.hero-background .hero-grid {
+  position: absolute;
+  inset: 0;
+  opacity: 0.03;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+  background-size: 64px 64px;
 }
 
 .VPHome .VPHero {
@@ -90,8 +157,8 @@
 }
 
 .VPHome .VPHero .VPButton.brand {
-  border-color: var(--pill-brand);
-  background: var(--pill-brand);
+  border-color: var(--brand);
+  background: var(--brand);
   box-shadow: 0 12px 28px rgba(214, 74, 74, 0.24);
 }
 
@@ -101,9 +168,20 @@
   box-shadow: 0 16px 34px rgba(214, 74, 74, 0.34);
 }
 
+/* The alt (secondary) hero button uses solid brand red too, so both CTAs
+   match: same fill, white text, and brand hover. */
+.VPHome .VPHero .VPButton.alt {
+  border-color: var(--brand);
+  background: var(--brand);
+  color: #fff;
+  box-shadow: 0 12px 28px rgba(214, 74, 74, 0.24);
+}
+
 .VPHome .VPHero .VPButton.alt:hover {
-  border-color: var(--pill-brand);
-  color: var(--pill-brand);
+  border-color: #e05b5b;
+  background: #e05b5b;
+  color: #fff;
+  box-shadow: 0 16px 34px rgba(214, 74, 74, 0.34);
 }
 
 @media (max-width: 639px) {
@@ -918,4 +996,56 @@ div[class*="language-"]::before {
 .mermaid-overlay-close:hover {
   background: rgba(255, 255, 255, 0.2);
   transform: scale(1.1);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   WORK-IN-PROGRESS FLOATING BANNER
+   Dark glass pill floating 100px above the bottom edge, styled like the
+   landing page navbar but with a yellow warning accent. Mounted once by
+   index.ts (mountWorkInProgressBanner) and shown on every docs page.
+   ═══════════════════════════════════════════════════════════════════════ */
+.work-in-progress-banner {
+  position: fixed;
+  bottom: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 60;
+  max-width: min(640px, calc(100vw - 32px));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 14px 24px;
+  border-radius: 18px;
+  background: rgba(190, 149, 14, 0.22);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(241, 226, 8, 0.274);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  font-family: var(--font-docs, var(--font-body, 'Poppins', sans-serif)), sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.5;
+  color: rgba(255, 255, 245, 0.92);
+  text-align: center;
+  pointer-events: none;
+  animation: work-in-progress-enter 0.6s ease-out;
+}
+
+.work-in-progress-label {
+  display: block;
+}
+
+@keyframes work-in-progress-enter {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
 }

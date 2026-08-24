@@ -3,6 +3,7 @@
 import DefaultTheme from 'vitepress/theme'
 import type { Theme, EnhanceAppContext } from 'vitepress'
 import { enlargeMermaidDiagrams } from './mermaid'
+import { initHomeBackground } from './hero-dither'
 import '../../../pill_style.css'
 import './styles.css'
 
@@ -42,11 +43,37 @@ function mountScrollProgress(): { update: () => void } {
   return { update };
 }
 
+// Floating "work in progress" warning banner, styled like the landing page
+// navbar (dark glass) with a yellow warning accent. Mounted once and shown
+// on every docs page.
+function mountWorkInProgressBanner(): void {
+  if (document.getElementById('work-in-progress-banner')) return;
+
+  const banner = document.createElement('div');
+  banner.id = 'work-in-progress-banner';
+  banner.className = 'work-in-progress-banner';
+  banner.setAttribute('role', 'status');
+
+  const label = document.createElement('span');
+  label.className = 'work-in-progress-label';
+  label.textContent =
+    'Documentation is heavily work in progress! Don\'t use it just yet!';
+
+  banner.appendChild(label);
+  document.body.appendChild(banner);
+}
+
 export default {
   extends: DefaultTheme,
   enhanceApp(ctx: EnhanceAppContext) {
     // Client-only setup: the SSR build has no window or document.
     if (typeof window === 'undefined') return;
+
+    // Mount the landing-style animated background on the home page only.
+    initHomeBackground();
+
+    // Show the floating "work in progress" warning on every docs page.
+    mountWorkInProgressBanner();
 
     const progress = mountScrollProgress();
 

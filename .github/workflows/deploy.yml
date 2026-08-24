@@ -55,18 +55,58 @@ jobs:
           echo ""
 
           # Write SSH key
-          echo "${{ secrets.SERVER_KEY }}" > deploy_key
-          chmod 600 deploy_key
+          echo "${{ secrets.LANDING_PAGE_KEY }}" > landing_page_key
+          chmod 600 landing_page_key
 
           # Deploy via SSH with verbose logging
           tar -czf - -C dist . | \
-            ssh -v -i deploy_key \
+            ssh -v -i landing_page_key \
                 -o StrictHostKeyChecking=no \
                 -o ConnectTimeout=30 \
                 -p ${{ secrets.SERVER_PORT || 22 }} \
                 ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} 2>&1
 
           echo ""
-          echo "=== Deploy complete ==="
+          echo "=== Landing deployed to pill.rocks ==="
 
-          rm -f deploy_key
+          rm -f landing_page_key
+
+      # 6. Deploy docs to docs.pill.rocks. Uses a SEPARATE deploy key whose
+      #    authorized_keys forced command extracts into the docs webroot
+      #    (same pattern as the landing deploy above).
+      #    One-time server setup:
+      #      1. Generate a second SSH keypair.
+      #      2. Append the public key to ~/.ssh/authorized_keys with a forced
+      #         command, e.g.:
+      #           command="tar -xzf - -C /path/to/docs.pill.rocks",restrict ssh-ed25519 AAAA...
+      #      3. Store the private key as the DOCS_PAGE_KEY GitHub secret.
+      - name: Deploy Docs (docs.pill.rocks)
+        if: ${{ secrets.DOCS_PAGE_KEY != '' }}
+        run: |
+          set -e
+
+          echo "=== Docs output ==="
+          ls -la dist-docs/
+          echo ""
+          echo "=== Deploying docs ==="
+
+          echo "${{ secrets.DOCS_PAGE_KEY }}" > docs_page_key
+          chmod 600 docs_page_key
+
+          tar -czf - -C dist-docs . | \
+            ssh -i docs_page_key \
+                -o StrictHostKeyChecking=no \
+                -o ConnectTimeout=30 \
+                -p ${{ secrets.SERVER_PORT || 22 }} \
+                ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} 2>&1
+
+          rm -f docs_page_key
+          echo ""
+          echo "=== Docs deployed to docs.pill.rocks ==="
+
+      # Reminder when the docs key has not been configured yet.
+      - name: Docs deploy not configured
+        if: ${{ secrets.DOCS_PAGE_KEY == '' }}
+        run: |
+          echo "::warning::DOCS_PAGE_KEY secret is not set - docs.pill.rocks was NOT deployed."
+          echo "See the 'Deploy Docs (docs.pill.rocks)' step comments for the one-time server setup."

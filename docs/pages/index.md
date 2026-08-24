@@ -2,9 +2,9 @@
 layout: home
 
 hero:
-  name: pill
-  text: documentation
-  tagline: Build fast, data-driven games with Pill's modern Rust engine.
+  name: Documentation
+  text: 
+  tagline: Welcome to the Pill's knowledge vault - Modern, free and blazingly fast game engine
   image:
     src: /pill_logo.svg
     alt: Pill logo
