@@ -6,7 +6,7 @@ on:
       - main
     paths:
       - "landing_page/**"
-      - "guide/**"
+      - "docs/**"
       - "build-script.js"
       - "package.json"
       - .github/workflows/deploy.yml
@@ -31,10 +31,10 @@ jobs:
         run: |
           npm install
           cd landing_page && npm install
-          cd ../guide && npm install
+          cd ../docs && npm install
 
       # 4. Build both sites (uses root build script)
-      - name: Build landing page and guide
+      - name: Build landing page and docs
         run: npm run build
 
       # 5. Deploy to server via SSH
