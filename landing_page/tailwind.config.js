@@ -32,10 +32,10 @@ export default {
             // stacks (text-3xl -> sm:text-4xl -> md:text-5xl -> lg:text-6xl)
             // keep a sane, ever-increasing progression.
             fontSize: {
-                xl: '1.17rem',
+                'xl': '1.2rem',
                 '3xl': '2.0rem',
-                '4xl': '3.6rem',
-                '5xl': '4.2rem',
+                '4xl': '2.6rem',
+                '5xl': '3.2rem',
                 '6xl': '4.8rem',
             },
         },

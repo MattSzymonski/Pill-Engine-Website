@@ -73,8 +73,11 @@
     /* Floating glass navbar */
     .navbar-glass {
         background: var(--glass-background-navbar);
+        /* Only the unprefixed property here: Autoprefixer adds -webkit- at
+           build time. Hand-writing both made the build drop the standard
+           one (modern Chrome ignores the bare -webkit- prefix), killing the
+           glass blur on the deployed site. */
         backdrop-filter: blur(var(--glass-blur-navbar));
-        -webkit-backdrop-filter: blur(var(--glass-blur-navbar));
         border: 1px solid var(--glass-border-navbar);
         box-shadow: var(--shadow-navbar), inset 0 1px 0 rgba(255, 255, 255, 0.02);
         transition: all 0.3s ease;
@@ -92,7 +95,6 @@
     .navbar-glass.navbar-scrolled {
         background: var(--glass-background-navbar-scrolled);
         backdrop-filter: blur(var(--glass-blur-navbar-scrolled));
-        -webkit-backdrop-filter: blur(var(--glass-blur-navbar-scrolled));
         border-color: var(--glass-border-navbar-scrolled);
         box-shadow: var(--shadow-navbar-scrolled), inset 0 1px 0 rgba(255, 255, 255, 0.04);
     }

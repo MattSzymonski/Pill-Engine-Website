@@ -62,7 +62,7 @@ const featureCategories = [
  */
 const FeatureCard = ({ feature, expanded }) => {
     return (
-        <div className="glass-card p-5 group flex gap-4 items-start">
+        <div className="glass-card p-2.5 md:p-5 group flex gap-4 items-start">
             <div className={`w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5 ${
                 feature.inProgress
                     ? 'bg-yellow-500/10 text-yellow-500'

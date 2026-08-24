@@ -18,7 +18,7 @@ const Footer = () => {
     return (
         <footer className="relative py-16 px-4 sm:px-6 lg:px-8 border-t border-white/[0.06]">
             <div className="max-w-6xl mx-auto">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-y-8 md:gap-x-8 mb-16">
                     {/* Brand */}
                     <div className="col-span-2 md:col-span-1">
                         <a href="/" className="flex items-center">
@@ -33,7 +33,7 @@ const Footer = () => {
                         </p>
                     </div>
 
-                    <div className="grid grid-cols-3 md:grid-cols-3 gap-8 mb-16">
+                    <div className="grid grid-cols-3 md:grid-cols-3 gap-2 md:gap-8 mb-16">
                     {/* Link columns */}
                     {Object.entries(footerLinks).map(([category, links]) => (
                         <div key={category}>

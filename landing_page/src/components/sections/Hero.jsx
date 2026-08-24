@@ -40,7 +40,7 @@ const Hero = () => {
                     <img
                         src="/pill_logo.svg"
                         alt="Pill Engine"
-                        className="h-[165px] sm:h-[325px] mx-auto"
+                        className="h-[160px] sm:h-[325px] mx-auto"
                     />
                 </div>
 
@@ -50,15 +50,15 @@ const Hero = () => {
                 </h1>
 
                 {/* Subheadline */}
-                <p className="text-xl sm:text-xl md:text-2xl text-gray-400 max-w-2xl mx-auto mb-10 animate-fade-in-up delay-100 leading-relaxed">
+                <p className="text-xl sm:text-xl md:text-2xl text-gray-400 max-w-2xl mx-auto mb-16 md:mb-10 animate-fade-in-up delay-100 leading-relaxed">
                     Because everyone's idea deserves an open source, next generation game engine to bring it to life
                 </p>
 
                 {/* CTA Buttons */}
-                <div className="flex flex-col sm:flex-row gap-3 justify-center items-center w-full max-w-sm sm:max-w-md mx-auto mb-16 animate-fade-in-up delay-200">
+                <div className="flex flex-col sm:flex-row gap-3 justify-center items-center w-full max-w-sm sm:max-w-md mx-auto md:mb-16 animate-fade-in-up delay-200">
                     <a
                         href="https://docs.pill.rocks"
-                        className="group inline-flex items-center justify-center gap-2 w-[70%] sm:flex-1 px-8 py-3.5 bg-white text-black font-semibold rounded-xl hover:bg-gray-100 transition-all duration-200 text-base"
+                        className="group inline-flex items-center justify-center gap-2 w-[60%] sm:flex-1 px-8 py-3.5 bg-white text-black font-semibold rounded-xl hover:bg-gray-100 transition-all duration-200 text-base"
                     >
                         Get Started
                         <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" />
@@ -67,7 +67,7 @@ const Hero = () => {
                         href="https://github.com/MattSzymonski/Pill-Engine"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center gap-2 w-[70%] sm:flex-1 px-8 py-3.5 bg-white/[0.04] border border-white/[0.08] text-white font-semibold rounded-xl hover:bg-white/[0.08] hover:border-white/[0.14] transition-all duration-200 text-base"
+                        className="inline-flex items-center justify-center gap-2 w-[60%] sm:flex-1 px-8 py-3.5 bg-white/[0.04] border border-white/[0.08] text-white font-semibold rounded-xl hover:bg-white/[0.08] hover:border-white/[0.14] transition-all duration-200 text-base"
                     >
                         <Github className="w-4 h-4" />
                         View on GitHub

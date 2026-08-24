@@ -43,7 +43,7 @@ const CTA = () => {
                 {/* Main CTA card */}
                 <div
                     ref={cardRef}
-                    className="glass-card p-8 sm:p-12 md:p-16 relative overflow-hidden glass-reflection"
+                    className="glass-card p-7 sm:p-12 md:p-16 relative overflow-hidden glass-reflection"
                 >
                     {/* Pixel-swap background - swaps from subtle to brand glow once
                         when the card scrolls into view */}
