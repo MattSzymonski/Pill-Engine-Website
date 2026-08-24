@@ -34,7 +34,7 @@ export default function Card({ icon, title, description, metric, background, glo
                             </div>
                         </div>
                     </div>
-                    <p className="text-xs text-gray-400 leading-relaxed">{description}</p>
+                    <p className="text-md text-gray-400 leading-relaxed">{description}</p>
                 </div>
 
                 {/* Metric pill */}

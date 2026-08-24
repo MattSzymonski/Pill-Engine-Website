@@ -57,7 +57,7 @@ const About = () => {
                                 <h3 className="text-xl font-semibold text-white mb-2">
                                     {goal.title}
                                 </h3>
-                                <p className="text-lg text-gray-500 leading-relaxed">
+                                <p className="text-md text-gray-500 leading-relaxed">
                                     {goal.description}
                                 </p>
                             </div>

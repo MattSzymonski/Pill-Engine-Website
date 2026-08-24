@@ -48,33 +48,39 @@ const Navbar = () => {
                     ))}
                 </div>
 
-                {/* Mobile hamburger - right side */}
+                {/* Mobile hamburger - right side, animates into an X when open */}
                 <button
                     type="button"
                     onClick={() => setMobileOpen(!mobileOpen)}
                     className="md:hidden flex flex-col gap-1 p-1.5"
                     aria-label="Toggle menu"
+                    aria-expanded={mobileOpen}
                 >
-                    <div className="w-4 h-px bg-white/60 transition-all" />
-                    <div className="w-4 h-px bg-white/60 transition-all" />
-                    <div className="w-4 h-px bg-white/60 transition-all" />
+                    <div className={`w-4 h-px bg-white/60 transition-all duration-300 ease-in-out ${mobileOpen ? 'translate-y-[5px] rotate-45' : ''}`} />
+                    <div className={`w-4 h-px bg-white/60 transition-all duration-300 ease-in-out ${mobileOpen ? 'opacity-0' : ''}`} />
+                    <div className={`w-4 h-px bg-white/60 transition-all duration-300 ease-in-out ${mobileOpen ? '-translate-y-[5px] -rotate-45' : ''}`} />
                 </button>
             </div>
 
-            {/* Mobile menu */}
-            {mobileOpen && (
-                <div className="md:hidden border-t border-white/[0.06] px-5 py-4 space-y-1">
-                    {NAV_LINKS.map((link) => (
-                        <a
-                            key={link.label}
-                            href={link.href}
-                            className="block px-3 py-2 text-md font-medium text-white/50 hover:text-white rounded-md hover:bg-white/[0.06] transition-all duration-150"
-                        >
-                            {link.label}
-                        </a>
-                    ))}
+            {/* Mobile menu - animated fold (grid rows 0fr -> 1fr) */}
+            <div
+                className={`md:hidden grid transition-all duration-300 ease-in-out ${mobileOpen ? 'grid-rows-[1fr] opacity-100 visible' : 'grid-rows-[0fr] opacity-0 invisible'}`}
+                aria-hidden={!mobileOpen}
+            >
+                <div className="overflow-hidden">
+                    <div className="border-t border-white/[0.06] px-5 py-4 space-y-1">
+                        {NAV_LINKS.map((link) => (
+                            <a
+                                key={link.label}
+                                href={link.href}
+                                className="block px-3 py-2 text-md font-medium text-white/50 hover:text-white rounded-md hover:bg-white/[0.06] transition-all duration-150"
+                            >
+                                {link.label}
+                            </a>
+                        ))}
+                    </div>
                 </div>
-            )}
+            </div>
         </nav>
     );
 };
