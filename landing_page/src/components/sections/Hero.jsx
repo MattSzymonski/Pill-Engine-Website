@@ -57,7 +57,7 @@ const Hero = () => {
                 {/* CTA Buttons */}
                 <div className="flex flex-col sm:flex-row gap-3 justify-center items-center w-full max-w-sm sm:max-w-md mx-auto mb-16 animate-fade-in-up delay-200">
                     <a
-                        href="https://guide.pill.rocks"
+                        href="https://docs.pill.rocks"
                         className="group inline-flex items-center justify-center gap-2 w-[70%] sm:flex-1 px-8 py-3.5 bg-white text-black font-semibold rounded-xl hover:bg-gray-100 transition-all duration-200 text-base"
                     >
                         Get Started

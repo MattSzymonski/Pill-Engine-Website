@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const GUIDE_URL = 'https://guide.pill.rocks';
+const GUIDE_URL = 'https://docs.pill.rocks';
 
 const NAV_LINKS = [
     { label: 'Guide', href: GUIDE_URL },
