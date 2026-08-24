@@ -62,7 +62,7 @@ const featureCategories = [
  */
 const FeatureCard = ({ feature, expanded }) => {
     return (
-        <div className="glass-card p-5 group flex gap-4">
+        <div className="glass-card p-5 group flex gap-4 items-start">
             <div className={`w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5 ${
                 feature.inProgress
                     ? 'bg-yellow-500/10 text-yellow-500'
@@ -70,7 +70,7 @@ const FeatureCard = ({ feature, expanded }) => {
             }`}>
                 {feature.icon}
             </div>
-            <div className="min-w-0 flex-1">
+            <div className={`min-w-0 flex-1 transition-all duration-300 ease-in-out ${expanded ? 'mt-0' : 'mt-[6px]'}`}>
                 <div className="flex items-center gap-2 mb-1">
                     <h4 className="text-lg font-semibold text-white">
                         {feature.title}

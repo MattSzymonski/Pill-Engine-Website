@@ -33,7 +33,7 @@ export default {
             // keep a sane, ever-increasing progression.
             fontSize: {
                 xl: '1.17rem',
-                '3xl': '3.2rem',
+                '3xl': '2.0rem',
                 '4xl': '3.6rem',
                 '5xl': '4.2rem',
                 '6xl': '4.8rem',

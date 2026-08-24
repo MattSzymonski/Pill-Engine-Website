@@ -34,7 +34,7 @@ const Experience = () => {
     const granuleField = useMemo(() => generateGranuleField(), []);
 
     return (
-        <section className="relative py-24 sm:py-32 px-4 sm:px-6 lg:px-8 section-divider">
+        <section className="relative py-24 sm:py-32 px-4 sm:px-6 lg:px-8 section-divider overflow-hidden">
             <div className="max-w-6xl mx-auto">
                 <h2 className="text-3xl sm:text-4xl md:text-5xl  text-white leading-[1.15] tracking-tight mb-4">
                     Built for{' '}

@@ -75,13 +75,13 @@ const CTA = () => {
 
                     <div className="relative z-10">
                         <div className="flex flex-wrap gap-3 mb-10">
-                            <span className="px-4 py-1.5 text-md font-medium rounded-full bg-brand-500/10 text-brand-400 border border-brand-500/20">
+                            <span className="px-4 py-1.5 text-sm sm:text-md font-medium rounded-full bg-brand-500/10 text-brand-400 border border-brand-500/20">
                                 Open Source
                             </span>
-                            <span className="px-4 py-1.5 text-md font-medium rounded-full bg-white/[0.03] text-gray-400 border border-white/[0.06]">
+                            <span className="px-4 py-1.5 text-sm sm:text-md font-medium rounded-full bg-white/[0.03] text-gray-400 border border-white/[0.06]">
                                 Actively Developed
                             </span>
-                            <span className="px-4 py-1.5 text-md font-medium rounded-full bg-white/[0.03] text-gray-400 border border-white/[0.06]">
+                            <span className="px-4 py-1.5 text-sm sm:text-md font-medium rounded-full bg-white/[0.03] text-gray-400 border border-white/[0.06]">
                                 Community Driven
                             </span>
                         </div>
