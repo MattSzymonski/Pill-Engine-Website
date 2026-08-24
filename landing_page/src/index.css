@@ -24,8 +24,10 @@
 
     html {
         background-color: var(--surface);
+        /* Clip decorative bleed (glow orbs, granule fields) so nothing widens
+           the page on mobile. Applied to html only - on body it can break
+           vertical scrolling. */
         overflow-x: hidden;
-        overflow-x: clip;
     }
 
     body {
@@ -33,8 +35,6 @@
         background-color: var(--surface);
         color: var(--text-primary);
         font-family: var(--font-sans);
-        overflow-x: hidden;
-        overflow-x: clip;
     }
 
     /* All headings use the display/heading face (Outfit) */
