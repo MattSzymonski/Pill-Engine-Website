@@ -18,33 +18,22 @@ const Footer = () => {
     return (
         <footer className="relative py-16 px-4 sm:px-6 lg:px-8 border-t border-white/[0.06]">
             <div className="max-w-6xl mx-auto">
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
                     {/* Brand */}
                     <div className="col-span-2 md:col-span-1">
-                        <a href="/" className="flex items-center gap-2.5 mb-4">
+                        <a href="/" className="flex items-center">
                             <img
                                 src="/pill_logo.svg"
                                 alt="Pill Engine"
-                                className="h-6 w-6"
+                                className="size-20"
                             />
-                            <span className="pill-logo-text text-lg text-white">
-                                Pill
-                            </span>
                         </a>
                         <p className="text-sm text-gray-500 mb-4 max-w-xs leading-relaxed">
                             Modern, free and blazingly fast game engine. Building the future of game development.
                         </p>
-                        <a
-                            href="https://github.com/MattSzymonski/Pill-Engine"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-gray-300 transition-colors duration-200"
-                        >
-                            <Github className="w-4 h-4" />
-                            GitHub
-                        </a>
                     </div>
 
+                    <div className="grid grid-cols-3 md:grid-cols-3 gap-8 mb-16">
                     {/* Link columns */}
                     {Object.entries(footerLinks).map(([category, links]) => (
                         <div key={category}>
@@ -83,7 +72,8 @@ const Footer = () => {
                             <Github className="w-4 h-4" />
                             Star on GitHub
                         </a>
-                    </div>
+                        </div>
+                        </div>
                 </div>
 
                 {/* Bottom bar */}
