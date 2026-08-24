@@ -80,17 +80,27 @@ jobs:
       #         command, e.g.:
       #           command="tar -xzf - -C /path/to/docs.pill.rocks",restrict ssh-ed25519 AAAA...
       #      3. Store the private key as the DOCS_PAGE_KEY GitHub secret.
+      #    NOTE: the `secrets` context is NOT allowed in `if:` conditions, so
+      #    the "is the key configured?" check happens inside the script below.
       - name: Deploy Docs (docs.pill.rocks)
-        if: ${{ secrets.DOCS_PAGE_KEY != '' }}
+        env:
+          DOCS_PAGE_KEY: ${{ secrets.DOCS_PAGE_KEY }}
         run: |
           set -e
+
+          # Skip with a warning when the docs deploy key has not been set up.
+          if [ -z "$DOCS_PAGE_KEY" ]; then
+            echo "::warning::DOCS_PAGE_KEY secret is not set - docs.pill.rocks was NOT deployed."
+            echo "See the 'Deploy Docs (docs.pill.rocks)' step comments for the one-time server setup."
+            exit 0
+          fi
 
           echo "=== Docs output ==="
           ls -la dist-docs/
           echo ""
           echo "=== Deploying docs ==="
 
-          echo "${{ secrets.DOCS_PAGE_KEY }}" > docs_page_key
+          echo "$DOCS_PAGE_KEY" > docs_page_key
           chmod 600 docs_page_key
 
           tar -czf - -C dist-docs . | \
@@ -103,10 +113,3 @@ jobs:
           rm -f docs_page_key
           echo ""
           echo "=== Docs deployed to docs.pill.rocks ==="
-
-      # Reminder when the docs key has not been configured yet.
-      - name: Docs deploy not configured
-        if: ${{ secrets.DOCS_PAGE_KEY == '' }}
-        run: |
-          echo "::warning::DOCS_PAGE_KEY secret is not set - docs.pill.rocks was NOT deployed."
-          echo "See the 'Deploy Docs (docs.pill.rocks)' step comments for the one-time server setup."
