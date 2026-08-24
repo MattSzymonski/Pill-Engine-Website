@@ -1,7 +1,8 @@
+import { useState } from 'react';
 import {
     Flame, Layers, FolderOpen, Eye, Cog, Palette, Search,
     RefreshCw, Wrench, Gamepad2, Volume2, Puzzle, GitBranch,
-    Pencil, Microchip, Gauge, Orbit
+    Pencil, Microchip, Gauge, Orbit, ChevronDown
 } from 'lucide-react';
 
 const featureCategories = [
@@ -55,6 +56,76 @@ const featureCategories = [
     },
 ];
 
+/**
+ * Presentational feature card. The description stays collapsed unless the
+ * parent category passes `expanded`; the fold uses a smooth grid animation.
+ */
+const FeatureCard = ({ feature, expanded }) => {
+    return (
+        <div className="glass-card p-5 group flex gap-4">
+            <div className={`w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5 ${
+                feature.inProgress
+                    ? 'bg-yellow-500/10 text-yellow-500'
+                    : 'bg-brand-500/10 text-brand-400'
+            }`}>
+                {feature.icon}
+            </div>
+            <div className="min-w-0 flex-1">
+                <div className="flex items-center gap-2 mb-1">
+                    <h4 className="text-lg font-semibold text-white">
+                        {feature.title}
+                    </h4>
+                    {feature.inProgress && (
+                        <span className="text-[10px] font-medium px-1.5 py-0.5 rounded-full bg-yellow-500/10 text-yellow-500 border border-yellow-500/20">
+                            Soon
+                        </span>
+                    )}
+                </div>
+                <div className={`grid transition-all duration-300 ease-in-out ${expanded ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}`}>
+                    <div className="overflow-hidden">
+                        <p className="text-md text-gray-500 leading-relaxed">
+                            {feature.description}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+/**
+ * Feature category with a single "Expand/Collapse" button next to the title
+ * that toggles the descriptions of every card in the category at once.
+ */
+const FeatureCategory = ({ category }) => {
+    const [expanded, setExpanded] = useState(false);
+
+    return (
+        <div>
+            <div className="mb-5 flex items-center justify-between gap-3">
+                <h3 className="text-xl font-semibold text-gray-300 flex items-center gap-3">
+                    <span className="w-1.5 h-1.5 rounded-full bg-brand-400" />
+                    {category.title}
+                </h3>
+                <button
+                    type="button"
+                    onClick={() => setExpanded((prev) => !prev)}
+                    aria-expanded={expanded}
+                    className="inline-flex items-center gap-1 text-sm font-medium text-gray-600 hover:text-white transition-colors duration-150"
+                >
+                    {expanded ? 'Collapse' : 'Expand'}
+                    <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-300 ${expanded ? 'rotate-180' : ''}`} />
+                </button>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                {category.features.map((feature, featureIndex) => (
+                    <FeatureCard key={featureIndex} feature={feature} expanded={expanded} />
+                ))}
+            </div>
+        </div>
+    );
+};
+
 const Features = () => {
     return (
         <section className="relative py-24 sm:py-32 px-4 sm:px-6 lg:px-8 section-divider">
@@ -72,43 +143,7 @@ const Features = () => {
                 {/* Feature categories */}
                 <div className="space-y-16">
                     {featureCategories.map((category, categoryIndex) => (
-                        <div key={categoryIndex}>
-                            <h3 className="text-xl font-semibold text-gray-300 mb-5 flex items-center gap-3">
-                                <span className="w-1.5 h-1.5 rounded-full bg-brand-400" />
-                                {category.title}
-                            </h3>
-                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                                {category.features.map((feature, featureIndex) => (
-                                    <div
-                                        key={featureIndex}
-                                        className="glass-card p-5 group flex gap-4"
-                                    >
-                                        <div className={`w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5 ${
-                                            feature.inProgress
-                                                ? 'bg-yellow-500/10 text-yellow-500'
-                                                : 'bg-brand-500/10 text-brand-400'
-                                        }`}>
-                                            {feature.icon}
-                                        </div>
-                                        <div className="min-w-0">
-                                            <div className="flex items-center gap-2 mb-1">
-                                                <h4 className="text-lg font-semibold text-white">
-                                                    {feature.title}
-                                                </h4>
-                                                {feature.inProgress && (
-                                                    <span className="text-[10px] font-medium px-1.5 py-0.5 rounded-full bg-yellow-500/10 text-yellow-500 border border-yellow-500/20">
-                                                        Soon
-                                                    </span>
-                                                )}
-                                            </div>
-                                            <p className="text-md text-gray-500 leading-relaxed">
-                                                {feature.description}
-                                            </p>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
+                        <FeatureCategory key={categoryIndex} category={category} />
                     ))}
                 </div>
             </div>

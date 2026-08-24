@@ -14,7 +14,7 @@ const Performance = () => {
         <section className="relative py-24 sm:py-32 px-4 sm:px-6 lg:px-8 section-divider">
             {/* Section heading - standard content width */}
             <div className="max-w-6xl mx-auto mb-16 sm:mb-20">
-                <h2 className="text-3xl sm:text-4xl md:text-5xl  text-white leading-[1.15] tracking-tight mb-6">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl text-white leading-[1.15] tracking-tight mb-6">
                     Raw speed, minimal footprint
                     <br />
                     No compromises
