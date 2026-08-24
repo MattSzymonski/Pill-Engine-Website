@@ -1,14 +1,16 @@
 # Pill Engine Website
 
-This is a combined landing page, guide and code documentation for Pill project as a single deployable website.
+This repository publishes the Pill documentation as a single VitePress site.
+The Pill-styled home page is served at `/`, with the guide at `/guide/` and
+the generated API reference at `/reference/`.
 
 ## Development
 
-`npm run build` - Builds both projects and combines them  
-`npm run dev:landing` - Dev server for landing page  
-`npm run dev:guide` - Dev server for guide  
-`npm run preview` - Preview the combined build  
-`npm run install:all` - Install dependencies for both  
+- `npm run dev` - Start the documentation development server.
+- `npm run build` - Build the documentation into `dist/`.
+- `npm run preview` - Preview the production build.
+- `npm run dev:landing` - Start the legacy standalone landing-page project.
+- `npm run install:all` - Install dependencies for both workspace projects.
 
-For adding new pages to guide check README in `.guide` directory. 
+For documentation structure and generation details, see `docs/README.md`.
 

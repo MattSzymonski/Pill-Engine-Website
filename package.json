@@ -3,17 +3,17 @@
     "version": "1.0.0",
     "private": true,
     "type": "module",
-    "description": "Pill Engine Landing Page and Documentation",
+    "description": "Pill Engine guide and API reference",
     "scripts": {
-        "dev": "concurrently \"npm run dev:landing\" \"npm run dev:guide\"",
+        "dev": "npm run dev:docs",
         "dev:landing": "cd landing_page && npm run dev",
-        "dev:guide": "cd guide && npm run guide:dev",
-        "build": "npm run build:landing && npm run build:guide && npm run combine",
+        "dev:docs": "cd docs && npm run docs:dev",
+        "build": "npm run build:docs && npm run combine",
         "build:landing": "cd landing_page && npm run build",
-        "build:guide": "cd guide && npm run guide:build",
+        "build:docs": "cd docs && npm run docs:build",
         "combine": "node build-script.js",
         "preview": "npx serve dist",
-        "install:all": "cd landing_page && npm install && cd ../guide && npm install"
+        "install:all": "cd landing_page && npm install && cd ../docs && npm install"
     },
     "devDependencies": {
         "concurrently": "^9.2.1"

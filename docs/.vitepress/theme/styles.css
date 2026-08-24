@@ -14,6 +14,109 @@
   font-style: normal;
 }
 
+/* Pill-styled version of VitePress's built-in home layout. */
+.VPHome {
+  position: relative;
+  overflow: hidden;
+}
+
+.VPHome::before {
+  content: '';
+   position: fixed;
+  inset: var(--vp-nav-height) 0 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 72% 30%, rgba(214, 74, 74, 0.18), transparent 28rem),
+    radial-gradient(circle at 18% 74%, rgba(109, 41, 41, 0.12), transparent 24rem);
+}
+
+.VPHome .VPHero {
+  position: relative;
+  padding-top: 112px;
+  padding-bottom: 112px;
+}
+
+.VPHome .VPHero .name {
+  max-width: none;
+  font-family: 'Chillax', sans-serif;
+  background: var(--vp-c-text-1); 
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 600 !important;
+  letter-spacing: 0.0em;
+}
+
+.VPHome .VPHero .text {
+  font-family: 'Chillax', sans-serif;
+  letter-spacing: -0.035em;
+}
+
+.VPHome .VPHero .tagline {
+  max-width: 620px;
+  line-height: 1.65;
+}
+
+.VPHome .VPHero .image-bg {
+  display: none;
+}
+
+.VPHome .VPHero .image-src {
+  top: 50%;
+  left: 50%;
+  width: min(440px, 92vw);
+  max-width: none;
+  max-height: none;
+  transform: translate(-50%, -50%) !important;
+  filter: none;
+  animation: none;
+}
+
+@media (min-width: 960px) {
+  .VPHome .VPHero .image-container {
+    transform: none;
+  }
+}
+
+.VPHome .VPHero .VPButton {
+  min-width: 176px;
+  border-radius: 999px;
+  font-weight: 600;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.VPHome .VPHero .VPButton:hover {
+  transform: translateY(-2px);
+}
+
+.VPHome .VPHero .VPButton.brand {
+  border-color: var(--pill-brand);
+  background: var(--pill-brand);
+  box-shadow: 0 12px 28px rgba(214, 74, 74, 0.24);
+}
+
+.VPHome .VPHero .VPButton.brand:hover {
+  border-color: #e05b5b;
+  background: #e05b5b;
+  box-shadow: 0 16px 34px rgba(214, 74, 74, 0.34);
+}
+
+.VPHome .VPHero .VPButton.alt:hover {
+  border-color: var(--pill-brand);
+  color: var(--pill-brand);
+}
+
+@media (max-width: 639px) {
+  .VPHome .VPHero {
+    padding-top: 72px;
+    padding-bottom: 72px;
+  }
+
+  .VPHome .VPHero .image-src {
+    width: min(280px, 86vw);
+  }
+}
+
 /* ═══════════════════════════════════════════════════════════════════════
    THEME VARIABLES - Shiki syntax colors
    ═══════════════════════════════════════════════════════════════════════ */
@@ -214,6 +317,12 @@
   letter-spacing: -0.02em;
   font-family: var(--font-display) !important;
 }
+
+.VPHome .VPHero .heading .text {
+  font-weight: 600 !important;
+  letter-spacing: 0.0em;
+}
+
 
 .hero-logo {
   height: 200px;
