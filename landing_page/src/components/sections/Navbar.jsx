@@ -1,10 +1,13 @@
 import { useState, useEffect } from 'react';
 
 const NAV_LINKS = [
+    { label: 'Features', href: '#features' },
     { label: 'Guide', href: `https://docs.${window.location.hostname}` },
     { label: 'Examples', href: 'https://github.com/MattSzymonski/Pill-Engine/tree/main/examples' },
     { label: 'GitHub', href: 'https://github.com/MattSzymonski/Pill-Engine' },
 ];
+
+const CONTACT_EMAIL = 'contact@pillengine.org';
 
 const Navbar = () => {
     const [scrolled, setScrolled] = useState(false);
@@ -39,12 +42,17 @@ const Navbar = () => {
                         <a
                             key={link.label}
                             href={link.href}
-                            onClick={() => { console.log(`https://docs.${window.location.hostname}`); }}
                             className="px-3.5 py-1.5 text-[13px] font-medium text-white/50 hover:text-white rounded-md hover:bg-white/[0.06] transition-all duration-150"
                         >
                             {link.label}
                         </a>
                     ))}
+                    <a
+                        href={`mailto:${CONTACT_EMAIL}`}
+                        className="ml-2 px-3.5 py-1.5 text-[13px] font-semibold text-white bg-brand-500 hover:bg-brand-400 rounded-lg transition-all duration-150"
+                    >
+                        Contact
+                    </a>
                 </div>
 
                 {/* Mobile hamburger - right side, animates into an X when open */}
@@ -77,6 +85,12 @@ const Navbar = () => {
                                 {link.label}
                             </a>
                         ))}
+                        <a
+                            href={`mailto:${CONTACT_EMAIL}`}
+                            className="block px-3 py-2 mt-2 text-md font-semibold text-center text-white bg-brand-500 hover:bg-brand-400 rounded-lg transition-all duration-150"
+                        >
+                            Contact
+                        </a>
                     </div>
                 </div>
             </div>
