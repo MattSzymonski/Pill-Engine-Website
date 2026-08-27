@@ -29,7 +29,11 @@ const Footer = () => {
                             />
                         </a>
                         <p className="text-lg text-gray-500 mb-4 max-w-xs leading-relaxed">
-                            Modern, free and blazingly fast game engine. Building the future of game development.
+                            Modern, free and blazingly fast game engine.
+                        </p>
+                        <p className="text-md text-gray-500 mb-4 max-w-xs leading-relaxed">
+                            Dual licensed MIT or Apache-2.0. No royalties, no revenue share, no seat
+                            licences.
                         </p>
                     </div>
 

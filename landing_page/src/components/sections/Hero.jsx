@@ -50,10 +50,10 @@ const Hero = () => {
                     Modern, <span className="text-gradient">free</span> and <span className="text-gradient">blazingly fast</span> game engine<br />
                 </h1>
 
-                {/* Mission statement */}
+                {/* One-line statement of what the engine is */}
                 <p className="text-lg sm:text-xl text-gray-400 max-w-2xl lg:max-w-none mx-auto mb-6 sm:mb-8 animate-fade-in-up delay-100 leading-relaxed">
-                    Because everyone&apos;s idea deserves an open source, next generation game
-                    engine to bring it to life.
+                    An archetype ECS in Rust, with code hot reload and an editor. MIT licensed,
+                    in active development.
                 </p>
 
                 {/* USP strip - the proof, above the fold */}

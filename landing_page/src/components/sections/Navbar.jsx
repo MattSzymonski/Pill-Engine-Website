@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 
 const NAV_LINKS = [
     { label: 'Features', href: '#features' },
+    { label: 'Roadmap', href: '#roadmap' },
     { label: 'Guide', href: `https://docs.${window.location.hostname}` },
     { label: 'Examples', href: 'https://github.com/MattSzymonski/Pill-Engine/tree/main/examples' },
     { label: 'GitHub', href: 'https://github.com/MattSzymonski/Pill-Engine' },
