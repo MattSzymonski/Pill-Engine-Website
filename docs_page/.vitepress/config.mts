@@ -114,6 +114,13 @@ export default withMermaid(
               },
               { text: 'CI Pipeline', link: '/guide/advanced/ci-pipeline' }
             ]
+          },
+          {
+            
+            text: 'Other',
+            items: [
+              { text: 'Brand Identity', link: '/guide/other/brand-identity' },
+            ]
           }
         ],
         '/reference/': codeReferenceSidebarItems

@@ -63,6 +63,61 @@ function mountWorkInProgressBanner(): void {
   document.body.appendChild(banner);
 }
 
+// ── Brand identity color-swatch copy-to-clipboard ──
+// Swatches on the brand identity page copy their hex on click/Enter/Space and
+// briefly show a "Copied" toast. Uses document-level delegation so it works
+// on any route (and after SPA navigation) without re-binding.
+let brandCopyBound = false;
+let copiedToastTimer: ReturnType<typeof setTimeout> | null = null;
+let copiedToastElement: HTMLElement | null = null;
+
+function showCopiedToast(): void {
+  if (!copiedToastElement) {
+    copiedToastElement = document.createElement('div');
+    copiedToastElement.className = 'brand-copied-toast';
+    copiedToastElement.textContent = 'HEX copied to clipboard';
+    document.body.appendChild(copiedToastElement);
+  }
+  copiedToastElement.classList.add('brand-copied-toast-visible');
+  if (copiedToastTimer) clearTimeout(copiedToastTimer);
+  copiedToastTimer = setTimeout(() => {
+    copiedToastElement?.classList.remove('brand-copied-toast-visible');
+  }, 1000);
+}
+
+function copySwatchHex(hex: string): void {
+  if (!hex) return;
+  if (navigator.clipboard?.writeText) {
+    navigator.clipboard.writeText(hex).catch(() => {});
+  }
+  showCopiedToast();
+}
+
+function handleBrandSwatchClick(event: MouseEvent): void {
+  const target = event.target as HTMLElement;
+  const swatch = target.closest<HTMLElement>('.color-swatch');
+  if (!swatch) return;
+  copySwatchHex(swatch.getAttribute('data-color') || '');
+  // Touch devices keep the tapped element focused (:focus-visible), which
+  // would leave the copy hint visible after the tap - blur it so it fades.
+  swatch.blur();
+}
+
+function handleBrandSwatchKeydown(event: KeyboardEvent): void {
+  if (event.key !== 'Enter' && event.key !== ' ') return;
+  const target = event.target as HTMLElement;
+  if (!target.classList.contains('color-swatch')) return;
+  event.preventDefault();
+  copySwatchHex(target.getAttribute('data-color') || '');
+}
+
+function initBrandIdentityCopy(): void {
+  if (brandCopyBound) return;
+  brandCopyBound = true;
+  document.addEventListener('click', handleBrandSwatchClick);
+  document.addEventListener('keydown', handleBrandSwatchKeydown);
+}
+
 export default {
   extends: DefaultTheme,
   enhanceApp(ctx: EnhanceAppContext) {
@@ -74,6 +129,9 @@ export default {
 
     // Show the floating "work in progress" warning on every docs page.
     mountWorkInProgressBanner();
+
+    // Copy-to-clipboard for the brand identity color swatches.
+    initBrandIdentityCopy();
 
     const progress = mountScrollProgress();
 

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 const NAV_LINKS = [
-    { label: 'Guide', href: `https://docs.${window.location.hostname}` },
+    { label: 'Guide', href: `https://docs.${window.location.hostname}/guide/` },
     { label: 'Examples', href: 'https://github.com/MattSzymonski/Pill-Engine/tree/main/examples' },
     { label: 'GitHub', href: 'https://github.com/MattSzymonski/Pill-Engine' },
 ];
@@ -39,7 +39,6 @@ const Navbar = () => {
                         <a
                             key={link.label}
                             href={link.href}
-                            onClick={() => { console.log(`https://docs.${window.location.hostname}`); }}
                             className="px-3.5 py-1.5 text-[13px] font-medium text-white/50 hover:text-white rounded-md hover:bg-white/[0.06] transition-all duration-150"
                         >
                             {link.label}
