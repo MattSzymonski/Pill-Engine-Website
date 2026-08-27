@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Pill CI (Continuous Integration) pipeline is built on **GitHub Actions** and runs in the [MattSzymonski/Pill-Engine](https://github.com/MattSzymonski/Pill-Engine) repository. It automatically validates every code change pushed to the repository - formatting, linting, native builds, WASM builds, binary size tracking, performance benchmarks, and full launcher action tests - to catch regressions before they reach users.
+The Pill CI (Continuous Integration) pipeline is built on **GitHub Actions** and runs in the [Pillware/Pill-Engine](https://github.com/Pillware/Pill-Engine) repository. It automatically validates every code change pushed to the repository - formatting, linting, native builds, WASM builds, binary size tracking, performance benchmarks, and full launcher action tests - to catch regressions before they reach users.
 
 ### What Problems It Solves
 
@@ -294,7 +294,7 @@ Defined in `devops/tests/Dockerfile`:
 
 PillLauncher itself is pre-compiled into the image - see [Prebuilt Pill Launcher](#prebuilt-pill-launcher) below.
 
-The image is rebuilt automatically when the Dockerfile changes and pushed to `ghcr.io/mattszymonski/pill-ci:latest`.
+The image is rebuilt automatically when the Dockerfile changes and pushed to `ghcr.io/pillware/pill-ci:latest`.
 
 ## Prebuilt Pill Launcher
 
@@ -324,7 +324,7 @@ The CI Docker image uses a **multi-stage build** that compiles PillLauncher duri
 **Setup:**
 ```bash
 # Clone and enter repo
-git clone https://github.com/MattSzymonski/Pill-Engine
+git clone https://github.com/Pillware/Pill-Engine
 cd Pill-Engine
 
 # Build the launcher (required by all test scripts)
@@ -365,7 +365,7 @@ cargo install wasm-pack
 
 **Setup & run:**
 ```bash
-git clone https://github.com/MattSzymonski/Pill-Engine
+git clone https://github.com/Pillware/Pill-Engine
 cd Pill-Engine
 
 # Build the launcher (required by all test scripts)
@@ -388,26 +388,26 @@ The Docker image provides an identical environment to CI, ensuring reproducible 
 **Linux:**
 ```bash
 docker run --rm -v "$PWD:/src" -w /src \
-    ghcr.io/mattszymonski/pill-ci:latest \
+    ghcr.io/pillware/pill-ci:latest \
     bash devops/tests/run_basic_tests.sh
 ```
 
 **Windows (PowerShell):**
 ```powershell
 docker run --rm -v "${PWD}:/src" -w /src `
-    ghcr.io/mattszymonski/pill-ci:latest `
+    ghcr.io/pillware/pill-ci:latest `
     bash devops/tests/run_basic_tests.sh
 ```
 
 **Windows (CMD):**
 ```cmd
-docker run --rm -v "%cd%:/src" -w /src ghcr.io/mattszymonski/pill-ci:latest bash devops/tests/run_basic_tests.sh
+docker run --rm -v "%cd%:/src" -w /src ghcr.io/pillware/pill-ci:latest bash devops/tests/run_basic_tests.sh
 ```
 
 **macOS:**
 ```bash
 docker run --rm -v "$PWD:/src" -w /src \
-    ghcr.io/mattszymonski/pill-ci:latest \
+    ghcr.io/pillware/pill-ci:latest \
     bash devops/tests/run_basic_tests.sh
 ```
 
@@ -415,7 +415,7 @@ docker run --rm -v "$PWD:/src" -w /src \
 - `--rm` - remove container after exit
 - `-v "$PWD:/src"` - mount current directory as `/src` inside container
 - `-w /src` - set working directory
-- `ghcr.io/mattszymonski/pill-ci:latest` - pre-built CI image with PillLauncher already compiled
+- `ghcr.io/pillware/pill-ci:latest` - pre-built CI image with PillLauncher already compiled
 - Remaining args - the test script to run
 
 **Building the image locally (optional):**
@@ -562,20 +562,20 @@ bash tests/run_pill_launcher_tests.sh create
 ```bash
 # Linux / macOS / Git Bash
 docker run --rm -v "$PWD:/src" -w /src \
-    ghcr.io/mattszymonski/pill-ci:latest \
+    ghcr.io/pillware/pill-ci:latest \
     bash devops/tests/run_basic_tests.sh
 ```
 
 ```powershell
 # Windows PowerShell
 docker run --rm -v "${PWD}:/src" -w /src `
-    ghcr.io/mattszymonski/pill-ci:latest `
+    ghcr.io/pillware/pill-ci:latest `
     bash devops/tests/run_basic_tests.sh
 ```
 
 ```cmd
 REM Windows CMD
-docker run --rm -v "%cd%:/src" -w /src ghcr.io/mattszymonski/pill-ci:latest bash devops/tests/run_basic_tests.sh
+docker run --rm -v "%cd%:/src" -w /src ghcr.io/pillware/pill-ci:latest bash devops/tests/run_basic_tests.sh
 ```
 
 ### Debug a Failing Test
@@ -591,10 +591,10 @@ engine/pill_launcher/target/release/PillLauncher --version
 # Compare local vs CI by running in Docker
 # Linux / macOS / Git Bash:
 docker run --rm -v "$PWD:/src" -w /src \
-    ghcr.io/mattszymonski/pill-ci:latest \
+    ghcr.io/pillware/pill-ci:latest \
     bash devops/tests/run_basic_tests.sh
 # Windows CMD:
-docker run --rm -v "%cd%:/src" -w /src ghcr.io/mattszymonski/pill-ci:latest bash devops/tests/run_basic_tests.sh
+docker run --rm -v "%cd%:/src" -w /src ghcr.io/pillware/pill-ci:latest bash devops/tests/run_basic_tests.sh
 ```
 
 ### Generate Documentation

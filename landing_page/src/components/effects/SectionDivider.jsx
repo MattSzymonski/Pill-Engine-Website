@@ -8,7 +8,7 @@ const SectionDivider = ({ label }) => {
             {/* Left gradient line */}
             <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="272"
+                width="372"
                 height="2"
                 viewBox="0 0 272 2"
                 fill="none"
@@ -40,7 +40,7 @@ const SectionDivider = ({ label }) => {
             {/* Right gradient line */}
             <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="272"
+                width="372"
                 height="2"
                 viewBox="0 0 272 2"
                 fill="none"

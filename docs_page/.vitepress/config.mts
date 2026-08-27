@@ -127,7 +127,7 @@ export default withMermaid(
       },
 
       socialLinks: [
-        { icon: 'github', link: 'https://github.com/MattSzymonski/Pill-Engine' }
+        { icon: 'github', link: 'https://github.com/Pillware/Pill-Engine' }
       ]
     }
   })

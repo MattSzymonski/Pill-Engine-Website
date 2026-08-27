@@ -5,13 +5,13 @@ const Footer = () => {
 
     const footerLinks = {
         Product: [
-            { label: 'Guide', href: 'https://docs.pill.rocks' },
-            { label: 'Examples', href: 'https://github.com/MattSzymonski/Pill-Engine/tree/main/examples' },
-            { label: 'GitHub', href: 'https://github.com/MattSzymonski/Pill-Engine' },
+            { label: 'Guide', href: `https://docs.${window.location.hostname}/guide/` },
+            { label: 'Examples', href: 'https://github.com/Pillware/Pill-Engine/tree/main/examples' },
+            { label: 'GitHub', href: 'https://github.com/Pillware/Pill-Engine' },
         ],
         Community: [
-            { label: 'GitHub', href: 'https://github.com/MattSzymonski/Pill-Engine' },
-            { label: 'Contributing', href: 'https://docs.pill.rocks/guide/contributing/contributing.html' },
+            { label: 'GitHub', href: 'https://github.com/Pillware/Pill-Engine' },
+            { label: 'Contributing', href: `https://docs.${window.location.hostname}/guide/contributing/contributing.html` },
         ],
     };
 
@@ -29,7 +29,11 @@ const Footer = () => {
                             />
                         </a>
                         <p className="text-lg text-gray-500 mb-4 max-w-xs leading-relaxed">
-                            Modern, free and blazingly fast game engine. Building the future of game development.
+                            Modern, free and blazingly fast game engine.
+                        </p>
+                        <p className="text-md text-gray-500 mb-4 max-w-xs leading-relaxed">
+                            Dual licensed MIT or Apache-2.0. No royalties, no revenue share, no seat
+                            licences.
                         </p>
                     </div>
 
@@ -64,7 +68,7 @@ const Footer = () => {
                             Get product updates and news. No spam.
                         </p>
                         <a
-                            href="https://github.com/MattSzymonski/Pill-Engine"
+                            href="https://github.com/Pillware/Pill-Engine"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-white/[0.05] border border-white/[0.08] rounded-lg hover:bg-white/[0.08] transition-all duration-200"

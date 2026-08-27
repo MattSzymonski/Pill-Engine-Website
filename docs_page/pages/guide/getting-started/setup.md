@@ -25,7 +25,7 @@ Before you begin, make sure you have the following installed:
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/MattSzymonski/Pill-Engine.git
+git clone https://github.com/Pillware/Pill-Engine.git
 cd Pill-Engine
 ```
 

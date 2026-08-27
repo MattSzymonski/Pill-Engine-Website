@@ -2,6 +2,12 @@
 
 This repository builds and deploys the Pill landing page and documentation:
 
+- **https://pillengine.org** → the landing page (`landing_page/`)
+- **https://docs.pillengine.org** → the VitePress documentation (`docs_page/`), with
+  the guide at `/guide/` and the generated API reference at `/reference/`
+
+And
+
 - **https://pill.rocks** → the landing page (`landing_page/`)
 - **https://docs.pill.rocks** → the VitePress documentation (`docs_page/`), with
   the guide at `/guide/` and the generated API reference at `/reference/`

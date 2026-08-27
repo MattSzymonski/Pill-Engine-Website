@@ -566,4 +566,4 @@ If you're below these, check the performance optimization section in [Next Steps
 
 ---
 
-Still stuck? Feel free to open an issue on [GitHub](https://github.com/MattSzymonski/Pill/issues) with details about your problem!
+Still stuck? Feel free to open an issue on [GitHub](https://github.com/Pillware/Pill/issues) with details about your problem!
