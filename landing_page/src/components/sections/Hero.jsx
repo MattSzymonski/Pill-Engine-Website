@@ -52,7 +52,7 @@ const Hero = () => {
 
                 {/* One-line statement of what the engine is */}
                 <p className="text-lg sm:text-2xl text-gray-400 max-w-2xl lg:max-w-none mx-auto mb-6 sm:mb-8 animate-fade-in-up delay-100 leading-relaxed">
-                    An archetype ECS in Rust, with code hot reload and an editor. <br className="hidden sm:block" />
+                    Archetype ECS in Rust, with code hot reload and editor. <br className="hidden sm:block" />
                     MIT licensed, in active development.
                 </p>
 

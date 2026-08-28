@@ -6,7 +6,7 @@ const roadmapItems = [
     { id: 'rust-scripting', label: 'Rust scripting' },
     {
         id: 'csharp-scripting',
-        label: 'C# scripting, with types generated on reload',
+        label: 'C# scripting, with types generated at reload time',
     },
     {
         id: 'scene-serialization',
@@ -33,12 +33,12 @@ const roadmapItems = [
     },
     {
         id: 'error-handling',
-        label: 'Error handling with full callstacks, ready to feed telemetry',
+        label: 'Error handling with full callstacks, telemetry ready',
     },
     {
         id: 'tests',
         label:
-            'Tests: unit tests next to the Rust source, integration tests driven from Python',
+            'Tests: unit tests alongside Rust source, integration tests driven from Python',
     },
     {
         id: 'docs',

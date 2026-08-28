@@ -4,7 +4,7 @@ const offers = [
     {
         icon: <Hammer className="w-5 h-5" />,
         title: 'Fund a feature',
-        description: 'You need something the engine does not do yet. We build it, and it lands upstream under the same licence.',
+        description: 'You need something the engine is still missing? We build it, and it lands upstream under the same licence.',
     },
     {
         icon: <ArrowUpNarrowWide className="w-5 h-5" />,
@@ -19,7 +19,7 @@ const offers = [
     {
         icon: <MessagesSquare className="w-5 h-5" />,
         title: 'Direct access',
-        description: 'A line to the people who wrote the engine. No ticket queue, no support tier.',
+        description: 'A direct link to the people who wrote the engine. No ticket queues, no support tiers.',
     },
 ];
 

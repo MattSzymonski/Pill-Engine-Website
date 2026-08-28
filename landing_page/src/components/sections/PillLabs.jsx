@@ -69,19 +69,20 @@ const PillLabs = () => {
                     Pill Labs
                 </h2>
                 <p className="text-xl text-gray-400 max-w-2xl mb-10">
-                    Real talk: performance isn't a bullet point - it's the foundation. Every layer of the engine - entity processing, multithreaded scheduling, asset streaming, build footprint - is built to run fast and stay lean.
+                    <i>Real talk: performance isn't just a bullet point - it's the foundation. </i> <br/><br/>
+                    Every layer of the engine - entity processing, multithreaded scheduling, asset streaming, build footprint - is built to run fast and stay lean.
                     <br/><br/>
                     But we don't tell fairytales about how fast Pill is. Every figure here comes from automated benchmarks that run after every engine change - entity throughput, frame times, build sizes, load latencies, all tracked in CI. Regressions are caught before they reach you, and the results are published right here, in Pill Labs.
                 </p>
-                
-                
+
+
                 <p className="text-xl text-gray-400 max-w-2xl mb-10">
-                    Everything is Pill is ‎ 
+                    Everything in Pill is ‎
                     <span className="text-xl text-brand-400 font-semibold leading-relaxed">
                         Benchmarked. Measured. Proven.
                     </span>
-                </p> 
-                
+                </p>
+
 
                 {/* Method cards */}
                 <div className="relative mb-6">
@@ -113,7 +114,7 @@ const PillLabs = () => {
                 {/* Research areas and where the team comes from */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-8">
                     <ChipGroup title="Research areas" chips={researchAreas} />
-                    <ChipGroup title="Drawn from our experience" chips={backgrounds} />
+                    <ChipGroup title="Drawn from our experience in" chips={backgrounds} />
                 </div>
             </div>
         </section>

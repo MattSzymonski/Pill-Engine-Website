@@ -39,8 +39,8 @@ const Iteration = () => {
                     Change code, keep playing
                 </h2>
                 <p className="text-xl text-gray-400 max-w-2xl mb-10">
-                    Run with <code className="text-brand-400">-c hot-reload</code>, edit, and the game
-                    pauses and resumes with your world state intact.
+                    Run with <code className="text-brand-400">-c hot-reload</code>, edit, while the game
+                    reloads with your world state intact.
                 </p>
 
                 <div className="grid grid-cols-2 gap-2 sm:gap-3 mb-10">
