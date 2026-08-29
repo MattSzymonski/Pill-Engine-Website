@@ -25,7 +25,7 @@ Before you begin, make sure you have the following installed:
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/Pillware/Pill-Engine.git
+git clone https://github.com/Pillware/Pill.git
 cd Pill-Engine
 ```
 
@@ -36,13 +36,21 @@ Install from [rustup.rs](https://www.rust-lang.org/tools/install)
 ### 3. Build Pill Launcher
 
 ```bash
-cargo build --release --manifest-path <ENGINE-PATH>\Pill-Engine\crates\pill_launcher\Cargo.toml
+`echo 'export PATH="$PATH:<PATH_TO_PILL>/Pill-Engine/engine/pill_launcher/target/release"' >> ~/.bashrc && source ~/.bashrc`
+and restart terminal
+
+cargo build --release --manifest-path <PATH_TO_PILL>\Pill\engine\pill_launcher\Cargo.toml
 ```
 
 ### 4. Add Pill Launcher to PATH (optional)
 
+#### On Windows
+Follow [these steps](https://superuser.com/questions/1861276/how-to-set-a-folder-to-the-path-environment-variable-in-windows-11)
+And add add `<PATH_TO_PILL>\Pill\engine\pill_launcher\target\release`
+
+#### On Linux
 ```bash
-set PATH=%PATH%;<ENGINE-PATH>\Pill-Engine\crates\pill_launcher\target\release
+`echo 'export PATH="$PATH:<PATH_TO_PILL>/Pill-Engine/engine/pill_launcher/target/release"' >> ~/.bashrc && source ~/.bashrc`
 ```
 
 ## Creating new project
@@ -73,8 +81,16 @@ Available examples:
 
 To run selected example use:
 ```bash
-PillLauncher.exe -a run -p <ENGINE-PATH>\Pill-Engine\examples\<EXAMPLE_NAME>
+PillLauncher.exe -a run -p <PATH_TO_PILL>\Pill\examples\<EXAMPLE_NAME>
 ```
+
+## Quicker iteration times (hot-reloading)
+1. When running the game example add `-c hot-reload` to the PillLauncher flags
+2. Run the example
+`PillLauncher.exe -c hot-reload -a run -p ./Hello-Pill`
+3. Change the code in your Editor
+4. Observe the game briefly pausing and resuming with changed world state
+
 
 ## Next Steps
 

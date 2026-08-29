@@ -57,7 +57,7 @@ const Sponsor = () => {
                 </div>
 
                 <a
-                    href="mailto:contact@pillengine.org"
+                    href={`mailto:${['contact', '@', 'pillengine', '.', 'org'].join('')}`}
                     className="inline-flex items-center gap-2 px-8 py-3.5 bg-white/[0.04] border border-white/[0.08] text-white font-semibold rounded-xl hover:bg-white/[0.08] hover:border-white/[0.14] transition-all duration-200 text-base"
                 >
                     Talk to us

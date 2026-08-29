@@ -567,3 +567,5 @@ If you're below these, check the performance optimization section in [Next Steps
 ---
 
 Still stuck? Feel free to open an issue on [GitHub](https://github.com/Pillware/Pill/issues) with details about your problem!
+
+You can also reach out to us at `contact&#64;pillengine&#46;org`

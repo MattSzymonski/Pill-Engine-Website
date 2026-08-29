@@ -31,7 +31,7 @@ title: Brand Identity
 <br>
 </div>
 
-You can find all logo files [here](https://github.com/Pillware/Pill-Engine/tree/main/media/logo)
+You can find all logo files [here](https://github.com/Pillware/Pill/tree/main/media/logo)
 
 ## Fonts
 <br>
@@ -124,5 +124,13 @@ You can find all logo files [here](https://github.com/Pillware/Pill-Engine/tree/
 <p class="color-rgb">255, 194, 194</p>
 <p class="color-name">brand-200</p>
 </div>
+</div>
+</div>
+
+## Emoji
+<div class="brand-guidelines">
+<div class="font-emoji">
+<br>
+💊
 </div>
 </div>

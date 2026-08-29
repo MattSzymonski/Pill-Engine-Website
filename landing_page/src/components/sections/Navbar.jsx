@@ -3,12 +3,14 @@ import { useState, useEffect } from 'react';
 const NAV_LINKS = [
     { label: 'Features', href: '#features' },
     { label: 'Roadmap', href: '#roadmap' },
+    { label: 'Demos', href: '/demos' },
     { label: 'Guide', href: `https://docs.${window.location.hostname}` },
-    { label: 'Examples', href: 'https://github.com/Pillware/Pill-Engine/tree/main/examples' },
-    { label: 'GitHub', href: 'https://github.com/Pillware/Pill-Engine' },
+    { label: 'Examples', href: 'https://github.com/Pillware/Pill/tree/main/examples' },
+    { label: 'GitHub', href: 'https://github.com/Pillware/Pill' },
 ];
 
-const CONTACT_EMAIL = 'contact@pillengine.org';
+// Obfuscated to avoid email-harvesting bots: full address is assembled at runtime.
+const CONTACT_EMAIL = ['contact', '@', 'pillengine', '.', 'org'].join('');
 
 const Navbar = () => {
     const [scrolled, setScrolled] = useState(false);
@@ -30,7 +32,7 @@ const Navbar = () => {
                 <div className="flex items-center gap-3">
                     <a href="/" className="flex items-center gap-2.5 group">
                         <img
-                            src="/pill_logo.svg"
+                            src="/logos/pill_logo.svg"
                             alt="Pill Engine"
                             className="h-12 w-12 transition-transform duration-200 group-hover:scale-105"
                         />
@@ -48,12 +50,12 @@ const Navbar = () => {
                             {link.label}
                         </a>
                     ))}
-                    <a
+                    {/* <a
                         href={`mailto:${CONTACT_EMAIL}`}
                         className="ml-2 px-3.5 py-1.5 text-[13px] font-semibold text-white bg-brand-500 hover:bg-brand-400 rounded-lg transition-all duration-150"
                     >
                         Contact
-                    </a>
+                    </a> */}
                 </div>
 
                 {/* Mobile hamburger - right side, animates into an X when open */}

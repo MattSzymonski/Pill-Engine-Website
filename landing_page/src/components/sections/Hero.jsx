@@ -39,7 +39,7 @@ const Hero = () => {
                 {/* Logo */}
                 <div className="mb-4 sm:mb-6 animate-fade-in">
                     <img
-                        src="/pill_logo.svg"
+                        src="/logos/pill_logo.svg"
                         alt="Pill Engine"
                         className="h-[160px] sm:h-[200px] md:h-[220px] xl:h-[280px] mx-auto"
                     />

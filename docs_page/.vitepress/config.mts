@@ -24,7 +24,9 @@ export default withMermaid(
       ['meta', { property: 'og:title', content: 'Pill Docs' }],
       ['meta', { property: 'og:description', content: 'Guide and API reference for Pill Engine' }],
       ['meta', { property: 'og:image', content: '/favicons/web-app-manifest-512x512.png' }],
-      ['meta', { name: 'twitter:card', content: 'summary_large_image' }]
+      ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
+      // Analytics (Umami)
+      ['script', { defer: '', src: 'https://umami.campfire-on-the-wall.com/script.js', 'data-website-id': 'be02f2ef-9344-46d7-bc07-c9c56af6531e' }]
     ],
 
     markdown: {
@@ -44,7 +46,7 @@ export default withMermaid(
       nav: [
         {
           text: 'Guide',
-          link: '/guide/introduction',
+          link: '/guide/',
           activeMatch: '^/guide/'
         },
         {
@@ -69,8 +71,12 @@ export default withMermaid(
             text: 'Introduction',
             items: [
               {
+                text: 'Welcome',
+                link: '/guide/'
+              },
+              {
                 text: 'What is Pill?',
-                link: '/guide/introduction'
+                link: '/guide/what-is-pill'
               }
             ],
           },
@@ -116,7 +122,7 @@ export default withMermaid(
             ]
           },
           {
-            
+
             text: 'Other',
             items: [
               { text: 'Brand Identity', link: '/guide/other/brand-identity' },
@@ -127,7 +133,7 @@ export default withMermaid(
       },
 
       socialLinks: [
-        { icon: 'github', link: 'https://github.com/Pillware/Pill-Engine' }
+        { icon: 'github', link: 'https://github.com/Pillware/Pill' }
       ]
     }
   })

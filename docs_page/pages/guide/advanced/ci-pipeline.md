@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Pill CI (Continuous Integration) pipeline is built on **GitHub Actions** and runs in the [Pillware/Pill-Engine](https://github.com/Pillware/Pill-Engine) repository. It automatically validates every code change pushed to the repository - formatting, linting, native builds, WASM builds, binary size tracking, performance benchmarks, and full launcher action tests - to catch regressions before they reach users.
+The Pill CI (Continuous Integration) pipeline is built on **GitHub Actions** and runs in the [Pillware/Pill](https://github.com/Pillware/Pill) repository. It automatically validates every code change pushed to the repository - formatting, linting, native builds, WASM builds, binary size tracking, performance benchmarks, and full launcher action tests - to catch regressions before they reach users.
 
 ### What Problems It Solves
 
@@ -324,7 +324,7 @@ The CI Docker image uses a **multi-stage build** that compiles PillLauncher duri
 **Setup:**
 ```bash
 # Clone and enter repo
-git clone https://github.com/Pillware/Pill-Engine
+git clone https://github.com/Pillware/Pill
 cd Pill-Engine
 
 # Build the launcher (required by all test scripts)
@@ -365,7 +365,7 @@ cargo install wasm-pack
 
 **Setup & run:**
 ```bash
-git clone https://github.com/Pillware/Pill-Engine
+git clone https://github.com/Pillware/Pill
 cd Pill-Engine
 
 # Build the launcher (required by all test scripts)

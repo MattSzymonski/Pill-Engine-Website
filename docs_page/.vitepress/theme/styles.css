@@ -86,8 +86,17 @@
 }
 
 @keyframes hero-orb-pulse {
-  0%, 100% { opacity: 0.3; transform: scale(1); }
-  50% { opacity: 0.5; transform: scale(1.1); }
+
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.5;
+    transform: scale(1.1);
+  }
 }
 
 /* Subtle 64px grid pattern - match the landing hero grid. */
@@ -110,7 +119,7 @@
 .VPHome .VPHero .name {
   max-width: none;
   font-family: 'Chillax', sans-serif;
-  background: var(--vp-c-text-1); 
+  background: var(--vp-c-text-1);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -207,12 +216,17 @@
   --shiki-background: var(--vp-c-bg);
   --shiki-foreground: var(--vp-c-text-1);
   --shiki-comment: var(--vp-c-text-3);
-  --shiki-keyword: var(--syntax-keyword);  /* flamingo */
-  --shiki-function: var(--syntax-function); /* sky */
-  --shiki-string: var(--syntax-string);   /* mint */
-  --shiki-number: var(--syntax-number);   /* amber */
+  --shiki-keyword: var(--syntax-keyword);
+  /* flamingo */
+  --shiki-function: var(--syntax-function);
+  /* sky */
+  --shiki-string: var(--syntax-string);
+  /* mint */
+  --shiki-number: var(--syntax-number);
+  /* amber */
   --shiki-constant: var(--syntax-number);
-  --shiki-type: var(--syntax-type);       /* lavender */
+  --shiki-type: var(--syntax-type);
+  /* lavender */
   --shiki-operator: var(--vp-c-text-2);
   --shiki-punctuation: var(--vp-c-text-2);
   --shiki-selection-bg: var(--syntax-selection);
@@ -754,6 +768,7 @@ div[class*="language-"]::before {
 }
 
 @keyframes gradientShift {
+
   0%,
   100% {
     background-position: 0% 50%;
@@ -1165,6 +1180,10 @@ div[class*="language-"]::before {
   margin-bottom: 0;
 }
 
+.font-emoji {
+  font-size: 36px;
+}
+
 /* Left column: just the font name, aligned to the top, text flush right
    toward the details column. */
 .font-name {
@@ -1363,6 +1382,7 @@ div[class*="language-"]::before {
    Below 640px the single row becomes a stacked list: color block on the
    left, hex/rgb/name text on the right, both aligned to the top. */
 @media (max-width: 640px) {
+
   /* Logo section: everything stacks and goes full-width on small screens. */
   .logo-row {
     flex-direction: column;

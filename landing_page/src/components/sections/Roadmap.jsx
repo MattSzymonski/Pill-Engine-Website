@@ -61,36 +61,35 @@ const roadmapItems = [
  * affordance. The button is presentational for now - votes are not collected.
  */
 const RoadmapItem = ({ item, vote, votes, voted }) => (
-        <li className="relative pl-10 sm:pl-12">
-            <span
-                className="absolute left-[11px] sm:left-[15px] top-[22px] w-2.5 h-2.5 rounded-full ring-4 bg-brand-400 ring-brand-400/20"
-                aria-hidden="true"
-            />
-            <div className="glass-card p-4 sm:p-5 group flex items-start gap-4">
-                <p className="min-w-0 flex-1 text-md sm:text-lg text-gray-300 leading-relaxed">
-                    {item.label}
-                </p>
-                <button
-                  type="button"
-                  disabled={voted.has(item.id)}
-                  onClick={() => vote(item.id)}
-                  aria-label={`Vote for ${item.label}`}
-                  className={`
+    <li className="relative pl-10 sm:pl-12">
+        <span
+            className="absolute left-[11px] sm:left-[15px] top-[22px] w-2.5 h-2.5 rounded-full ring-4 bg-brand-400 ring-brand-400/20"
+            aria-hidden="true"
+        />
+        <div className="glass-card p-4 sm:p-5 group flex items-start gap-4">
+            <p className="min-w-0 flex-1 text-md sm:text-lg text-gray-300 leading-relaxed">
+                {item.label}
+            </p>
+            <button
+                type="button"
+                disabled={voted.has(item.id)}
+                onClick={() => vote(item.id)}
+                aria-label={`Vote for ${item.label}`}
+                className={`
                       inline-flex items-center gap-1.5 flex-shrink-0
                       px-2.5 py-1.5 rounded-lg text-sm font-medium
                       transition-colors duration-150
-                      ${
-                          voted.has(item.id)
-                              ? 'text-brand-400 bg-brand-400/10 cursor-default'
-                              : 'text-gray-600 hover:text-white hover:bg-white/[0.06]'
-                      }
+                      ${voted.has(item.id)
+                        ? 'text-brand-400 bg-brand-400/10 cursor-default'
+                        : 'text-gray-600 hover:text-white hover:bg-white/[0.06]'
+                    }
                   `}
-              >
-                  <ThumbsUp className="w-4 h-4" />
+            >
+                <ThumbsUp className="w-4 h-4" />
                 {/*TODO: disabled until we have heaps of votes * {votes[item.id] ?? 0} */}
-              </button>
-            </div>
-        </li>
+            </button>
+        </div>
+    </li>
 );
 
 const Roadmap = () => {
@@ -100,6 +99,8 @@ const Roadmap = () => {
     );
 
     useEffect(() => {
+        if (!supabase) return;
+
         supabase
             .from('roadmap_votes')
             .select('item_id, votes')
@@ -115,7 +116,7 @@ const Roadmap = () => {
     }, []);
 
     const vote = async (itemId) => {
-        if (voted.has(itemId)) {
+        if (!supabase || voted.has(itemId)) {
             return;
         }
 
@@ -158,7 +159,7 @@ const Roadmap = () => {
                     <p className="text-xl text-gray-400 max-w-2xl">
                         We're forging the future. Vote on what matters most to you, or{' '}
                         <a
-                            href="mailto:contact@pillengine.org"
+                            href={`mailto:${['contact', '@', 'pillengine', '.', 'org'].join('')}`}
                             className="text-brand-400 hover:text-brand-300 transition-colors duration-150"
                         >
                             contact us
