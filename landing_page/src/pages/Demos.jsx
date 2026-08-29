@@ -5,11 +5,15 @@ const DEMO_ITEMS = [
     {
         title: 'Pill Teaser',
         video: '/images/xenium_rc1.mp4',
-        gif: '/images/xenium_rc1.gif',
+        image: '/images/xenium_rc1.gif',
     },
     {
         title: 'Ancient Pills',
-        gif: 'https://raw.githubusercontent.com/Pillware/Pill/circus_demo/examples/circus_demo/media/ancient_pills.gif',
+        image: 'https://raw.githubusercontent.com/Pillware/Pill/circus_demo/examples/circus_demo/media/ancient_pills.gif',
+    },
+    {
+        title: '<SECRET PROJECT>',
+        image: '/images/secret_1.png'
     }
 ];
 
@@ -42,7 +46,7 @@ const Demos = () => {
                                         />
                                     ) : (
                                         <img
-                                            src={item.gif}
+                                            src={item.image}
                                             alt={item.title}
                                             className="w-full h-auto"
                                             loading="lazy"
