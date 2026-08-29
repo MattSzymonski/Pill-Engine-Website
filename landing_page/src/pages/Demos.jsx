@@ -12,7 +12,7 @@ const DEMO_ITEMS = [
         image: 'https://raw.githubusercontent.com/Pillware/Pill/circus_demo/examples/circus_demo/media/ancient_pills.gif',
     },
     {
-        title: '<SECRET PROJECT>',
+        title: '<WORK IN PROGRESS>',
         image: '/images/secret_1.png'
     }
 ];

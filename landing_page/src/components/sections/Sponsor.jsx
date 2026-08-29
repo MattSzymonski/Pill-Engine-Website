@@ -1,5 +1,8 @@
 import { Hammer, ArrowUpNarrowWide, MessagesSquare, HandMetal } from 'lucide-react';
 
+// Obfuscated so the address never appears verbatim in the source.
+const SPONSOR_EMAIL = ['matt.szymonski', '@', 'gmail', '.', 'com'].join('');
+
 const offers = [
     {
         icon: <Hammer className="w-5 h-5" />,
@@ -56,12 +59,13 @@ const Sponsor = () => {
                     ))}
                 </div>
 
-                <a
-                    href={`mailto:${['contact', '@', 'pillengine', '.', 'org'].join('')}`}
-                    className="inline-flex items-center gap-2 px-8 py-3.5 bg-white/[0.04] border border-white/[0.08] text-white font-semibold rounded-xl hover:bg-white/[0.08] hover:border-white/[0.14] transition-all duration-200 text-base"
+                <button
+                    type="button"
+                    onClick={() => alert(SPONSOR_EMAIL)}
+                    className="inline-flex items-center gap-2 px-8 py-3.5 bg-white/[0.04] border border-white/[0.08] text-white font-semibold rounded-xl hover:bg-white/[0.08] hover:border-white/[0.14] transition-all duration-200 text-base cursor-pointer"
                 >
                     Talk to us
-                </a>
+                </button>
             </div>
         </section>
     );
