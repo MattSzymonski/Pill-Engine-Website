@@ -34,10 +34,10 @@ const Sponsor = () => {
         >
             <div className="max-w-6xl mx-auto">
                 <h2 className="text-3xl sm:text-4xl md:text-5xl text-white leading-[1.15] tracking-tight mb-4">
-                    Sponsorship
+                    Sponsorship & cooperation
                 </h2>
                 <p className="text-xl text-gray-400 max-w-2xl mb-10">
-                    Focus on your customers rather than the engine.
+                    Focus on your craft/players/customers rather than the engine.
                 </p>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
