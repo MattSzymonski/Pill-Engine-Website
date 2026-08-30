@@ -1,7 +1,8 @@
+import { useState } from 'react';
 import { Hammer, ArrowUpNarrowWide, MessagesSquare, HandMetal } from 'lucide-react';
 
 // Obfuscated so the address never appears verbatim in the source.
-const SPONSOR_EMAIL = ['matt.szymonski', '@', 'gmail', '.', 'com'].join('');
+const SPONSOR_EMAIL = ['contact', '@', 'pillengine', '.', 'org'].join('');
 
 const offers = [
     {
@@ -27,6 +28,25 @@ const offers = [
 ];
 
 const Sponsor = () => {
+    const [copied, setCopied] = useState(false);
+
+    // Copy the address to the clipboard (with a fallback for older browsers)
+    // and show a short-lived confirmation on the button instead of an alert.
+    const copySponsorEmail = async () => {
+        try {
+            await navigator.clipboard.writeText(SPONSOR_EMAIL);
+        } catch {
+            const input = document.createElement('input');
+            input.value = SPONSOR_EMAIL;
+            document.body.appendChild(input);
+            input.select();
+            document.execCommand('copy');
+            document.body.removeChild(input);
+        }
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+    };
+
     return (
         <section
             id="sponsor"
@@ -61,10 +81,10 @@ const Sponsor = () => {
 
                 <button
                     type="button"
-                    onClick={() => alert(SPONSOR_EMAIL)}
+                    onClick={copySponsorEmail}
                     className="inline-flex items-center gap-2 px-8 py-3.5 bg-white/[0.04] border border-white/[0.08] text-white font-semibold rounded-xl hover:bg-white/[0.08] hover:border-white/[0.14] transition-all duration-200 text-base cursor-pointer"
                 >
-                    Talk to us
+                    {copied ? 'Email copied!' : 'Talk to us'}
                 </button>
             </div>
         </section>

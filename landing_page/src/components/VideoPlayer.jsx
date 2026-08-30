@@ -1,14 +1,32 @@
 import { useRef, useState, useEffect, useCallback } from 'react';
-import { Maximize, Minimize, Volume1, Volume2, VolumeX } from 'lucide-react';
+import { Maximize, Minimize } from 'lucide-react';
+import VolumeControl from './VolumeControl';
 
 // Returns the element currently in fullscreen (cross-browser), or null.
 const getFullscreenElement = () =>
     document.fullscreenElement || document.webkitFullscreenElement || null;
 
+// Valid fullscreen sizing modes.
+const FULLSCREEN_MODES = ['letterbox', 'width', 'height'];
+
+// Draw the current video frame to a canvas and return it as a JPEG data URL.
+// Used to cover the player while a new quality source loads. Returns null if
+// the video has no frame yet or canvas 2D context is unavailable.
+const captureVideoFrame = (video) => {
+    if (!video.videoWidth || !video.videoHeight) return null;
+    const canvas = document.createElement('canvas');
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    const context = canvas.getContext('2d');
+    if (!context) return null;
+    context.drawImage(video, 0, 0, canvas.width, canvas.height);
+    return canvas.toDataURL('image/jpeg', 0.7);
+};
+
 /**
  * Self-contained custom video player: autoplay loop, hover-revealed
- * controls, a draggable vertical volume slider (desktop only) and fullscreen
- * toggling. Owns all of its own player state, so it can be dropped anywhere.
+ * controls, a draggable vertical volume slider (desktop only), fullscreen
+ * toggling and an optional HD/4K quality switch. Owns all of its own state.
  *
  * Props:
  * - src: video source URL
@@ -32,14 +50,11 @@ const VideoPlayer = ({
 }) => {
     const containerRef = useRef(null);
     const videoRef = useRef(null);
-    const volumeTrackRef = useRef(null);
     const [isFullscreen, setIsFullscreen] = useState(false);
     // Sound is disabled by default.
     const [muted, setMuted] = useState(true);
     // Volume 0..1, driven by the vertical slider.
     const [volume, setVolume] = useState(1);
-    // True while the slider is being dragged - keeps the bar open.
-    const [isDragging, setIsDragging] = useState(false);
     // The source currently rendered into the <video> (HD or 4K).
     const [currentSrc, setCurrentSrc] = useState(src);
     // True once the user switched to the 4K source.
@@ -88,8 +103,8 @@ const VideoPlayer = ({
         return () => clearTimeout(qualityOverlayTimerRef.current);
     }, []);
 
-    // When the rendered source changes to the 4K file, wait for it to load,
-    // then resume playback from the exact position the HD video was at.
+    // When the rendered source changes (quality switch), wait for the new
+    // source to load, then resume playback from the saved position.
     useEffect(() => {
         const video = videoRef.current;
         const pending = pendingResumeRef.current;
@@ -97,6 +112,27 @@ const VideoPlayer = ({
         pendingResumeRef.current = null;
 
         let finished = false;
+        let resumed = false;
+        const handleLoadedMetadata = () => {
+            video.currentTime = pending.resumeTime;
+        };
+        const resume = () => {
+            if (resumed || !pending.wasPlaying) return;
+            resumed = true;
+            video.play().catch(() => {});
+        };
+        const handleSeeked = () => resume();
+        const handleCanPlay = () => {
+            resume();
+            finish();
+        };
+        const handleError = () => finish();
+        const cleanup = () => {
+            video.removeEventListener('loadedmetadata', handleLoadedMetadata);
+            video.removeEventListener('seeked', handleSeeked);
+            video.removeEventListener('canplay', handleCanPlay);
+            video.removeEventListener('error', handleError);
+        };
         const finish = () => {
             if (finished) return;
             finished = true;
@@ -106,23 +142,6 @@ const VideoPlayer = ({
             setShowQualityOverlay(false);
             setPlaceholderAspectRatio(null);
             setFrozenFrameUrl(null);
-        };
-        const handleLoadedMetadata = () => {
-            video.currentTime = pending.resumeTime;
-        };
-        const handleSeeked = () => {
-            if (pending.wasPlaying) video.play().catch(() => {});
-        };
-        const handleCanPlay = () => {
-            if (pending.wasPlaying) video.play().catch(() => {});
-            finish();
-        };
-        const handleError = () => finish();
-        const cleanup = () => {
-            video.removeEventListener('loadedmetadata', handleLoadedMetadata);
-            video.removeEventListener('seeked', handleSeeked);
-            video.removeEventListener('canplay', handleCanPlay);
-            video.removeEventListener('error', handleError);
         };
 
         video.addEventListener('loadedmetadata', handleLoadedMetadata);
@@ -150,76 +169,34 @@ const VideoPlayer = ({
 
     const toggleSound = () => setMuted((prev) => !prev);
 
-    // Convert a pointer position inside the volume track to a 0..1 volume.
-    const updateVolumeFromPointer = (event) => {
-        const track = volumeTrackRef.current;
-        if (!track) return;
-        const rect = track.getBoundingClientRect();
-        const ratio = 1 - (event.clientY - rect.top) / rect.height;
-        setVolume(Math.min(1, Math.max(0, ratio)));
-    };
-
-    // Start dragging the vertical volume slider (pointer capture keeps the
-    // drag going even when the cursor leaves the track).
-    const handleVolumePointerDown = (event) => {
-        event.preventDefault();
-        const track = volumeTrackRef.current;
-        if (!track) return;
-        track.setPointerCapture(event.pointerId);
-        setIsDragging(true);
-        // Adjusting the slider implies intent to hear the sound - unmute.
-        setMuted(false);
-        updateVolumeFromPointer(event);
-    };
-
-    const handleVolumePointerMove = (event) => {
-        if (!isDragging) return;
-        updateVolumeFromPointer(event);
-    };
-
-    const handleVolumePointerUp = (event) => {
-        setIsDragging(false);
-        const track = volumeTrackRef.current;
-        if (track?.hasPointerCapture?.(event.pointerId)) {
-            track.releasePointerCapture(event.pointerId);
-        }
-    };
-
     // Toggle between the HD and 4K sources in either direction. Remember the
     // current time, show the spinner overlay only if loading takes longer
     // than 1 second.
     const switchQuality = () => {
         const video = videoRef.current;
         if (!video || !src4k || isQualityLoading) return;
+        const nextIs4K = !is4K;
 
         pendingResumeRef.current = {
             resumeTime: video.currentTime,
             wasPlaying: !video.paused,
         };
-        // Remember the old video's aspect ratio so the player box keeps its
-        // size (no flicker) while the new source loads.
+        // Keep the old video's aspect ratio and frame on screen while the
+        // new source loads (no collapse, no black blink).
         setPlaceholderAspectRatio(
             video.videoWidth && video.videoHeight
                 ? `${video.videoWidth} / ${video.videoHeight}`
                 : null
         );
-        // Capture the current frame so the player shows the old picture
-        // instead of blinking black while the new source loads.
-        if (video.videoWidth && video.videoHeight) {
-            const canvas = document.createElement('canvas');
-            canvas.width = video.videoWidth;
-            canvas.height = video.videoHeight;
-            canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
-            setFrozenFrameUrl(canvas.toDataURL('image/jpeg', 0.7));
-        }
-        setIs4K((prev) => !prev);
+        setFrozenFrameUrl(captureVideoFrame(video));
+        setIs4K(nextIs4K);
         setIsQualityLoading(true);
         setShowQualityOverlay(false);
         clearTimeout(qualityOverlayTimerRef.current);
         qualityOverlayTimerRef.current = setTimeout(() => {
             setShowQualityOverlay(true);
         }, 1000);
-        setCurrentSrc(is4K ? src : src4k);
+        setCurrentSrc(nextIs4K ? src4k : src);
     };
 
     // Mobile: double-tap toggles fullscreen (touch devices only).
@@ -228,8 +205,7 @@ const VideoPlayer = ({
     };
 
     // Fullscreen sizing mode: letterbox (contain), fill width, or fill height.
-    const fullscreenModes = ['letterbox', 'width', 'height'];
-    const effectiveFullscreenMode = fullscreenModes.includes(fullscreenMode)
+    const effectiveFullscreenMode = FULLSCREEN_MODES.includes(fullscreenMode)
         ? fullscreenMode
         : 'letterbox';
 
@@ -286,52 +262,12 @@ const VideoPlayer = ({
                         </button>
                     )}
                     {showVolumeControl && (
-                        <div className="volume-control relative flex flex-col gap-[10px]">
-                            <button
-                                type="button"
-                                onClick={toggleSound}
-                                aria-label={isMuted ? 'Unmute' : 'Mute'}
-                                title={isMuted ? 'Unmute' : 'Mute'}
-                                className="p-2 rounded-lg bg-black/50 text-white/80 hover:text-white hover:bg-black/70 backdrop-blur-sm cursor-pointer transition-all duration-200"
-                            >
-                                {isMuted ? (
-                                    <VolumeX className="w-5 h-5" />
-                                ) : volume < 0.5 ? (
-                                    <Volume1 className="w-5 h-5" />
-                                ) : (
-                                    <Volume2 className="w-5 h-5" />
-                                )}
-                            </button>
-                            {/* Vertical volume slider, unfolds on hover (desktop only). */}
-                            <div
-                                className={`volume-slider${
-                                    isDragging ? ' volume-slider-dragging' : ''
-                                }${isMuted ? ' volume-slider-muted' : ''}`}
-                            >
-                                <div
-                                    ref={volumeTrackRef}
-                                    role="slider"
-                                    aria-label="Volume"
-                                    aria-valuemin={0}
-                                    aria-valuemax={100}
-                                    aria-valuenow={Math.round(volume * 100)}
-                                    className="volume-track"
-                                    onPointerDown={handleVolumePointerDown}
-                                    onPointerMove={handleVolumePointerMove}
-                                    onPointerUp={handleVolumePointerUp}
-                                    onPointerCancel={handleVolumePointerUp}
-                                >
-                                    <div
-                                        className="volume-fill"
-                                        style={{ height: `${volume * 100}%` }}
-                                    />
-                                    <div
-                                        className="volume-thumb"
-                                        style={{ bottom: `${volume * 100}%` }}
-                                    />
-                                </div>
-                            </div>
-                        </div>
+                        <VolumeControl
+                            volume={volume}
+                            muted={muted}
+                            onVolumeChange={setVolume}
+                            onToggleMute={toggleSound}
+                        />
                     )}
                     {showFullscreenControl && (
                         <button

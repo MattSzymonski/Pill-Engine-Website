@@ -74,7 +74,7 @@ const Hero = () => {
                         <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" />
                     </a>
                     <a
-                        href="https://github.com/MattSzymonski/Pill-Engine"
+                        href="https://github.com/Pillware/Pill"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-3.5 bg-white/[0.04] border border-white/[0.08] text-white font-semibold rounded-xl hover:bg-white/[0.08] hover:border-white/[0.14] transition-all duration-200 text-base"
