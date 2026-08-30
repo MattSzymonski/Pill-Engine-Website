@@ -219,3 +219,139 @@
     font-weight: 800;
     letter-spacing: -0.03em;
 }
+
+/* ═══════════════════════════════════════════════════════════════════════
+   SHOWCASE - VERTICAL VOLUME SLIDER
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* The slider column. Absolutely positioned below the button so it never
+   affects layout (the volume and fullscreen buttons stay aligned in one
+   row). Hidden by default; the (hover:hover) guard means it is only
+   revealed on real-hover pointers (desktop) - the whole control bar is
+   hidden on touch devices anyway, so the sticky-hover problem can't occur. */
+.volume-slider {
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%) translateY(-4px);
+    height: 96px;
+    width: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+/* Invisible bridge filling the 10px gap above the slider, so moving the
+   cursor from the button onto the slider never leaves the hover zone. */
+.volume-slider::before {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30px;
+    height: 10px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .volume-control:hover .volume-slider,
+    .volume-control:has(.volume-slider:hover) .volume-slider,
+    .volume-slider.volume-slider-dragging {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+.volume-track {
+    position: relative;
+    /* Drag hitbox: 4px visible rail + 4px grab margin on each side. */
+    width: 32px;
+    height: 100%;
+    cursor: pointer;
+    touch-action: none;
+}
+
+/* The visible dim rail stays a centered 4px line inside the wider hitbox. */
+.volume-track::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.18);
+}
+
+.volume-fill {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    border-radius: 9999px;
+    background: var(--brand-500);
+}
+
+/* When muted, the fill turns gray instead of brand red. */
+.volume-slider.volume-slider-muted .volume-fill {
+    background: #6b7280;
+}
+
+.volume-thumb {
+    position: absolute;
+    left: 50%;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #fff;
+    transform: translateX(-50%) translateY(50%);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+    pointer-events: none;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   VIDEO PLAYER - QUALITY SWITCH OVERLAY
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* Blur + darken + centered spinner shown while the higher-quality source
+   loads. Always mounted so the 0.5s fade in/out transition plays; only made
+   visible (via -visible class) when loading exceeds 1 second. */
+.quality-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.55);
+    /* Only the unprefixed property - Autoprefixer adds -webkit- at build. */
+    backdrop-filter: blur(8px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+}
+
+.quality-overlay-visible {
+    opacity: 1;
+}
+
+.quality-spinner {
+    width: 42px;
+    height: 42px;
+    border: 3px solid rgba(255, 255, 255, 0.2);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: quality-spin 0.8s linear infinite;
+}
+
+@keyframes quality-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
