@@ -68,13 +68,13 @@ void main() {
     // Brand red orb - slowly orbits
     vec2 orb1Center = vec2(0.75 + sin(t * 0.15) * 0.06, 0.35 + cos(t * 0.18) * 0.05);
     vec2 orb1 = uv - orb1Center;
-    float glow1 = exp(-length(orb1) * 2.5) * (0.10 + sin(t * 0.4) * 0.03);
+    float glow1 = exp(-length(orb1) * 2.5) * (0.10 + sin(t * 0.4) * 0.08);
     vec3 orbColor1 = vec3(1.0, 0.39, 0.39);
 
     // Blue orb - slowly orbits opposite direction
     vec2 orb2Center = vec2(0.22 + cos(t * 0.13) * 0.05, 0.75 + sin(t * 0.16) * 0.06);
     vec2 orb2 = uv - orb2Center;
-    float glow2 = exp(-length(orb2) * 3.0) * (0.07 + cos(t * 0.35) * 0.02);
+    float glow2 = exp(-length(orb2) * 3.0) * (0.07 + cos(t * 0.35) * 0.09);
     vec3 orbColor2 = vec3(0.25, 0.45, 0.9);
 
     // Warm center glow - gently pulsing

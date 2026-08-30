@@ -19,19 +19,22 @@ function Home() {
             <Navbar />
             <Hero />
             <Showcase />
-            <SectionDivider label="Features" />
+            <SectionDivider label="Features"  />
             <Features />
+            <div className="h-[70px] sm:h-0" />
             <SectionDivider label="Performance" />
             <Iteration />
+            <div className="h-[70px] sm:h-0" />
             <div className="section-divider" />
             <PillLabs />
+            <div className="h-[70px] sm:h-0" />
             <SectionDivider label="Roadmap" />
             <Roadmap />
+            <div className="h-[70px] sm:h-0" />
             <SectionDivider label="Community" />
             <Community />
-            <div className="section-divider" />
-
             <Sponsor />
+            <div className="h-[70px] sm:h-0" />
             <SectionDivider label="Let's go!" />
             <CTA />
             <Footer />

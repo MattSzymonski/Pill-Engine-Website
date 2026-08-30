@@ -41,23 +41,23 @@ const Hero = () => {
                     <img
                         src="/logos/pill_logo.svg"
                         alt="Pill Engine"
-                        className="h-[160px] sm:h-[200px] md:h-[220px] xl:h-[280px] mx-auto"
+                        className="h-[120px] sm:h-[200px] md:h-[220px] xl:h-[280px] mx-auto"
                     />
                 </div>
 
                 {/* Headline */}
-                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl  text-white leading-[1.1] tracking-tight mb-4 sm:mb-5 animate-fade-in-up">
+                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white leading-[1.1] tracking-tight mb-4 sm:mb-[48px] animate-fade-in-up">
                     Modern, <span className="text-gradient">free</span> and <span className="text-gradient">blazingly fast</span> game engine<br/>
                 </h1>
 
                 {/* One-line statement of what the engine is */}
-                <p className="text-lg sm:text-2xl text-gray-400 max-w-2xl lg:max-w-none mx-auto mb-6 sm:mb-8 animate-fade-in-up delay-100 leading-relaxed">
+                {/* <p className="text-lg sm:text-2xl text-gray-400 max-w-2xl lg:max-w-none mx-auto mb-6 sm:mb-8 animate-fade-in-up delay-100 leading-relaxed">
                     Archetype ECS in Rust, with code hot reload and editor. <br className="hidden sm:block" />
                     MIT licensed, in active development.
-                </p>
+                </p> */}
 
                 {/* USP strip - the proof, above the fold */}
-                <div className="mb-6 sm:mb-8 animate-fade-in-up delay-200">
+                <div className="mb-6 sm:mb-8 animate-fade-in-up delay-200 mt-[48px]">
                     <UspStrip />
                 </div>
 

@@ -2,7 +2,6 @@ import { useId } from 'react';
 
 const SectionDivider = ({ label }) => {
     const id = useId();
-
     return (
         <div className="flex items-center justify-center gap-4 py-8 px-4 max-w-full overflow-hidden">
             {/* Left gradient line */}
