@@ -17,6 +17,8 @@ const getFullscreenElement = () =>
  * - showFullscreenControl: render the fullscreen toggle (default true)
  * - showQualityControl: render the HD/4K quality toggle (default false)
  * - src4k: URL of the higher-quality source used by the quality toggle
+ * - fullscreenMode: how the video fills the fullscreen - 'letterbox' |
+ *   'width' | 'height' (default 'letterbox': whole video visible with bars)
  */
 const VideoPlayer = ({
     src,
@@ -26,6 +28,7 @@ const VideoPlayer = ({
     showFullscreenControl = true,
     showQualityControl = false,
     src4k,
+    fullscreenMode = 'letterbox',
 }) => {
     const containerRef = useRef(null);
     const videoRef = useRef(null);
@@ -45,6 +48,12 @@ const VideoPlayer = ({
     const [isQualityLoading, setIsQualityLoading] = useState(false);
     // True when the blur/spinner overlay is visible (only if load > 1s).
     const [showQualityOverlay, setShowQualityOverlay] = useState(false);
+    // Keeps the player box at the old video's aspect ratio while the new
+    // source loads, so the layout doesn't collapse/flicker.
+    const [placeholderAspectRatio, setPlaceholderAspectRatio] = useState(null);
+    // Last frame of the old source, shown instead of black while the new
+    // quality source loads.
+    const [frozenFrameUrl, setFrozenFrameUrl] = useState(null);
     // Resume info for the pending quality switch (time + was playing).
     const pendingResumeRef = useRef(null);
     // 1s timer that decides whether the spinner overlay should appear.
@@ -95,6 +104,8 @@ const VideoPlayer = ({
             clearTimeout(qualityOverlayTimerRef.current);
             setIsQualityLoading(false);
             setShowQualityOverlay(false);
+            setPlaceholderAspectRatio(null);
+            setFrozenFrameUrl(null);
         };
         const handleLoadedMetadata = () => {
             video.currentTime = pending.resumeTime;
@@ -185,6 +196,22 @@ const VideoPlayer = ({
             resumeTime: video.currentTime,
             wasPlaying: !video.paused,
         };
+        // Remember the old video's aspect ratio so the player box keeps its
+        // size (no flicker) while the new source loads.
+        setPlaceholderAspectRatio(
+            video.videoWidth && video.videoHeight
+                ? `${video.videoWidth} / ${video.videoHeight}`
+                : null
+        );
+        // Capture the current frame so the player shows the old picture
+        // instead of blinking black while the new source loads.
+        if (video.videoWidth && video.videoHeight) {
+            const canvas = document.createElement('canvas');
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+            setFrozenFrameUrl(canvas.toDataURL('image/jpeg', 0.7));
+        }
         setIs4K((prev) => !prev);
         setIsQualityLoading(true);
         setShowQualityOverlay(false);
@@ -200,15 +227,26 @@ const VideoPlayer = ({
         if (window.matchMedia('(hover: none)').matches) toggleFullscreen();
     };
 
+    // Fullscreen sizing mode: letterbox (contain), fill width, or fill height.
+    const fullscreenModes = ['letterbox', 'width', 'height'];
+    const effectiveFullscreenMode = fullscreenModes.includes(fullscreenMode)
+        ? fullscreenMode
+        : 'letterbox';
+
     return (
         <div
             ref={containerRef}
-            className="group relative rounded-xl overflow-hidden border border-white/[0.06] bg-black [:fullscreen]:rounded-none [:fullscreen]:border-0"
+            className={`group relative rounded-xl overflow-hidden border border-white/[0.06] bg-black [:fullscreen]:rounded-none [:fullscreen]:border-0 player-video-fullscreen-${effectiveFullscreenMode}`}
         >
             <video
                 ref={videoRef}
                 src={currentSrc}
-                className="w-full h-auto touch-manipulation"
+                className="player-video w-full h-auto touch-manipulation"
+                style={
+                    placeholderAspectRatio
+                        ? { aspectRatio: placeholderAspectRatio }
+                        : undefined
+                }
                 autoPlay={autoPlay}
                 loop={loop}
                 muted={isMuted}
@@ -216,6 +254,16 @@ const VideoPlayer = ({
                 controls={false}
                 onDoubleClick={handleVideoDoubleClick}
             />
+            {/* Last frame of the old source, covering the black blink while
+                the new quality source loads. */}
+            {frozenFrameUrl && (
+                <img
+                    src={frozenFrameUrl}
+                    alt=""
+                    aria-hidden="true"
+                    className="absolute inset-0 w-full h-full object-contain pointer-events-none"
+                />
+            )}
             {/* Blur + darken + spinner while the 4K source loads (fades in/out). */}
             <div
                 className={`quality-overlay${showQualityOverlay ? ' quality-overlay-visible' : ''}`}
@@ -232,7 +280,7 @@ const VideoPlayer = ({
                             disabled={isQualityLoading}
                             aria-label={is4K ? 'Switch to HD' : 'Switch to 4K'}
                             title={is4K ? 'Switch to HD' : 'Switch to 4K'}
-                            className="px-2.5 py-1.5 rounded-lg bg-black/50 text-white/80 hover:text-white hover:bg-black/70 backdrop-blur-sm cursor-pointer transition-all duration-200 text-sm font-semibold disabled:opacity-50 disabled:cursor-wait"
+                            className="w-9 h-9 flex items-center justify-center rounded-lg bg-black/50 text-white/80 hover:text-white hover:bg-black/70 backdrop-blur-sm cursor-pointer transition-all duration-200 text-xs font-semibold disabled:opacity-50 disabled:cursor-wait"
                         >
                             {is4K ? '4K' : 'HD'}
                         </button>
