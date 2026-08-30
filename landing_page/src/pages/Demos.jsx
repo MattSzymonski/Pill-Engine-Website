@@ -1,10 +1,12 @@
 import Navbar from '../components/sections/Navbar';
 import Footer from '../components/sections/Footer';
+import VideoPlayer from '../components/VideoPlayer';
 
 const DEMO_ITEMS = [
     {
         title: 'Pill Teaser',
-        video: '/images/xenium_rc1.mp4',
+        video: '/images/xenium_30fps_1920.mp4',
+        video4k: '/images/xenium_30fps_4k.mp4',
         image: '/images/xenium_rc1.gif',
     },
     {
@@ -35,14 +37,10 @@ const Demos = () => {
                                 </h2>
                                 <div className="rounded-xl overflow-hidden border border-white/[0.06] bg-white/[0.02]">
                                     {item.video ? (
-                                        <video
+                                        <VideoPlayer
                                             src={item.video}
-                                            className="w-full h-auto"
-                                            autoPlay
-                                            loop
-                                            muted
-                                            playsInline
-                                            controls={false}
+                                            src4k={item.video4k}
+                                            showQualityControl={!!item.video4k}
                                         />
                                     ) : (
                                         <img
