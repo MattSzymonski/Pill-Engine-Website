@@ -35,7 +35,7 @@ const usps = [
  */
 const UspStrip = () => {
     return (
-        <div id="features" className="scroll-mt-24 grid grid-cols-2 lg:grid-cols-5 gap-2 sm:gap-3">
+        <div className="scroll-mt-24 grid grid-cols-2 lg:grid-cols-5 gap-2 sm:gap-3">
             {usps.map((usp, index) => (
                 <div
                     key={usp.metric}
