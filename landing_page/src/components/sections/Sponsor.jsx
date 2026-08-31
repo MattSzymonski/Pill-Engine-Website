@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Hammer, ArrowUpNarrowWide, MessagesSquare, HandMetal } from 'lucide-react';
+import FeatureCard from '../FeatureCard';
 
 // Obfuscated so the address never appears verbatim in the source.
 const SPONSOR_EMAIL = ['contact', '@', 'pillengine', '.', 'org'].join('');
@@ -62,20 +63,12 @@ const Sponsor = () => {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
                     {offers.map((offer) => (
-                        <div
+                        <FeatureCard
                             key={offer.title}
-                            className="glass-card-top group p-6"
-                        >
-                            <div className="w-10 h-10 rounded-xl bg-brand-500/10 flex items-center justify-center text-brand-400 mb-4 group-hover:bg-brand-500/20 transition-colors duration-300">
-                                {offer.icon}
-                            </div>
-                            <h3 className="text-xl font-semibold text-white mb-2">
-                                {offer.title}
-                            </h3>
-                            <p className="text-md text-gray-500 leading-relaxed">
-                                {offer.description}
-                            </p>
-                        </div>
+                            icon={offer.icon}
+                            title={offer.title}
+                            description={offer.description}
+                        />
                     ))}
                 </div>
 

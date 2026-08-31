@@ -1,11 +1,11 @@
-import { Cpu, Package, Flame, Zap, Boxes } from 'lucide-react';
+import { Cpu, Package, Flame, Zap, Boxes, Heart } from 'lucide-react';
 
 // prettier-ignore
 const usps = [
     {
         icon: <Cpu className="w-5 h-5" />,
         metric: '500K+',
-        label: 'Entities @ 60 FPS',
+        label: 'Entities in 60 FPS',
     },
     {
         icon: <Package className="w-5 h-5" />,
@@ -23,7 +23,7 @@ const usps = [
         label: 'Asset streaming',
     },
     {
-        icon: <Boxes className="w-5 h-5" />,
+        icon: <Heart className="w-5 h-5" />,
         metric: 'MIT',
         label: 'Open source, free forever',
     },

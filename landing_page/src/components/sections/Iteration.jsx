@@ -1,4 +1,4 @@
-import { RefreshCw, Zap, FileCode, Boxes, Layers, LaptopMinimal, Rocket, CodeXml } from 'lucide-react';
+import { RefreshCw, Zap, LaptopMinimal, Rocket, CodeXml } from 'lucide-react';
 
 // prettier-ignore
 const loop = [
@@ -7,14 +7,6 @@ const loop = [
     { icon: <CodeXml className="w-5 h-5" />, metric: '1-2s', label: 'Shader recompilation' },
     { icon: <Rocket className="w-5 h-5" />, metric: '2s', label: 'Build loading and startup' },
     { icon: <LaptopMinimal className="w-5 h-5" />, metric: '< 10s', label: 'Editor opening' },
-];
-
-// Counted from the engine repo: .rs files under engine/, excluding target and vendor.
-// prettier-ignore
-const size = [
-    { icon: <FileCode className="w-5 h-5" />, metric: '36K', label: 'Lines of engine Rust' },
-    { icon: <Boxes className="w-5 h-5" />, metric: '2.5MB', label: 'Engine source on disk' },
-    { icon: <Layers className="w-5 h-5" />, metric: '8', label: 'Crates you can read in a sitting' },
 ];
 
 const Tile = ({ item }) => (

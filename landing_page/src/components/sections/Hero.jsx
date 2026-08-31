@@ -54,12 +54,6 @@ const Hero = () => {
                     Modern, <span className="text-gradient">free</span> and <span className="text-gradient">blazingly fast</span> game engine<br/>
                 </h1>
 
-                {/* One-line statement of what the engine is */}
-                {/* <p className="text-lg sm:text-2xl text-gray-400 max-w-2xl lg:max-w-none mx-auto mb-6 sm:mb-8 animate-fade-in-up delay-100 leading-relaxed">
-                    Archetype ECS in Rust, with code hot reload and editor. <br className="hidden sm:block" />
-                    MIT licensed, in active development.
-                </p> */}
-
                 {/* USP strip - the proof, above the fold */}
                 <div className="mb-6 sm:mb-8 animate-fade-in-up delay-200 mt-[48px]">
                     <UspStrip />
@@ -68,7 +62,7 @@ const Hero = () => {
                 {/* Action band - one row: doer, buyer, verifier */}
                 <div
                     id="contact"
-                    className="scroll-mt-24 flex flex-col sm:flex-row flex-wrap gap-3 justify-center items-center w-full max-w-sm sm:max-w-none mx-auto animate-fade-in-up delay-300"
+                    className="scroll-mt-24 flex flex-col sm:flex-row flex-wrap gap-3 justify-center items-center w-full max-w-sm sm:max-w-none mx-auto animate-fade-in-up delay-300 mb-8"
                 >
                     <a
                         href={`https://docs.${window.location.hostname}/guide/`}

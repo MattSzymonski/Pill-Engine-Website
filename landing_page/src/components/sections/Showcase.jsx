@@ -5,7 +5,7 @@ const SHOWCASE_ITEMS = [
     {
         title: 'Pill Teaser',
         video: '/images/xenium_30fps_1920.mp4',
-        video_high_quality: '/images/xenium_30fps_4k.mp4',
+        videoHighQuality: '/images/xenium_30fps_4k.mp4',
     },
 ];
 
@@ -17,11 +17,17 @@ const Showcase = () => {
         >
             <div className="max-w-6xl mx-auto">
                 <div className="space-y-14">
+                    {/* On mobile the player is given a tall fixed height and the
+                        video crops (object-fit: cover) to fill it, so it reads
+                        larger on the height dimension; desktop shows it whole. */}
                     {SHOWCASE_ITEMS.map((item) => (
                         <VideoPlayer
                             key={item.title}
                             src={item.video}
-                            {...(item.video_high_quality ? { showQualityControl: true, src4k: item.video_high_quality } : {})}
+                            src4k={item.videoHighQuality}
+                            showQualityControl={Boolean(item.videoHighQuality)}
+                            cover
+                            className="h-[70vh] sm:h-auto"
                         />
                     ))}
                 </div>

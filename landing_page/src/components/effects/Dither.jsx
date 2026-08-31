@@ -1,6 +1,5 @@
 /* eslint-disable react/no-unknown-property */
 import { useRef, useEffect, useState } from 'react';
-import '../../index.css';
 
 const vertexShader = `
 attribute vec2 position;

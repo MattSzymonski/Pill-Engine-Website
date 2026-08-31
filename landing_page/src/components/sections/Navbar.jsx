@@ -27,7 +27,7 @@ const Navbar = () => {
             id="navbar"
             className={`fixed top-3 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-24px)] max-w-[var(--container-max)] rounded-xl navbar-glass ${scrolled ? 'navbar-scrolled' : ''}`}
         >
-            <div className="flex items-center justify-between h-14 px-5 max-w-[1440px] mx-auto">
+            <div className="flex items-center justify-between h-14 px-5">
                 {/* Logo */}
                 <div className="flex items-center gap-3">
                     <a href="/" className="flex items-center gap-2.5 group">
@@ -50,12 +50,6 @@ const Navbar = () => {
                             {link.label}
                         </a>
                     ))}
-                    {/* <a
-                        href={`mailto:${CONTACT_EMAIL}`}
-                        className="ml-2 px-3.5 py-1.5 text-[13px] font-semibold text-white bg-brand-500 hover:bg-brand-400 rounded-lg transition-all duration-150"
-                    >
-                        Contact
-                    </a> */}
                 </div>
 
                 {/* Mobile hamburger - right side, animates into an X when open */}

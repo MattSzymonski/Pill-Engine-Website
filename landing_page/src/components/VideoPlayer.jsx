@@ -37,6 +37,11 @@ const captureVideoFrame = (video) => {
  * - src4k: URL of the higher-quality source used by the quality toggle
  * - fullscreenMode: how the video fills the fullscreen - 'letterbox' |
  *   'width' | 'height' (default 'letterbox': whole video visible with bars)
+ * - className: extra classes merged onto the player container (e.g. a
+ *   fixed-height class to crop the video on mobile)
+ * - cover: fills the container and crops the overflow (object-fit: cover).
+ *   Pair with a container height via `className`; the video only crops when
+ *   the container has a definite height.
  */
 const VideoPlayer = ({
     src,
@@ -47,6 +52,8 @@ const VideoPlayer = ({
     showQualityControl = false,
     src4k,
     fullscreenMode = 'letterbox',
+    className = '',
+    cover = false,
 }) => {
     const containerRef = useRef(null);
     const videoRef = useRef(null);
@@ -212,12 +219,12 @@ const VideoPlayer = ({
     return (
         <div
             ref={containerRef}
-            className={`group relative rounded-xl overflow-hidden border border-white/[0.06] bg-black [:fullscreen]:rounded-none [:fullscreen]:border-0 player-video-fullscreen-${effectiveFullscreenMode}`}
+            className={`group relative rounded-xl overflow-hidden border border-white/[0.06] bg-black [:fullscreen]:rounded-none [:fullscreen]:border-0 player-video-fullscreen-${effectiveFullscreenMode} ${className}`}
         >
             <video
                 ref={videoRef}
                 src={currentSrc}
-                className="player-video w-full h-auto touch-manipulation"
+                className={`player-video w-full touch-manipulation ${cover ? 'h-full object-cover' : 'h-auto'}`}
                 style={
                     placeholderAspectRatio
                         ? { aspectRatio: placeholderAspectRatio }

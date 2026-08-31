@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import { FlaskConical, GitBranch, ShieldCheck } from 'lucide-react';
+import FeatureCard from '../FeatureCard';
 import { generateGranuleField } from '../effects/granules';
 
 const method = [
@@ -100,21 +101,14 @@ const PillLabs = () => {
                         dangerouslySetInnerHTML={granuleField}
                     />
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 relative z-10">
-                        {method.map((step, index) => (
-                            <div
-                                key={index}
-                                className="glass-card p-6 group relative before:absolute before:inset-x-0 before:top-0 before:h-px before:bg-gradient-to-r before:from-transparent before:via-white/[0.12] before:to-transparent before:rounded-t-2xl before:pointer-events-none"
-                            >
-                                <div className="w-10 h-10 rounded-xl bg-brand-500/10 flex items-center justify-center text-brand-400 mb-4 group-hover:bg-brand-500/20 transition-colors duration-300">
-                                    {step.icon}
-                                </div>
-                                <h3 className="text-xl font-semibold text-white mb-2">
-                                    {step.title}
-                                </h3>
-                                <p className="text-md text-gray-500 leading-relaxed">
-                                    {step.description}
-                                </p>
-                            </div>
+                        {method.map((step) => (
+                            <FeatureCard
+                                key={step.title}
+                                icon={step.icon}
+                                title={step.title}
+                                description={step.description}
+                                titleClassName="text-xl"
+                            />
                         ))}
                     </div>
                 </div>

@@ -6,38 +6,33 @@ import { Check } from 'lucide-react';
 const groups = [
     {
         title: 'Platforms',
-        rows: [
-            { name: 'Windows' },
-            { name: 'Linux' },
-            { name: 'macOS' },
-            { name: 'Web (wasm32)' },
-        ],
+        rows: ['Windows', 'Linux', 'macOS', 'Web (wasm32)'],
     },
     {
         title: 'Runtime',
         rows: [
-            { name: 'Archetype-based ECS' },
-            { name: '3D graphics - Blinn-Phong, instancing' },
-            { name: 'Scenes' },
-            { name: 'Input - keyboard, mouse, gamepad' },
-            { name: 'Sound - mono, spatial' },
+            'Archetype-based ECS',
+            '3D graphics - Blinn-Phong, instancing',
+            'Scenes',
+            'Input - keyboard, mouse, gamepad',
+            'Sound - mono, spatial',
         ],
     },
     {
         title: 'Content pipeline',
         rows: [
-            { name: 'Resources - mesh, texture, shader, material, sound' },
-            { name: 'Material system, custom shader loading' },
-            { name: 'Custom systems, components, resources' },
+            'Resources - mesh, texture, shader, material, sound',
+            'Material system, custom shader loading',
+            'Custom systems, components, resources',
         ],
     },
     {
         title: 'Tooling',
         rows: [
-            { name: 'Launcher tool' },
-            { name: 'Game project hot-reloading' },
-            { name: 'Engine code hot-reloading' },
-            { name: 'Error chaining' },
+            'Launcher tool',
+            'Game project hot-reloading',
+            'Engine code hot-reloading',
+            'Error chaining',
         ],
     },
 ];
@@ -66,11 +61,11 @@ const Features = () => {
                             <ul className="space-y-2">
                                 {group.rows.map((row) => (
                                     <li
-                                        key={row.name}
+                                        key={row}
                                         className="flex items-center justify-between gap-4 py-2 border-b border-white/[0.05]"
                                     >
                                         <span className="text-md text-gray-400 leading-snug">
-                                            {row.name}
+                                            {row}
                                         </span>
                                         <Check className="w-4 h-4 flex-shrink-0 text-brand-400" />
                                     </li>

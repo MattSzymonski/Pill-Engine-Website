@@ -184,7 +184,7 @@ const roadmapItems = [
         important: true,
         label: (
             <>
-                Siggraph-grade{' '}
+                SIGGRAPH-grade{' '}
                 <span className={highlightedClassName}>scriptable rendering pipeline</span>
             </>
         ),
@@ -284,26 +284,28 @@ const RoadmapItem = ({ item, vote, votes, voted }) => (
                 >
                     {item.label}
                 </p>
-                {!item.completed && (
-                    <button
-                        type="button"
-                        disabled={voted.has(item.id)}
-                        onClick={() => vote(item.id)}
-                        aria-label={`Vote for ${item.label}`}
-                        className={`
-                            inline-flex items-center gap-1.5 flex-shrink-0
-                            px-2.5 py-1.5 rounded-lg text-sm font-medium
-                            transition-colors duration-150
-                            ${voted.has(item.id)
-                                ? 'text-brand-400 bg-brand-400/10 cursor-default'
-                                : 'text-gray-600 hover:text-white hover:bg-white/[0.06]'
-                            }
-                        `}
-                    >
-                        <ThumbsUp className="w-4 h-4" />
-                        {/*TODO: disabled until we have heaps of votes * {votes[item.id] ?? 0} */}
-                    </button>
-                )}
+                <div className="hidden md:block">
+                    {!item.completed && (
+                        <button
+                            type="button"
+                            disabled={voted.has(item.id)}
+                            onClick={() => vote(item.id)}
+                            aria-label={`Vote for ${item.label}`}
+                            className={`
+                                inline-flex items-center gap-1.5 flex-shrink-0
+                                px-2.5 py-1.5 rounded-lg text-sm font-medium
+                                transition-colors duration-150
+                                ${voted.has(item.id)
+                                    ? 'text-brand-400 bg-brand-400/10 cursor-default'
+                                    : 'text-gray-600 hover:text-white hover:bg-white/[0.06]'
+                                }
+                            `}
+                        >
+                            <ThumbsUp className="w-4 h-4" />
+                            {/*TODO: disabled until we have heaps of votes * {votes[item.id] ?? 0} */}
+                        </button>
+                    )}
+                </div>
             </div>
         </div>
     </li>
@@ -387,7 +389,7 @@ const Roadmap = () => {
 
                 <div className="mb-12 flex items-center gap-2">
                     <p className="text-xl text-gray-400 max-w-2xl">
-                        Flagship features are marked with <Gem className="w-5 h-5 text-brand-400 inline translate-y-[-2px]" aria-hidden="true" /> icon
+                        Flagship features are marked with <Gem className="w-5 h-5 text-brand-400 inline translate-y-[-2px]" aria-hidden="true" /> icon.
                     </p>
                 </div>
                  

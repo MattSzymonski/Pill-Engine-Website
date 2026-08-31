@@ -37,7 +37,7 @@ const Footer = () => {
                         </p>
                     </div>
 
-                    <div className="grid grid-cols-3 md:grid-cols-3 gap-2 md:gap-8 mb-16">
+                    <div className="grid grid-cols-3 gap-2 md:gap-8 mb-16">
                         {/* Link columns */}
                         {Object.entries(footerLinks).map(([category, links]) => (
                             <div key={category}>

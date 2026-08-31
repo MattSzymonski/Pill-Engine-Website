@@ -1,6 +1,7 @@
-import { Code2, Rocket, Package, Terminal, Book } from 'lucide-react';
-import { generateGranuleField } from '../effects/granules';
 import { useMemo } from 'react';
+import { Code2, Rocket, Package, Terminal, Book } from 'lucide-react';
+import FeatureCard from '../FeatureCard';
+import { generateGranuleField } from '../effects/granules';
 
 const capabilities = [
     {
@@ -55,18 +56,13 @@ const Community = () => {
                         dangerouslySetInnerHTML={granuleField}
                     />
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 relative z-10">
-                        {capabilities.map((capability, index) => (
-                            <div key={index} className="glass-card-top p-6 group">
-                                <div className="w-10 h-10 rounded-xl bg-brand-500/10 flex items-center justify-center text-brand-400 mb-4 group-hover:bg-brand-500/20 transition-colors duration-300">
-                                    {capability.icon}
-                                </div>
-                                <h3 className="text-lg font-semibold text-white mb-2">
-                                    {capability.title}
-                                </h3>
-                                <p className="text-md text-gray-500 leading-relaxed">
-                                    {capability.description}
-                                </p>
-                            </div>
+                        {capabilities.map((capability) => (
+                            <FeatureCard
+                                key={capability.title}
+                                icon={capability.icon}
+                                title={capability.title}
+                                description={capability.description}
+                            />
                         ))}
                     </div>
                 </div>
