@@ -11,10 +11,10 @@ const highlightedClassName = 'text-brand-400 font-semibold';
 // src/index.css and use these same variables as fallback defaults).
 const STAR_BORDER = {
     thickness: 1,                       // border ring thickness in px
-    speed: '10s',                      // duration of one full rotation
-    color: 'rgb(255 90 90 / 0.25)',     // leading edge color of the ring
-    fadeStart: 50,                      // percent of the ring faded to transparent
-    frequency: 0.9,                       // number of sweeping segments around the ring
+    speed: '8s',                        // duration of one full rotation
+    color: 'rgb(255 90 90 / 0.9)',      // leading edge color of the ring
+    tail: 50,                           // percent of the ring the comet spans
+    frequency: 1,                       // number of sweeping segments around the ring
 };
 
 const roadmapItems = [
@@ -250,7 +250,7 @@ const RoadmapItem = ({ item, vote, votes, voted }) => (
                               '--star-thickness': `${STAR_BORDER.thickness}px`,
                               '--star-speed': STAR_BORDER.speed,
                               '--star-color': STAR_BORDER.color,
-                              '--star-fade-start': `${STAR_BORDER.fadeStart}%`,
+                              '--star-tail': STAR_BORDER.tail,
                               '--star-frequency': STAR_BORDER.frequency,
                           }
                         : undefined
