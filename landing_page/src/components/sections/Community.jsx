@@ -56,7 +56,7 @@ const Community = () => {
                     />
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 relative z-10">
                         {capabilities.map((capability, index) => (
-                            <div key={index} className="glass-card p-6 group">
+                            <div key={index} className="glass-card-top p-6 group">
                                 <div className="w-10 h-10 rounded-xl bg-brand-500/10 flex items-center justify-center text-brand-400 mb-4 group-hover:bg-brand-500/20 transition-colors duration-300">
                                     {capability.icon}
                                 </div>

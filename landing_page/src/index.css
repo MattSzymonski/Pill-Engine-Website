@@ -126,11 +126,11 @@
 }
 
 .animate-fade-in-up {
-    animation: fadeInUp 0.7s ease-out forwards;
+    animation: fadeInUp 0.7s ease-out both;
 }
 
 .animate-fade-in {
-    animation: fadeIn 0.5s ease-out forwards;
+    animation: fadeIn 0.5s ease-out both;
 }
 
 .animate-float-slow {
@@ -151,6 +151,64 @@
 
 .animate-orb-pulse {
     animation: orbPulse 6s ease-in-out infinite;
+}
+
+/* Roadmap highlighted items - spinning "star border" ring, recreated locally
+   from reactbits.dev/animations/star-border (no external dependency).
+   A conic gradient ring is masked to a thin border and spun around the card
+   by animating the registered angle custom property. */
+@property --star-angle {
+    syntax: '<angle>';
+    inherits: false;
+    initial-value: 0deg;
+}
+
+@keyframes star-border-spin {
+    to {
+        --star-angle: 360deg;
+    }
+}
+
+.roadmap-item-highlight {
+    position: relative;
+    /* Defaults - overridden by the inline styles driven from STAR_BORDER in
+       Roadmap.jsx when a roadmap item has `work_in_progress: true`. */
+    --star-thickness: 2px;
+    --star-speed: 7.5s;
+    --star-color: rgb(255 90 90 / 0.95);
+    --star-fade-start: 20%;
+    --star-frequency: 1;
+}
+
+/* Spinning ring - only the outer ring (--star-thickness) survives the mask */
+.roadmap-item-highlight::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    border-radius: inherit;
+    padding: var(--star-thickness);
+    background: repeating-conic-gradient(
+        from var(--star-angle),
+        transparent var(--star-fade-start),
+        var(--star-color) calc(360deg / var(--star-frequency))
+    );
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    animation: star-border-spin var(--star-speed) linear infinite;
+    pointer-events: none;
+}
+
+/* Completed roadmap items - dimmed surface so the row reads as done */
+.roadmap-item-completed {
+    background: rgb(255 255 255 / 0.02);
+    border-color: rgb(255 255 255 / 0.05);
 }
 
 /* ═══════════════════════════════════════════════════════════════════════

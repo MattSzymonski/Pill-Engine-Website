@@ -64,7 +64,7 @@ const Sponsor = () => {
                     {offers.map((offer) => (
                         <div
                             key={offer.title}
-                            className="glass-card p-6 group relative before:absolute before:inset-x-0 before:top-0 before:h-px before:bg-gradient-to-r before:from-transparent before:via-white/[0.12] before:to-transparent before:rounded-t-2xl before:pointer-events-none"
+                            className="glass-card-top group p-6"
                         >
                             <div className="w-10 h-10 rounded-xl bg-brand-500/10 flex items-center justify-center text-brand-400 mb-4 group-hover:bg-brand-500/20 transition-colors duration-300">
                                 {offer.icon}

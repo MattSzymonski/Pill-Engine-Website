@@ -2,6 +2,10 @@ import { ArrowRight, Github } from 'lucide-react';
 import Dither from '../effects/Dither';
 import UspStrip from './UspStrip';
 
+// Shared base class for the hero action buttons (Get Started / GitHub).
+// Fixed width on sm+ so both buttons render at the same size.
+const actionButtonClassName = 'inline-flex items-center justify-center gap-2 w-full sm:w-48 px-8 py-3.5 bg-white/[0.04] border border-white/[0.08] text-white font-semibold rounded-xl hover:bg-white/[0.08] hover:border-white/[0.14] transition-all duration-200 text-base';
+
 const Hero = () => {
     return (
         <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
@@ -68,7 +72,7 @@ const Hero = () => {
                 >
                     <a
                         href={`https://docs.${window.location.hostname}/guide/`}
-                        className="group inline-flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-3.5 bg-white/[0.04] border border-white/[0.08] text-white font-semibold rounded-xl hover:bg-white/[0.08] hover:border-white/[0.14] transition-all duration-200 text-base"
+                        className={`${actionButtonClassName} group`}
                     >
                         Get Started
                         <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" />
@@ -77,7 +81,7 @@ const Hero = () => {
                         href="https://github.com/Pillware/Pill"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-3.5 bg-white/[0.04] border border-white/[0.08] text-white font-semibold rounded-xl hover:bg-white/[0.08] hover:border-white/[0.14] transition-all duration-200 text-base"
+                        className={actionButtonClassName}
                     >
                         <Github className="w-4 h-4" />
                         GitHub

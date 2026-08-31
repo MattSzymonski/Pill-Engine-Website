@@ -159,7 +159,8 @@ html {
    ═══════════════════════════════════════════════════════════════════════ */
 @layer shared {
     /* Glass card - the signature frosted card surface */
-    .glass-card {
+    .glass-card,
+    .glass-card-top {
         background: var(--glass-background);
         border: 1px solid var(--glass-border);
         backdrop-filter: blur(var(--glass-blur));
@@ -167,10 +168,34 @@ html {
         transition: all 0.3s ease;
     }
 
-    .glass-card:hover {
+    .glass-card:hover,
+    .glass-card-top:hover {
         background: var(--glass-background-hover);
         border-color: var(--glass-border-hover);
         transform: translateY(-2px);
+    }
+
+    /* Glass card with a light hairline highlight along the top edge.
+       Padding is intentionally left to the consumer (e.g. p-6, p-3). */
+    .glass-card-top {
+        position: relative;
+    }
+
+    .glass-card-top::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        height: 1px;
+        background: linear-gradient(
+            to right,
+            transparent,
+            rgb(255 255 255 / 0.12),
+            transparent
+        );
+        border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+        pointer-events: none;
     }
 
     /* Brand gradient text */

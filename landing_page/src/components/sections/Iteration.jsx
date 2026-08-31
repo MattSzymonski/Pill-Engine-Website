@@ -1,9 +1,12 @@
-import { RefreshCw, Zap, FileCode, Boxes, Layers } from 'lucide-react';
+import { RefreshCw, Zap, FileCode, Boxes, Layers, LaptopMinimal, Rocket, CodeXml } from 'lucide-react';
 
 // prettier-ignore
 const loop = [
-    { icon: <RefreshCw className="w-5 h-5" />, metric: '1–2s', label: 'DLL rebuild and relink' },
-    { icon: <Zap className="w-5 h-5" />, metric: '0.5s', label: 'Function patched in a running DLL' },
+    { icon: <RefreshCw className="w-5 h-5" />, metric: '1–2s', label: 'Code rebuild and relink' },
+    { icon: <Zap className="w-5 h-5" />, metric: '0.5s', label: 'Fast-path rebuild and relink' },
+    { icon: <CodeXml className="w-5 h-5" />, metric: '1-2s', label: 'Shader recompilation' },
+    { icon: <Rocket className="w-5 h-5" />, metric: '2s', label: 'Build loading and startup' },
+    { icon: <LaptopMinimal className="w-5 h-5" />, metric: '< 10s', label: 'Editor opening' },
 ];
 
 // Counted from the engine repo: .rs files under engine/, excluding target and vendor.
@@ -15,16 +18,16 @@ const size = [
 ];
 
 const Tile = ({ item }) => (
-    <div className="glass-card p-3 sm:p-4 flex flex-col items-center text-center gap-1.5 sm:gap-2">
-        <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-brand-500/10 text-brand-400 flex items-center justify-center">
+    <div className="glass-card-top p-4 group items-center justify-center flex flex-col text-center">
+        <div className="w-9 h-9 rounded-xl bg-brand-500/10 flex items-center justify-center text-brand-400 mb-3 group-hover:bg-brand-500/20 transition-colors duration-300">
             {item.icon}
         </div>
-        <span className="text-xl sm:text-2xl font-bold text-white tabular-nums tracking-tight leading-none">
+        <h3 className="text-2xl font-semibold text-white mb-1">
             {item.metric}
-        </span>
-        <span className="text-xs sm:text-sm text-gray-500 leading-snug">
+        </h3>
+        <p className="text-md text-gray-500 leading-relaxed">
             {item.label}
-        </span>
+        </p>
     </div>
 );
 
@@ -35,46 +38,64 @@ const Iteration = () => {
             className="relative scroll-mt-24 py-8 sm:py-10 px-4 sm:px-6 lg:px-8"
         >
             <div className="max-w-6xl mx-auto">
-                <h2 className="text-3xl sm:text-4xl md:text-5xl text-white leading-[1.15] tracking-tight mb-3">
-                    Change code, keep playing
+                <h2 className="text-3xl sm:text-4xl md:text-5xl text-white leading-[1.15] tracking-tight mb-4">
+                    Incredible iteration speed
+                    <br/>Pleasant to work with
                 </h2>
+
                 <p className="text-xl text-gray-400 max-w-2xl mb-10">
-                    Run with <code className="text-brand-400">-c hot-reload</code>, edit, while the game
-                    reloads with your world state intact.
+                    Pill's core is engineered around one goal: iteration speed. <br />
+                    Hot-reloadable and maximally responsive by design.
                 </p>
 
-                <div className="grid grid-cols-2 gap-2 sm:gap-3 mb-10">
+                <p className="text-xl text-gray-400 max-w-2xl mb-10">
+                    <span className="text-xl text-brand-400 font-semibold leading-relaxed">
+                        Sub-second hot reload
+                    </span> <br />
+                    From save to in-game effect in under a second. <br />
+                </p>
+
+
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-2 sm:gap-3 mb-10">
                     {loop.map((item) => <Tile key={item.label} item={item} />)}
                 </div>
 
+                {/* 
                 <h3 className="text-xl font-semibold text-gray-300 flex items-center gap-3 mb-4">
                     <span className="w-1.5 h-1.5 rounded-full bg-brand-400" />
-                    The engine itself
+                    Minimal editor loading time
                 </h3>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3 mb-10">
                     {size.map((item) => <Tile key={item.label} item={item} />)}
                 </div>
 
+                <h3 className="text-xl font-semibold text-gray-300 flex items-center gap-3 mb-4">
+                    <span className="w-1.5 h-1.5 rounded-full bg-brand-400" />
+                    Crash free
+                </h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="glass-card p-6">
                         <h3 className="text-xl font-semibold text-white mb-2">
-                            Custom render passes
+                            Pill can't crash...
                         </h3>
                         <p className="text-md text-gray-500 leading-relaxed">
-                            Games implement their own passes and combine them with engine passes into
-                            a new pipeline.
+                            Engine core and the editor are written in Rust, which guarantees memory safety.
+                            <div className="my-2" />
+                            Project code is fully sandboxed, so a crash in your game does not take down the editor.
+                            It will just print a nicely formatted error message and keep running.
                         </p>
                     </div>
                     <div className="glass-card p-6">
                         <h3 className="text-xl font-semibold text-white mb-2">
-                            Reload keeps your state
+                            ...and it can't leak memory
                         </h3>
                         <p className="text-md text-gray-500 leading-relaxed">
-                            Project state persists across reloads. Migration of changed data types is
-                            in progress.
+                            Pill's memory management is fully deterministic. No garbage collector, no leaks, no surprises.
+                            <div className="my-2" />
+                            Rust at the core, and the scripting API is designed to be memory-safe.
                         </p>
                     </div>
-                </div>
+                </div> */}
             </div>
         </section>
     );

@@ -1,59 +1,222 @@
-import { ThumbsUp } from 'lucide-react';
+import { Check, Gem, ThumbsUp } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { supabase } from '../../lib/supabase.js';
 
+// Shared class for emphasized terms in roadmap entries
+const highlightedClassName = 'text-brand-400 font-semibold';
+
+// Star border highlight settings, applied as CSS custom properties on any
+// roadmap item with `work_in_progress: true`. Tweak these to restyle the
+// spinning border ring (the matching .roadmap-item-highlight rules live in
+// src/index.css and use these same variables as fallback defaults).
+const STAR_BORDER = {
+    thickness: 1,                       // border ring thickness in px
+    speed: '10s',                      // duration of one full rotation
+    color: 'rgb(255 90 90 / 0.25)',     // leading edge color of the ring
+    fadeStart: 50,                      // percent of the ring faded to transparent
+    frequency: 0.9,                       // number of sweeping segments around the ring
+};
+
 const roadmapItems = [
-    { id: 'rust-scripting', label: 'Rust scripting' },
     {
-        id: 'csharp-scripting',
-        label: 'C# scripting, with types generated at reload time',
+        id: 'modular-base-architecture',
+        completed: true,
+        label: (
+            <>
+                Windows, Linux, and macOS build support
+            </>
+        ),
     },
     {
-        id: 'scene-serialization',
-        label: 'Scene and project serialization',
+        id: 'initial-extensive-architecture-research-and-design',
+        completed: true,
+        label: (
+            <>
+                Initial extensive architecture research and design
+            </>
+        ),
     },
     {
-        id: 'modular-engine',
-        label: 'Modular engine - split into separate DLLs',
+        id: 'vulkan-directx-metal-opengl-and-webgpu-graphics-backends-support',
+        completed: true,
+        label: (
+            <>
+                Vulkan, DirectX, Metal, OpenGL, and WebGPU graphics backends support
+            </>
+        ),
+    },
+    {
+        id: 'base-ecs-implementation',
+        completed: true,
+        label: (
+            <>
+                Base ECS implementation
+            </>
+        ),
+    },
+    {
+        id: 'wasm-target-support',
+        completed: true,
+        label: (
+            <>
+                WASM target support
+            </>
+        ),
+    },
+    {
+        id: 'modular-architecture-split-into-separate-reloadable-dlls',
+        work_in_progress: true,
+        important: true,
+        label: (
+            <>
+                Modular architecture - split into separate{' '}
+                <span className={highlightedClassName}>reloadable DLLs</span>
+            </>
+        ),
+    },
+    {
+        id: 'rust-scripting',
+        work_in_progress: true,
+        important: true,
+        label: (
+            <>
+                <span className={highlightedClassName}>Rust</span> and{' '}
+                <span className={highlightedClassName}>C#</span> scripting support
+            </>
+        ),
     },
     {
         id: 'hot-reload',
-        label:
-            'Hot reload, two levels: rebuild and relink a DLL, or patch a single function in place',
+        work_in_progress: true,
+        important: true,
+        label: (
+            <>
+                Two level <span className={highlightedClassName}>hot reload</span>:
+                DLL rebuilding and single function patching
+            </>
+        ),
     },
-    {
-        id: 'reload-state',
-        label:
-            'State kept across reloads, including migration when data types change',
-    },
-    { id: 'editor-mvp', label: 'Editor - minimum viable version' },
-    {
+     {
         id: 'tracing',
-        label: 'Tracing, with logging built on the same pipeline',
+        label: (
+            <>
+                <span className={highlightedClassName}>Tracing</span>, with{' '}
+                <span className={highlightedClassName}>logging</span> built on the same pipeline
+            </>
+        ),
+    },
+    {
+        id: 'editor-mvp',
+        work_in_progress: true,
+        label: (
+            <>
+                <span className={highlightedClassName}>Editor</span> - minimum viable version, with{' '}
+                <span className={highlightedClassName}>scene and game viewports</span>
+            </>
+        ),
+    },
+    {
+        id: 'automated-ci-benchmarking',
+        work_in_progress: true,
+        important: true,
+        label: (
+            <>
+               Robust and automated continuous integration <span className={highlightedClassName}>performance and size benchmarking pipeline</span>
+            </>
+        ),
     },
     {
         id: 'error-handling',
-        label: 'Error handling with full callstacks, telemetry ready',
+        label: (
+            <>
+                Next-level error handling with{' '}
+                <span className={highlightedClassName}>full callstacks</span>,{' '}
+                <span className={highlightedClassName}>telemetry</span> ready
+            </>
+        ),
     },
     {
         id: 'tests',
-        label:
-            'Tests: unit tests alongside Rust source, integration tests driven from Python',
+        work_in_progress: true,
+        label: (
+            <>
+                <span className={highlightedClassName}>Extensive testing pipeline</span> - unit and integration tests, performance and size benchmarks
+            </>
+        ),
     },
     {
         id: 'docs',
-        label:
-            'Documentation generated from source, published to the docs site',
+        label: (
+            <>
+                <span className={highlightedClassName}>Procedurally generated documentation</span>, published to
+                the docs site
+            </>
+        ),
     },
     {
-        id: 'embedding',
-        label:
-            'Embedding: your application owns the window, event loop and GPU device, the engine renders into a texture you hand it',
+        id: 'fast-streaming',
+        important: true,
+        label: (
+            <>
+                Custom protocol for ultra-low-latency <span className={highlightedClassName}>asset streaming</span>
+            </>
+        ),
     },
     {
         id: 'headless-rendering',
-        label: 'Headless rendering, for servers and CI',
+        label: (
+            <>
+                <span className={highlightedClassName}>Headless rendering</span>, for servers and{' '}
+                <span className={highlightedClassName}>CI</span>
+            </>
+        ),
     },
+    {
+        id: 'webgpu-support',
+        label: (
+            <>
+                <span className={highlightedClassName}>WebGPU</span> support in browsers and native
+            </>
+        ),
+    },
+    {
+        id: 'scriptable-rendering-pipeline',
+        important: true,
+        label: (
+            <>
+                Siggraph-grade{' '}
+                <span className={highlightedClassName}>scriptable rendering pipeline</span>
+            </>
+        ),
+    },
+    {
+        id: 'ESP32-support',
+        important: true,
+        label: (
+            <>
+                <span className={highlightedClassName}>ESP32</span> target support with custom{' '}
+                <span className={highlightedClassName}>software rasterizer</span> and display driver
+            </>
+        ),
+    },
+    {
+        id: 'hardware-ray-tracing',
+        label: (
+            <>
+                Hardware <span className={highlightedClassName}>ray tracing</span> support on
+                supported GPUs
+            </>
+        ),
+    },
+    {
+        id: 'gpu-compute',
+        label: (
+            <>
+                <span className={highlightedClassName}>GPU compute</span> support, for physics and
+                other tasks
+            </>
+        ),
+    }
 ];
 
 /**
@@ -62,32 +225,86 @@ const roadmapItems = [
  */
 const RoadmapItem = ({ item, vote, votes, voted }) => (
     <li className="relative pl-10 sm:pl-12">
-        <span
-            className="absolute left-[11px] sm:left-[15px] top-[22px] w-2.5 h-2.5 rounded-full ring-4 bg-brand-400 ring-brand-400/20"
-            aria-hidden="true"
-        />
-        <div className="glass-card p-4 sm:p-5 group flex items-start gap-4">
-            <p className="min-w-0 flex-1 text-md sm:text-lg text-gray-300 leading-relaxed">
-                {item.label}
-            </p>
-            <button
-                type="button"
-                disabled={voted.has(item.id)}
-                onClick={() => vote(item.id)}
-                aria-label={`Vote for ${item.label}`}
+        <div className="flex items-center gap-2 mb-1 ">
+            {item.important ? (
+                <Gem
+                    className="absolute left-[5px] sm:left-[9.2px] w-[21px] h-[21px] text-brand-400"
+                    aria-hidden="true"
+                />
+            ) : (
+                <span
+                    className="absolute left-[11px] sm:left-[15px] w-2.5 h-2.5 rounded-full ring-[3px] bg-brand-400 ring-brand-400/20"
+                    aria-hidden="true"
+                />
+            )}
+        
+            <div
                 className={`
-                      inline-flex items-center gap-1.5 flex-shrink-0
-                      px-2.5 py-1.5 rounded-lg text-sm font-medium
-                      transition-colors duration-150
-                      ${voted.has(item.id)
-                        ? 'text-brand-400 bg-brand-400/10 cursor-default'
-                        : 'text-gray-600 hover:text-white hover:bg-white/[0.06]'
-                    }
-                  `}
+                    glass-card p-5 sm:p-5 group relative flex items-start gap-4 w-full
+                    ${item.work_in_progress ? 'roadmap-item-highlight' : ''}
+                    ${item.completed ? 'roadmap-item-completed' : ''}
+                `}
+                style={
+                    item.work_in_progress
+                        ? {
+                              '--star-thickness': `${STAR_BORDER.thickness}px`,
+                              '--star-speed': STAR_BORDER.speed,
+                              '--star-color': STAR_BORDER.color,
+                              '--star-fade-start': `${STAR_BORDER.fadeStart}%`,
+                              '--star-frequency': STAR_BORDER.frequency,
+                          }
+                        : undefined
+                }
             >
-                <ThumbsUp className="w-4 h-4" />
-                {/*TODO: disabled until we have heaps of votes * {votes[item.id] ?? 0} */}
-            </button>
+                {/* Work-in-progress tag, pinned to the top-left corner */}
+                {item.work_in_progress && (
+                    <span
+                        className="
+                        absolute -top-3 left-3 z-10 inline-flex items-center px-2 py-0.5 rounded-md text-[10px]
+                         font-semibold tracking-wider uppercase bg-neutral-400 text-black shadow-lg"
+                        aria-hidden="true"
+                    >
+                        WORK IN PROGRESS
+                    </span>
+                )}
+                {/* Completed check, pinned to the top-left corner */}
+                {item.completed && (
+                    <span
+                        className="absolute -top-3 left-3 z-10 inline-flex items-center justify-center w-5 h-5 rounded-full bg-neutral-500 text-black shadow-lg"
+                        aria-hidden="true"
+                    >
+                        <Check className="w-3.5 h-3.5" strokeWidth={3} />
+                    </span>
+                )}
+                <p
+                    className={`
+                        min-w-0 flex-1 text-md sm:text-lg leading-relaxed
+                        ${item.completed ? 'text-gray-500' : 'text-gray-300'}
+                    `}
+                >
+                    {item.label}
+                </p>
+                {!item.completed && (
+                    <button
+                        type="button"
+                        disabled={voted.has(item.id)}
+                        onClick={() => vote(item.id)}
+                        aria-label={`Vote for ${item.label}`}
+                        className={`
+                            inline-flex items-center gap-1.5 flex-shrink-0
+                            px-2.5 py-1.5 rounded-lg text-sm font-medium
+                            transition-colors duration-150
+                            ${voted.has(item.id)
+                                ? 'text-brand-400 bg-brand-400/10 cursor-default'
+                                : 'text-gray-600 hover:text-white hover:bg-white/[0.06]'
+                            }
+                        `}
+                    >
+                        <ThumbsUp className="w-4 h-4" />
+                        {/*TODO: disabled until we have heaps of votes * {votes[item.id] ?? 0} */}
+                    </button>
+                )}
+            </div>
         </div>
     </li>
 );
@@ -164,9 +381,16 @@ const Roadmap = () => {
                         >
                             contact us
                         </a>
-                        .
+                        {' '}and give your feedback!
                     </p>
                 </div>
+
+                <div className="mb-12 flex items-center gap-2">
+                    <p className="text-xl text-gray-400 max-w-2xl">
+                        Flagship features are marked with <Gem className="w-5 h-5 text-brand-400 inline translate-y-[-2px]" aria-hidden="true" /> icon
+                    </p>
+                </div>
+                 
 
                 {/* Vertical timeline */}
                 <div className="relative">
@@ -175,7 +399,7 @@ const Roadmap = () => {
                         className="absolute left-[15px] sm:left-[19px] top-2 bottom-2 w-px bg-white/[0.08]"
                         aria-hidden="true"
                     />
-                    <ul className="space-y-3">
+                    <ul className="space-y-6">
                         {roadmapItems.map((item) => (
                             <RoadmapItem key={item.id} item={item} vote={vote} votes={votes} voted={voted} />
                         ))}

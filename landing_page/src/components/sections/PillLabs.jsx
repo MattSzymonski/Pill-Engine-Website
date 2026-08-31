@@ -23,17 +23,25 @@ const method = [
 const researchAreas = [
     'ECS scheduling',
     'Live patching',
+    'CPU branch prediction',
+    'Cache misses',
     'Data migration',
+    'Multithreading',
+    'Cache line alignment',
     'Tracing',
-    'Build size',
+    'Build compression',
 ];
 
 const backgrounds = [
-    'AAA',
+    'AAA games',
     'Big Tech',
     'UGC at scale',
     'Demoscene',
     'Embedded',
+    'Game jams',
+    'Open source',
+    'Linux kernel',
+    'Graphics drivers'
 ];
 
 const ChipGroup = ({ title, chips }) => (
@@ -42,11 +50,11 @@ const ChipGroup = ({ title, chips }) => (
             <span className="w-1.5 h-1.5 rounded-full bg-brand-400" />
             {title}
         </h3>
-        <div className="flex flex-wrap gap-3">
+        <div className="flex flex-wrap gap-[12px]">
             {chips.map((chip) => (
                 <span
                     key={chip}
-                    className="px-4 py-1.5 text-sm sm:text-md font-medium rounded-full bg-white/[0.03] text-gray-400 border border-white/[0.06]"
+                    className="px-4 py-1.5 text-xs sm:text-md font-medium rounded-full bg-white/[0.03] text-gray-400 border border-white/[0.06]"
                 >
                     {chip}
                 </span>
@@ -112,7 +120,7 @@ const PillLabs = () => {
                 </div>
 
                 {/* Research areas and where the team comes from */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12">
                     <ChipGroup title="Research areas" chips={researchAreas} />
                     <ChipGroup title="Drawn from our experience in" chips={backgrounds} />
                 </div>
